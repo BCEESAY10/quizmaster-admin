@@ -1,29 +1,33 @@
-import React from "react";
-import { clsx } from "clsx";
+import clsx from "clsx";
 
-interface BadgeProps {
-  children: React.ReactNode;
-  variant?: "success" | "warning" | "danger" | "info" | "default";
-  size?: "sm" | "md";
-}
+export function LoadingSpinner({ size = "md" }: { size?: "sm" | "md" | "lg" }) {
+  const sizeClasses = {
+    sm: "h-4 w-4",
+    md: "h-8 w-8",
+    lg: "h-12 w-12",
+  };
 
-export function Badge({
-  children,
-  variant = "default",
-  size = "md",
-}: BadgeProps) {
   return (
-    <span
-      className={clsx("inline-flex items-center font-medium rounded-full", {
-        "bg-green-100 text-green-800": variant === "success",
-        "bg-yellow-100 text-yellow-800": variant === "warning",
-        "bg-red-100 text-red-800": variant === "danger",
-        "bg-blue-100 text-blue-800": variant === "info",
-        "bg-gray-100 text-gray-800": variant === "default",
-        "px-2 py-0.5 text-xs": size === "sm",
-        "px-2.5 py-1 text-sm": size === "md",
-      })}>
-      {children}
-    </span>
+    <div className="flex items-center justify-center">
+      <svg
+        className={clsx("animate-spin text-primary-500", sizeClasses[size])}
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24">
+        <circle
+          className="opacity-25"
+          cx="12"
+          cy="12"
+          r="10"
+          stroke="currentColor"
+          strokeWidth="4"
+        />
+        <path
+          className="opacity-75"
+          fill="currentColor"
+          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+        />
+      </svg>
+    </div>
   );
 }

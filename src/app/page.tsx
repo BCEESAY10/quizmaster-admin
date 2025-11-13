@@ -1,65 +1,170 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import React from "react";
+import { Users, BookOpen, TrendingUp, Activity } from "lucide-react";
+import { StatsCard } from "@/src/components/dashboard/StatsCard";
+import { Card } from "@/src/components/ui/Card";
+import { Badge } from "@/src/components/ui/Badge";
+import { useAnalytics } from "@/src/hooks/useAnalytics";
+import { LoadingSpinner } from "@/src/components/ui/LoadingSpinner";
+import { formatNumber, formatDateTime } from "@/src/utils/formatters";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  BarChart,
+  Bar,
+} from "recharts";
+
+export default function DashboardPage() {
+  const { data: analytics, isLoading } = useAnalytics();
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-96">
+        <LoadingSpinner size="lg" />
+      </div>
+    );
+  }
+
+  if (!analytics) {
+    return <div>No data available</div>;
+  }
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <div className="space-y-6">
+      {/* Page header */}
+      <div>
+        <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
+        <p className="text-gray-500 mt-1">
+          Welcome back! Here&apos;s what&apos;s happening.
+        </p>
+      </div>
+
+      {/* Stats grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <StatsCard
+          title="Total Users"
+          value={formatNumber(analytics.totalUsers)}
+          change={{ value: 12.5, isPositive: true }}
+          icon={Users}
+          iconBgColor="bg-blue-100"
+          iconColor="text-blue-500"
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+        <StatsCard
+          title="Active Users"
+          value={formatNumber(analytics.activeUsers)}
+          change={{ value: 8.2, isPositive: true }}
+          icon={Activity}
+          iconBgColor="bg-green-100"
+          iconColor="text-green-500"
+        />
+        <StatsCard
+          title="Total Quizzes"
+          value={formatNumber(analytics.totalQuizzes)}
+          change={{ value: 5.1, isPositive: true }}
+          icon={BookOpen}
+          iconBgColor="bg-purple-100"
+          iconColor="text-purple-500"
+        />
+        <StatsCard
+          title="Quiz Attempts"
+          value={formatNumber(analytics.totalAttempts)}
+          change={{ value: 15.3, isPositive: true }}
+          icon={TrendingUp}
+          iconBgColor="bg-orange-100"
+          iconColor="text-orange-500"
+        />
+      </div>
+
+      {/* Charts */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* User Growth Chart */}
+        <Card title="User Growth" subtitle="Last 7 days">
+          <div className="h-80">
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart data={analytics.userGrowth}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis
+                  dataKey="date"
+                  tickFormatter={(value) =>
+                    new Date(value).toLocaleDateString("en-US", {
+                      month: "short",
+                      day: "numeric",
+                    })
+                  }
+                />
+                <YAxis />
+                <Tooltip
+                  labelFormatter={(value) =>
+                    new Date(value).toLocaleDateString()
+                  }
+                  formatter={(value: number) => [formatNumber(value), "Users"]}
+                />
+                <Line
+                  type="monotone"
+                  dataKey="count"
+                  stroke="#5b48e8"
+                  strokeWidth={2}
+                  dot={{ fill: "#5b48e8" }}
+                />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
+        </Card>
+
+        {/* Popular Categories Chart */}
+        <Card title="Popular Categories" subtitle="By total plays">
+          <div className="h-80">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={analytics.popularCategories}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip
+                  formatter={(value: number) => [formatNumber(value), "Plays"]}
+                />
+                <Bar dataKey="plays" fill="#5b48e8" radius={[8, 8, 0, 0]} />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+        </Card>
+      </div>
+
+      {/* Recent Activity */}
+      <Card title="Recent Activity" subtitle="Latest user actions">
+        <div className="space-y-4">
+          {analytics.recentActivity.map((activity) => (
+            <div
+              key={activity.id}
+              className="flex items-center justify-between py-3 border-b border-gray-100 last:border-0">
+              <div className="flex items-center space-x-3">
+                <div className="h-10 w-10 rounded-full bg-primary-100 flex items-center justify-center">
+                  <span className="text-primary-500 font-medium text-sm">
+                    {activity.user
+                      .split(" ")
+                      .map((n) => n[0])
+                      .join("")}
+                  </span>
+                </div>
+                <div>
+                  <p className="text-sm font-medium text-gray-900">
+                    {activity.user}
+                  </p>
+                  <p className="text-sm text-gray-500">{activity.action}</p>
+                </div>
+              </div>
+              <span className="text-xs text-gray-500">
+                {formatDateTime(activity.timestamp)}
+              </span>
+            </div>
+          ))}
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+      </Card>
     </div>
   );
 }
