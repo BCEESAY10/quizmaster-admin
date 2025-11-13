@@ -2,7 +2,6 @@ export interface User {
   id: string;
   fullName: string;
   email: string;
-  role: "user" | "admin";
   joinedAt: string;
   lastActive: string;
   stats: {
@@ -24,18 +23,17 @@ export interface Question {
 }
 
 export interface Category {
-  id: string;
+  id: number;
   name: string;
   icon: string;
   color: string;
-  quizzesCount: number;
-  totalPlays: number;
+  questions: number;
 }
 
 export interface AnalyticsData {
   totalUsers: number;
   activeUsers: number;
-  totalQuizzes: number;
+  totalQuestions: number;
   totalAttempts: number;
   userGrowth: Array<{ date: string; count: number }>;
   popularCategories: Array<{ name: string; plays: number }>;
