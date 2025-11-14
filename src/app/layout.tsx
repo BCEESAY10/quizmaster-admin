@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Providers from "../provider/QueryProvider";
 import { MainLayout } from "../components/layout/MainLayout";
+import { getServerAuthSession } from "../lib/auth";
+import { redirect } from "next/navigation";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -19,11 +21,17 @@ export const metadata: Metadata = {
   description: "Manage your QuizMaster application",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await getServerAuthSession();
+
+  if (session) {
+    redirect("/login");
+  }
+
   return (
     <html lang="en">
       <body

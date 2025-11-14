@@ -11,6 +11,17 @@ export interface User {
   };
 }
 
+export type AdminRole = "super_admin" | "admin";
+
+export interface Admin {
+  id: string;
+  email: string;
+  fullName: string;
+  role: AdminRole;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
 export interface Question {
   id: number;
   question: string;

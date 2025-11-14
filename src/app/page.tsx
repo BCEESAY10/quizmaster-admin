@@ -56,8 +56,8 @@ export default function DashboardPage() {
           iconColor="text-blue-500"
         />
         <StatsCard
-          title="Active Users"
-          value={formatNumber(analytics.activeUsers)}
+          title="Total Reviews"
+          value={formatNumber(analytics.totalReviews)}
           change={{ value: 8.2, isPositive: true }}
           icon={Activity}
           iconBgColor="bg-green-100"
