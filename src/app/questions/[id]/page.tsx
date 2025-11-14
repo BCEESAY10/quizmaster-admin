@@ -23,6 +23,8 @@ export default function QuestionDetailPage() {
   const { data: question, isLoading } = useQuestion(params.id as string);
   const deleteQuestion = useDeleteQuestion();
 
+  console.log("Question:", question);
+
   const handleDelete = async () => {
     if (confirm("Are you sure you want to delete this question?")) {
       await deleteQuestion.mutateAsync(params.id as string);

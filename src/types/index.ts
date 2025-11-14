@@ -20,6 +20,9 @@ export interface Question {
   timer: number;
   createdAt: string;
   updatedAt: string;
+  createdBy: string;
+  timesAnswered: number;
+  correctRate: number;
 }
 
 export interface Category {

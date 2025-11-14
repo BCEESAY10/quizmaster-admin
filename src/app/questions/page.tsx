@@ -31,15 +31,6 @@ export default function QuestionsPage() {
     question.question.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const getDifficultyColor = (difficulty: string) => {
-    const colors: Record<string, "success" | "warning" | "danger"> = {
-      easy: "success",
-      medium: "warning",
-      hard: "danger",
-    };
-    return colors[difficulty] || "default";
-  };
-
   const columns = [
     {
       key: "question",
