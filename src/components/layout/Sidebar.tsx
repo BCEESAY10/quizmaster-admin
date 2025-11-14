@@ -62,7 +62,7 @@ export function Sidebar({ isMobileOpen, onClose }: SidebarProps) {
           {/* Logo */}
           <div className="flex items-center justify-center h-16 px-6 border-b border-gray-200">
             <h1 className="text-xl font-bold text-primary-500">
-              🧠 QuizMaster Admin
+              🧠 QuizMaster
             </h1>
           </div>
 
