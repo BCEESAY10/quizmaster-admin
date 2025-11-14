@@ -17,7 +17,7 @@ export interface Question {
   options: string[];
   correctAnswer: number;
   category: string;
-  timer: string;
+  timer: number;
   createdAt: string;
   updatedAt: string;
 }
