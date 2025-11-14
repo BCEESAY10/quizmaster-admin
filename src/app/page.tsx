@@ -65,7 +65,7 @@ export default function DashboardPage() {
         />
         <StatsCard
           title="Total Quizzes"
-          value={formatNumber(analytics.totalQuizzes)}
+          value={formatNumber(analytics.totalQuestions)}
           change={{ value: 5.1, isPositive: true }}
           icon={BookOpen}
           iconBgColor="bg-purple-100"
