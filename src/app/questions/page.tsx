@@ -18,8 +18,8 @@ export default function QuestionsPage() {
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("");
-  const [selectedDifficulty, setSelectedDifficulty] = useState<string>("");
-  const [selectedStatus, setSelectedStatus] = useState<string>("");
+  const [selectedTimer, setSelectedTimer] = useState<string>("");
+  const [selectedAuthor, setSelectedAuthor] = useState<string>("");
 
   const { data: questions, isLoading } = useQuestions();
   const { data: categories } = useCategories();
@@ -128,8 +128,17 @@ export default function QuestionsPage() {
             ))}
           </select>
           <select
-            value={selectedDifficulty}
-            onChange={(e) => setSelectedDifficulty(e.target.value)}
+            value={selectedAuthor}
+            onChange={(e) => setSelectedAuthor(e.target.value)}
+            className="block w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary-500">
+            <option value="">All Authors</option>
+            <option value="Awa Ceesay">Awa Ceesay</option>
+            <option value="Binta Jawneh">Binta Jawneh</option>
+            <option value="Omar Keita">Omar Keita</option>
+          </select>
+          <select
+            value={selectedTimer}
+            onChange={(e) => setSelectedTimer(e.target.value)}
             className="block w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary-500">
             <option value="">Timer</option>
             <option value="10">10 secs</option>
