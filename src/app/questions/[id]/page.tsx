@@ -66,12 +66,6 @@ export default function QuestionDetailPage() {
         <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
           <div className="flex-1">
             <div className="flex items-center gap-2 mb-3">
-              <Badge variant={getStatusColor(question.status) as any}>
-                {question.status}
-              </Badge>
-              <Badge variant={getDifficultyColor(question.difficulty)}>
-                {question.difficulty}
-              </Badge>
               <Badge variant="default">{question.category}</Badge>
             </div>
             <h1 className="text-2xl font-bold text-gray-900 mb-2">
@@ -82,8 +76,6 @@ export default function QuestionDetailPage() {
                 <Clock className="h-4 w-4" />
                 {question.timer}s
               </span>
-              <span>•</span>
-              <span>Created by {question.createdBy}</span>
               <span>•</span>
               <span>{formatDateTime(question.createdAt)}</span>
             </div>
@@ -109,7 +101,7 @@ export default function QuestionDetailPage() {
       {/* Answer Options */}
       <Card title="Answer Options">
         <div className="space-y-3">
-          {question.options.map((option, index) => {
+          {question.options.map((option: string, index: number) => {
             const isCorrect = index === question.correctAnswer;
             return (
               <div
