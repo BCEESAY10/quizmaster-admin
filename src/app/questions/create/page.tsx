@@ -9,6 +9,7 @@ import { Card } from "@/src/components/ui/Card";
 import { Button } from "@/src/components/ui/Button";
 import { Input } from "@/src/components/ui/Input";
 import { LoadingSpinner } from "@/src/components/ui/LoadingSpinner";
+import { Category } from "@/src/types";
 
 export default function CreateQuestionPage() {
   const router = useRouter();
@@ -167,7 +168,7 @@ export default function CreateQuestionPage() {
                   }
                   className="block w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary-500">
                   <option value="">Select a category</option>
-                  {categories?.map((cat) => (
+                  {categories?.map((cat: Category) => (
                     <option key={cat.id} value={cat.name}>
                       {cat.icon} {cat.name}
                     </option>
@@ -199,7 +200,7 @@ export default function CreateQuestionPage() {
                   error={errors.timer}
                 />
                 <p className="mt-1 text-xs text-gray-500">
-                  Between 10 and 300 seconds
+                  Between 10 and 20 seconds
                 </p>
               </div>
             </div>
