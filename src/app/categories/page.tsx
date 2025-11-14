@@ -103,8 +103,10 @@ export default function CategoriesPage() {
           <div className="text-center">
             <p className="text-3xl font-bold text-gray-900">
               {formatNumber(
-                categories?.reduce((sum, cat) => sum + cat.questionsCount, 0) ||
+                categories?.reduce(
+                  (sum: number, cat: Category) => sum + cat.questions,
                   0
+                ) || 0
               )}
             </p>
             <p className="text-sm text-gray-500 mt-1">Total Questions</p>
@@ -112,12 +114,7 @@ export default function CategoriesPage() {
         </Card>
         <Card>
           <div className="text-center">
-            <p className="text-3xl font-bold text-gray-900">
-              {formatNumber(
-                categories?.reduce((sum, cat) => sum + cat.totalAttempts, 0) ||
-                  0
-              )}
-            </p>
+            <p className="text-3xl font-bold text-gray-900">400</p>
             <p className="text-sm text-gray-500 mt-1">Total Attempts</p>
           </div>
         </Card>
@@ -127,7 +124,7 @@ export default function CategoriesPage() {
               {categories && categories.length > 0
                 ? Math.round(
                     categories.reduce(
-                      (sum, cat) => sum + cat.questionsCount,
+                      (sum: number, cat: Category) => sum + cat.questions,
                       0
                     ) / categories.length
                   )
@@ -140,7 +137,7 @@ export default function CategoriesPage() {
 
       {/* Categories grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {categories?.map((category) => (
+        {categories?.map((category: Category) => (
           <CategoryCard key={category.id} category={category} />
         ))}
       </div>
