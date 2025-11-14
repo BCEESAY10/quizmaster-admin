@@ -2,7 +2,7 @@ import { AnalyticsData } from "../types";
 
 export const mockAnalytics: AnalyticsData = {
   totalUsers: 12450,
-  activeUsers: 8320,
+  totalReviews: 8320,
   totalQuestions: 345,
   totalAttempts: 45670,
   userGrowth: [

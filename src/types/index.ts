@@ -35,7 +35,7 @@ export interface Category {
 
 export interface AnalyticsData {
   totalUsers: number;
-  activeUsers: number;
+  totalReviews: number;
   totalQuestions: number;
   totalAttempts: number;
   userGrowth: Array<{ date: string; count: number }>;
