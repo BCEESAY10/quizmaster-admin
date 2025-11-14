@@ -23,7 +23,7 @@ export function Button({
   return (
     <button
       className={clsx(
-        "inline-flex items-center justify-center font-medium rounded-lg transition-colors",
+        "inline-flex items-center justify-center font-medium rounded-lg cursor-pointer transition-colors",
         "focus:outline-none focus:ring-2 focus:ring-offset-2",
         {
           "bg-primary-500 text-white hover:bg-primary-600 focus:ring-primary-500":
