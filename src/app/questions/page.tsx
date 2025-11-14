@@ -25,7 +25,9 @@ export default function QuestionsPage() {
   const { data: categories } = useCategories();
   const deleteQuestion = useDeleteQuestion();
 
-  const filteredQuestions = questions?.filter((question: Question) =>
+  const allQuestions = Object.values(questions || {}).flat();
+
+  const filteredQuestions = allQuestions.filter((question: Question) =>
     question.question.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
@@ -184,10 +186,6 @@ export default function QuestionsPage() {
         <div className="flex items-center justify-between text-sm text-gray-500">
           <p>
             Showing {filteredQuestions?.length} of {questions.length} questions
-          </p>
-          <p>
-            Total active:{" "}
-            {questions.filter((q) => q.status === "active").length}
           </p>
         </div>
       )}

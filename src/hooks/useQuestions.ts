@@ -1,11 +1,17 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+  UseQueryResult,
+} from "@tanstack/react-query";
 import { MOCK_QUESTIONS } from "../mocks/questions";
 import { questionsAPI } from "../lib/api";
 import { Question } from "../types";
 
 const USE_MOCK = true;
+type QuestionMap = Record<string, Question[]>;
 
-export function useQuestions() {
+export function useQuestions(): UseQueryResult<QuestionMap> {
   return useQuery({
     queryKey: ["questions"],
     queryFn: async () => {
