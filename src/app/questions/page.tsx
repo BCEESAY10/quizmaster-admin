@@ -60,27 +60,13 @@ export default function QuestionsPage() {
       header: "Category",
       render: (q: Question) => <Badge variant="default">{q.category}</Badge>,
     },
+
     {
-      key: "difficulty",
-      header: "Difficulty",
-      render: (q: Question) => (
-        <Badge variant={getDifficultyColor(q.difficulty)}>{q.difficulty}</Badge>
-      ),
-    },
-    {
-      key: "status",
-      header: "Status",
-      render: (q: Question) => (
-        <Badge variant={getStatusColor(q.status) as any}>{q.status}</Badge>
-      ),
-    },
-    {
-      key: "stats",
-      header: "Stats",
+      key: "timer",
+      header: "Timer",
       render: (q: Question) => (
         <div className="text-sm">
-          <p className="text-gray-900">{q.timesAnswered} answers</p>
-          <p className="text-gray-500">{q.correctRate}% correct</p>
+          <p className="text-gray-900">{q.timer} secs</p>
         </div>
       ),
     },
