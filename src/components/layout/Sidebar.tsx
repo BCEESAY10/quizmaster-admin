@@ -14,6 +14,7 @@ import {
   LogOut,
   User2,
 } from "lucide-react";
+import { signOut } from "next-auth/react";
 
 const navigation = [
   { name: "Dashboard", href: "/", icon: LayoutDashboard },
@@ -102,7 +103,7 @@ export function Sidebar({ isMobileOpen, onClose }: SidebarProps) {
           <div className="px-4 py-4 border-t border-gray-200">
             <button
               className="flex items-center w-full px-4 py-3 text-sm font-medium text-red-600 rounded-lg hover:bg-red-50 transition-colors"
-              onClick={() => console.log("Logout")}>
+              onClick={() => signOut({ callbackUrl: "/login" })}>
               <LogOut className="mr-3 h-5 w-5" />
               Logout
             </button>

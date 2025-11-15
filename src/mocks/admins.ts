@@ -19,4 +19,13 @@ export const mockAdmins: Admin[] = [
     createdAt: "2023-04-12T10:15:00Z",
     updatedAt: "2024-02-18T09:20:00Z",
   },
+  {
+    id: "3",
+    email: "john.admin@quizmaster.com",
+    fullName: "John Admin",
+    password: "$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi",
+    role: "admin" as const,
+    createdAt: "2024-03-10T14:30:00Z",
+    updatedAt: "2024-03-10T14:30:00Z",
+  },
 ];

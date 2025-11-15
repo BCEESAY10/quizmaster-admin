@@ -11,7 +11,7 @@ export type LoginInput = z.infer<typeof loginSchema>;
 // Admin validation
 export const adminSchema = z.object({
   email: z.string().email("Invalid email address"),
-  name: z.string().min(2, "Name must be at least 2 characters"),
+  fullName: z.string().min(2, "Name must be at least 2 characters"),
   role: z.enum(["super_admin", "admin"], {
     errorMap: () => ({ message: "Please select a valid role" }),
   }),
@@ -22,6 +22,34 @@ export const adminSchema = z.object({
 });
 
 export type AdminInput = z.infer<typeof adminSchema>;
+
+// Create Admin validation (password required)
+export const createAdminSchema = z.object({
+  fullName: z.string().min(2, "Name must be at least 2 characters"),
+  email: z.string().email("Invalid email address"),
+  role: z.enum(["super_admin", "admin"], {
+    errorMap: () => ({ message: "Please select a valid role" }),
+  }),
+  password: z.string().min(8, "Password must be at least 8 characters"),
+});
+
+export type CreateAdminInput = z.infer<typeof createAdminSchema>;
+
+// Edit Admin validation (password optional)
+export const editAdminSchema = z.object({
+  fullName: z.string().min(2, "Name must be at least 2 characters"),
+  email: z.string().email("Invalid email address"),
+  role: z.enum(["super_admin", "admin"], {
+    errorMap: () => ({ message: "Please select a valid role" }),
+  }),
+  password: z
+    .string()
+    .min(8, "Password must be at least 8 characters")
+    .optional()
+    .or(z.literal("")),
+});
+
+export type EditAdminInput = z.infer<typeof editAdminSchema>;
 
 // Category validation
 export const categorySchema = z.object({
