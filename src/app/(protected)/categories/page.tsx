@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { Plus, Edit, Trash2 } from "lucide-react";
-import { useCategories } from "@/src/hooks/useCategories";
+import { useCategories, useCreateCategory } from "@/src/hooks/useCategories";
 import { Card } from "@/src/components/ui/Card";
 import { Button } from "@/src/components/ui/Button";
 import { Input } from "@/src/components/ui/Input";
@@ -10,10 +10,25 @@ import { Badge } from "@/src/components/ui/Badge";
 import { LoadingSpinner } from "@/src/components/ui/LoadingSpinner";
 import { formatNumber } from "@/src/utils/formatters";
 import { Category } from "@/src/types";
+import CreateCategoryModal from "@/src/components/modal/CreateCategory";
 
 export default function CategoriesPage() {
   const { data: categories, isLoading } = useCategories();
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  const { mutate: createCategory } = useCreateCategory();
+
+  const handleCreateAdmin = (formData: Category) => {
+    createCategory(formData, {
+      onSuccess: (data) => {
+        alert("Created");
+        console.log(data);
+      },
+      onError: (error) => {
+        alert("Error occured!");
+        console.log(error);
+      },
+    });
+  };
 
   const CategoryCard = ({ category }: { category: Category }) => (
     <Card>
@@ -152,6 +167,12 @@ export default function CategoriesPage() {
           </div>
         </Card>
       )}
+
+      <CreateCategoryModal
+        showModal={isCreateModalOpen}
+        onClose={() => setIsCreateModalOpen(false)}
+        onSuccess={handleCreateAdmin}
+      />
     </div>
   );
 }
