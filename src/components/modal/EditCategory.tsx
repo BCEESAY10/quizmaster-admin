@@ -3,21 +3,23 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import Drawer from "react-modern-drawer";
 import "react-modern-drawer/dist/index.css";
 
-interface CreateCategoryModalProps {
+interface EditCategoryModalProps {
   showModal: boolean;
   onClose: () => void;
   onSuccess: (category: Category) => void;
+  category: Category;
 }
 
-const CreateCategoryModal = ({
+const EditCategoryModal = ({
   showModal,
   onClose,
   onSuccess,
-}: CreateCategoryModalProps) => {
+  category,
+}: EditCategoryModalProps) => {
   const [form, setForm] = useState<Category>({
-    name: "",
-    icon: "",
-    color: "",
+    name: category.name || "",
+    icon: category.icon || "",
+    color: category.color || "",
   });
   const [errors, setErrors] = useState<Partial<Record<keyof Category, string>>>(
     {}
@@ -110,7 +112,7 @@ const CreateCategoryModal = ({
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-200">
           <h2 className="text-xl font-semibold text-gray-900">
-            Create New Category
+            Update Category
           </h2>
           <button
             onClick={handleClose}
@@ -296,10 +298,10 @@ const CreateCategoryModal = ({
                     d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                   />
                 </svg>
-                Creating...
+                updating...
               </>
             ) : (
-              "Create Category"
+              "Update Category"
             )}
           </button>
         </div>
@@ -308,4 +310,4 @@ const CreateCategoryModal = ({
   );
 };
 
-export default CreateCategoryModal;
+export default EditCategoryModal;

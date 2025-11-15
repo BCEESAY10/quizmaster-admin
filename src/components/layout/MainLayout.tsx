@@ -3,20 +3,16 @@
 import React, { useState } from "react";
 import { Sidebar } from "./Sidebar";
 import { Header } from "./Header";
-import { getServerAuthSession } from "@/src/lib/auth";
 import { redirect } from "next/navigation";
+import { Session } from "next-auth";
 
 interface MainLayoutProps {
   children: React.ReactNode;
+  session: Session;
 }
 
-export async function MainLayout({ children }: MainLayoutProps) {
+export function MainLayout({ children, session }: MainLayoutProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const session = await getServerAuthSession();
-
-  if (!session) {
-    redirect("/login");
-  }
 
   return (
     <div className="flex h-screen bg-gray-50">
@@ -24,7 +20,6 @@ export async function MainLayout({ children }: MainLayoutProps) {
       <Sidebar
         isMobileOpen={isMobileMenuOpen}
         onClose={() => setIsMobileMenuOpen(false)}
-        session={session}
       />
 
       {/* Main content */}

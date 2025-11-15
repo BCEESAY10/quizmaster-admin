@@ -17,7 +17,7 @@ export const authOptions: NextAuthOptions = {
           throw new Error("Email and password are required");
         }
 
-        // Find admin by email (replace with database query)
+        // Find admin by email
         const admin = mockAdmins.find((a) => a.email === credentials.email);
 
         if (!admin) {
@@ -38,7 +38,7 @@ export const authOptions: NextAuthOptions = {
         return {
           id: admin.id,
           email: admin.email,
-          name: admin.name,
+          fullName: admin.fullName,
           role: admin.role,
         };
       },

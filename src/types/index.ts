@@ -17,9 +17,10 @@ export interface Admin {
   id: string;
   email: string;
   fullName: string;
+  password?: string;
   role: AdminRole;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface Question {
@@ -37,11 +38,11 @@ export interface Question {
 }
 
 export interface Category {
-  id: number;
+  id?: number;
   name: string;
   icon: string;
   color: string;
-  questions: number;
+  questions?: number;
 }
 
 export interface AnalyticsData {

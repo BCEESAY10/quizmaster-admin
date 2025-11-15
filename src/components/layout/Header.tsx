@@ -1,14 +1,15 @@
 "use client";
 
-import React from "react";
 import { Menu, Bell, Search } from "lucide-react";
 import { Input } from "@/src/components/ui/Input";
+import { Session } from "next-auth";
 
 interface HeaderProps {
   onMenuClick: () => void;
+  session: Session;
 }
 
-export function Header({ onMenuClick }: HeaderProps) {
+export function Header({ onMenuClick, session }: HeaderProps) {
   return (
     <header className="sticky top-0 z-30 bg-white border-b border-gray-200">
       <div className="flex items-center justify-between h-16 px-4 lg:px-6">
@@ -40,8 +41,12 @@ export function Header({ onMenuClick }: HeaderProps) {
           {/* User menu */}
           <div className="flex items-center space-x-3">
             <div className="hidden md:block text-right">
-              <p className="text-sm font-medium text-gray-900">Admin User</p>
-              <p className="text-xs text-gray-500">admin@quizmaster.com</p>
+              <p className="text-sm font-medium text-gray-900">
+                {session?.user?.name || "Admin User"}
+              </p>
+              <p className="text-xs text-gray-500">
+                {session.user?.email || "admin@example.com"}
+              </p>
             </div>
             <div className="h-10 w-10 rounded-full bg-primary-500 flex items-center justify-center">
               <span className="text-white font-medium">AU</span>
