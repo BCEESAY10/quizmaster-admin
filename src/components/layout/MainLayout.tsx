@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import { Sidebar } from "./Sidebar";
 import { Header } from "./Header";
-import { redirect } from "next/navigation";
 import { Session } from "next-auth";
 
 interface MainLayoutProps {

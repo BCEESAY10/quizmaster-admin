@@ -1,16 +1,15 @@
 import { getServerAuthSession } from "@/src/lib/auth";
 import { redirect } from "next/navigation";
-import { MainLayout } from "./MainLayout";
+import { MainLayout } from "@/src/components/layout/MainLayout";
 
-interface Props {
+export default async function ProtectedLayout({
+  children,
+}: {
   children: React.ReactNode;
-  pathname: string;
-}
-
-export default async function MainLayoutWrapper({ children, pathname }: Props) {
+}) {
   const session = await getServerAuthSession();
 
-  if (!session && pathname !== "/login") {
+  if (!session) {
     redirect("/login");
   }
 
