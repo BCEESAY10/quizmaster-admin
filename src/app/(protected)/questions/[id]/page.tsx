@@ -2,20 +2,13 @@
 
 import React from "react";
 import { useParams, useRouter } from "next/navigation";
-import {
-  ArrowLeft,
-  Edit,
-  Trash2,
-  Clock,
-  CheckCircle,
-  XCircle,
-} from "lucide-react";
+import { ArrowLeft, Edit, Trash2, Clock, CheckCircle } from "lucide-react";
 import { useQuestion, useDeleteQuestion } from "@/src/hooks/useQuestions";
 import { Card } from "@/src/components/ui/Card";
 import { Button } from "@/src/components/ui/Button";
 import { Badge } from "@/src/components/ui/Badge";
 import { LoadingSpinner } from "@/src/components/ui/LoadingSpinner";
-import { formatDateTime, getStatusColor } from "@/src/utils/formatters";
+import { formatDateTime } from "@/src/utils/formatters";
 
 export default function QuestionDetailPage() {
   const params = useParams();
@@ -41,17 +34,12 @@ export default function QuestionDetailPage() {
   }
 
   if (!question) {
-    return <div>Question not found</div>;
+    return (
+      <div className="flex items-center justify-center h-96">
+        Question not found
+      </div>
+    );
   }
-
-  const getDifficultyColor = (difficulty: string) => {
-    const colors: Record<string, "success" | "warning" | "danger"> = {
-      easy: "success",
-      medium: "warning",
-      hard: "danger",
-    };
-    return colors[difficulty] || "default";
-  };
 
   return (
     <div className="space-y-6 max-w-4xl">

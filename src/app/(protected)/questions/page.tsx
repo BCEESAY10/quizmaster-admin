@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import { Plus, Search, Filter, Download, Upload } from "lucide-react";
-import { useQuestions, useDeleteQuestion } from "@/src/hooks/useQuestions";
+import { Plus, Search, Download, Upload } from "lucide-react";
+import { useQuestions } from "@/src/hooks/useQuestions";
 import { useCategories } from "@/src/hooks/useCategories";
 import { Card } from "@/src/components/ui/Card";
 import { Button } from "@/src/components/ui/Button";
@@ -10,7 +10,7 @@ import { Input } from "@/src/components/ui/Input";
 import { Badge } from "@/src/components/ui/Badge";
 import { DataTable } from "@/src/components/shared/DataTable";
 import { LoadingSpinner } from "@/src/components/ui/LoadingSpinner";
-import { formatDate, getStatusColor } from "@/src/utils/formatters";
+import { formatDate } from "@/src/utils/formatters";
 import { Category, Question } from "@/src/types";
 import { useRouter } from "next/navigation";
 
@@ -23,7 +23,6 @@ export default function QuestionsPage() {
 
   const { data: questions, isLoading } = useQuestions();
   const { data: categories } = useCategories();
-  const deleteQuestion = useDeleteQuestion();
 
   const allQuestions = Object.values(questions || {}).flat();
 
@@ -70,11 +69,13 @@ export default function QuestionsPage() {
     },
   ];
 
-  const handleDelete = async (id: string) => {
-    if (confirm("Are you sure you want to delete this question?")) {
-      await deleteQuestion.mutateAsync(id);
-    }
-  };
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-96">
+        <LoadingSpinner size="lg" />
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6">
