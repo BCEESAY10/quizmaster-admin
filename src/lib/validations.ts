@@ -12,9 +12,11 @@ export type LoginInput = z.infer<typeof loginSchema>;
 export const adminSchema = z.object({
   email: z.string().email("Invalid email address"),
   fullName: z.string().min(2, "Name must be at least 2 characters"),
-  role: z.enum(["super_admin", "admin"], {
-    errorMap: () => ({ message: "Please select a valid role" }),
-  }),
+  role: z
+    .enum(["super_admin", "admin"])
+    .refine((val) => ["super_admin", "admin"].includes(val), {
+      message: "Please select a valid role",
+    }),
   password: z
     .string()
     .min(8, "Password must be at least 8 characters")
@@ -27,9 +29,12 @@ export type AdminInput = z.infer<typeof adminSchema>;
 export const createAdminSchema = z.object({
   fullName: z.string().min(2, "Name must be at least 2 characters"),
   email: z.string().email("Invalid email address"),
-  role: z.enum(["super_admin", "admin"], {
-    errorMap: () => ({ message: "Please select a valid role" }),
-  }),
+
+  role: z
+    .enum(["super_admin", "admin"])
+    .refine((val) => ["super_admin", "admin"].includes(val), {
+      message: "Please select a valid role",
+    }),
   password: z.string().min(8, "Password must be at least 8 characters"),
 });
 
@@ -39,9 +44,12 @@ export type CreateAdminInput = z.infer<typeof createAdminSchema>;
 export const editAdminSchema = z.object({
   fullName: z.string().min(2, "Name must be at least 2 characters"),
   email: z.string().email("Invalid email address"),
-  role: z.enum(["super_admin", "admin"], {
-    errorMap: () => ({ message: "Please select a valid role" }),
-  }),
+  role: z
+    .enum(["super_admin", "admin"])
+    .refine((val) => ["super_admin", "admin"].includes(val), {
+      message: "Please select a valid role",
+    }),
+
   password: z
     .string()
     .min(8, "Password must be at least 8 characters")
