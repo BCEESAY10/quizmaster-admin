@@ -56,7 +56,8 @@ export default function QuestionDetailPage() {
         <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
           <div className="flex-1">
             <div className="flex items-center gap-2 mb-3">
-              <Badge variant="default">{question.category}</Badge>
+              <Badge variant="info">{question.category}</Badge>
+              <Badge variant="default">Point: {question.point}</Badge>
             </div>
             <h1 className="text-2xl font-bold text-gray-900 mb-2">
               {question.question}
