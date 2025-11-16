@@ -218,7 +218,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
 
   Sports: [
     {
-      id: "1",
+      id: "111",
       question: "How many players are on a soccer team?",
       options: ["9", "10", "11", "12"],
       correctAnswer: 2,
@@ -232,7 +232,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       point: 1,
     },
     {
-      id: "2",
+      id: "121",
       question: "In which sport would you perform a slam dunk?",
       options: ["Tennis", "Basketball", "Volleyball", "Baseball"],
       correctAnswer: 1,
@@ -246,7 +246,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       point: 1,
     },
     {
-      id: "3",
+      id: "131",
       question: "How many holes are there in a full round of golf?",
       options: ["9", "12", "18", "24"],
       correctAnswer: 2,
@@ -260,7 +260,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       point: 1,
     },
     {
-      id: "4",
+      id: "141",
       question: "What is the maximum score in a single frame of bowling?",
       options: ["30", "20", "10", "15"],
       correctAnswer: 0,
@@ -271,10 +271,10 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       createdBy: "Haddy Ceesay",
       timesAnswered: 337,
       correctRate: 72,
-      point: 2, // bowling scoring is less common
+      point: 2,
     },
     {
-      id: "5",
+      id: "151",
       question: "Which country won the FIFA World Cup in 2018?",
       options: ["Brazil", "Germany", "France", "Argentina"],
       correctAnswer: 2,
@@ -288,7 +288,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       point: 1,
     },
     {
-      id: "6",
+      id: "16",
       question: "What sport uses the terms ‘love’, ‘deuce’, and ‘ace’?",
       options: ["Tennis", "Badminton", "Squash", "Cricket"],
       correctAnswer: 0,
@@ -302,7 +302,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       point: 1,
     },
     {
-      id: "7",
+      id: "17",
       question: "In which sport do teams compete for the Stanley Cup?",
       options: ["Ice Hockey", "Basketball", "Rugby", "Baseball"],
       correctAnswer: 0,
@@ -313,10 +313,10 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       createdBy: "Alhagie Touray",
       timesAnswered: 352,
       correctRate: 79,
-      point: 2, // many people don’t know this unless they follow hockey
+      point: 2,
     },
     {
-      id: "8",
+      id: "18",
       question: "What is the national sport of Japan?",
       options: ["Karate", "Baseball", "Sumo Wrestling", "Judo"],
       correctAnswer: 2,
@@ -330,7 +330,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       point: 2,
     },
     {
-      id: "9",
+      id: "19",
       question: "How many minutes are in a standard soccer match?",
       options: ["60", "80", "90", "100"],
       correctAnswer: 2,
@@ -344,7 +344,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       point: 1,
     },
     {
-      id: "10",
+      id: "20",
       question: "Which sport is known as ‘the gentleman’s game’?",
       options: ["Cricket", "Polo", "Golf", "Tennis"],
       correctAnswer: 0,
@@ -358,7 +358,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       point: 2,
     },
     {
-      id: "11",
+      id: "21",
       question: "What is Usain Bolt’s primary sport?",
       options: ["Long jump", "Football", "Sprinting", "Cycling"],
       correctAnswer: 2,
@@ -372,7 +372,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       point: 1,
     },
     {
-      id: "12",
+      id: "22",
       question: "Which country hosted the 2016 Summer Olympics?",
       options: ["China", "Brazil", "UK", "Japan"],
       correctAnswer: 1,
@@ -386,7 +386,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       point: 1,
     },
     {
-      id: "13",
+      id: "23",
       question: "What color flag means a driver must stop in Formula 1?",
       options: ["Red", "Yellow", "Black", "Green"],
       correctAnswer: 0,
@@ -400,7 +400,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       point: 2,
     },
     {
-      id: "14",
+      id: "24",
       question: "How many points is a touchdown worth in American Football?",
       options: ["3", "6", "7", "8"],
       correctAnswer: 1,
@@ -414,7 +414,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       point: 2,
     },
     {
-      id: "15",
+      id: "25",
       question:
         "In basketball, how many personal fouls result in disqualification?",
       options: ["4", "5", "6", "7"],
@@ -426,13 +426,13 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       createdBy: "Saikou Drammeh",
       timesAnswered: 379,
       correctRate: 78,
-      point: 2, // inside-rules knowledge
+      point: 2,
     },
   ],
 
   English: [
     {
-      id: "1",
+      id: "26",
       question: "What is a synonym for 'happy'?",
       options: ["Sad", "Joyful", "Angry", "Tired"],
       correctAnswer: 1,
@@ -446,7 +446,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       point: 1,
     },
     {
-      id: "2",
+      id: "27",
       question: "Which word is a noun?",
       options: ["Run", "Quickly", "Beautiful", "Table"],
       correctAnswer: 3,
@@ -460,7 +460,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       point: 2,
     },
     {
-      id: "3",
+      id: "28",
       question: "What is the past tense of 'go'?",
       options: ["Goed", "Went", "Gone", "Going"],
       correctAnswer: 1,
@@ -474,7 +474,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       point: 1,
     },
     {
-      id: "4",
+      id: "29",
       question: "Which sentence is grammatically correct?",
       options: [
         "She don't like pizza",
@@ -493,7 +493,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       point: 2,
     },
     {
-      id: "5",
+      id: "30",
       question: "What is an antonym for 'hot'?",
       options: ["Warm", "Cold", "Boiling", "Spicy"],
       correctAnswer: 1,
@@ -507,7 +507,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       point: 1,
     },
     {
-      id: "6",
+      id: "31",
       question: "Which word is a verb?",
       options: ["Run", "Chair", "Blue", "Quickly"],
       correctAnswer: 0,
@@ -521,7 +521,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       point: 2,
     },
     {
-      id: "7",
+      id: "32",
       question: "What is the plural form of 'child'?",
       options: ["Childs", "Childes", "Children", "Childrens"],
       correctAnswer: 2,
@@ -535,7 +535,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       point: 1,
     },
     {
-      id: "8",
+      id: "33",
       question: "Which of these is a proper noun?",
       options: ["city", "car", "London", "river"],
       correctAnswer: 2,
@@ -546,10 +546,10 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       createdBy: "Ebrima Sowe",
       timesAnswered: 311,
       correctRate: 78,
-      point: 2,
+      point: 1,
     },
     {
-      id: "9",
+      id: "34",
       question: "Which word means the opposite of 'begin'?",
       options: ["Start", "Open", "Finish", "Continue"],
       correctAnswer: 2,
@@ -563,7 +563,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       point: 2,
     },
     {
-      id: "10",
+      id: "35",
       question: "What is the comparative form of 'good'?",
       options: ["More good", "Better", "Gooder", "Best"],
       correctAnswer: 1,
@@ -577,7 +577,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       point: 2,
     },
     {
-      id: "11",
+      id: "36",
       question: "Which sentence uses the correct punctuation?",
       options: [
         "Its raining outside.",
@@ -596,7 +596,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       point: 1,
     },
     {
-      id: "12",
+      id: "37",
       question: "What type of word is 'quickly'?",
       options: ["Adjective", "Noun", "Adverb", "Verb"],
       correctAnswer: 2,
@@ -607,10 +607,10 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       createdBy: "Abdoulie Coker",
       timesAnswered: 214,
       correctRate: 66,
-      point: 2,
+      point: 1,
     },
     {
-      id: "13",
+      id: "38",
       question: "Which of these is a question tag?",
       options: ["isn't it?", "because", "so", "and"],
       correctAnswer: 0,
@@ -624,7 +624,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       point: 2,
     },
     {
-      id: "14",
+      id: "39",
       question: "Choose the correct article: 'I saw ___ elephant at the zoo.'",
       options: ["a", "an", "the", "no article"],
       correctAnswer: 1,
@@ -638,7 +638,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       point: 2,
     },
     {
-      id: "15",
+      id: "40",
       question: "What is the opposite of 'polite'?",
       options: ["Kind", "Honest", "Rude", "Respectful"],
       correctAnswer: 2,
@@ -655,7 +655,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
 
   Geography: [
     {
-      id: "1",
+      id: "41",
       question: "What is the capital of France?",
       options: ["London", "Berlin", "Paris", "Madrid"],
       correctAnswer: 2,
@@ -669,7 +669,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       point: 1,
     },
     {
-      id: "2",
+      id: "42",
       question: "Which is the largest ocean on Earth?",
       options: ["Atlantic", "Indian", "Arctic", "Pacific"],
       correctAnswer: 3,
@@ -683,7 +683,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       point: 1,
     },
     {
-      id: "3",
+      id: "43",
       question: "What is the longest river in the world?",
       options: ["Amazon", "Nile", "Mississippi", "Yangtze"],
       correctAnswer: 1,
@@ -697,7 +697,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       point: 2,
     },
     {
-      id: "4",
+      id: "44",
       question: "How many continents are there?",
       options: ["5", "6", "7", "8"],
       correctAnswer: 2,
@@ -711,7 +711,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       point: 1,
     },
     {
-      id: "5",
+      id: "45",
       question: "What is the smallest country in the world?",
       options: ["Monaco", "Vatican City", "San Marino", "Liechtenstein"],
       correctAnswer: 1,
@@ -725,7 +725,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       point: 1,
     },
     {
-      id: "6",
+      id: "46",
       question: "Which country has the largest population?",
       options: ["India", "United States", "China", "Russia"],
       correctAnswer: 0,
@@ -739,7 +739,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       point: 2,
     },
     {
-      id: "7",
+      id: "47",
       question: "Mount Everest lies on the border of which two countries?",
       options: [
         "China and India",
@@ -758,7 +758,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       point: 1,
     },
     {
-      id: "8",
+      id: "48",
       question: "Which desert is the largest in the world?",
       options: ["Sahara", "Arabian", "Gobi", "Kalahari"],
       correctAnswer: 0,
@@ -772,7 +772,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       point: 2,
     },
     {
-      id: "9",
+      id: "49",
       question: "What is the capital city of Australia?",
       options: ["Sydney", "Melbourne", "Canberra", "Perth"],
       correctAnswer: 2,
@@ -786,7 +786,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       point: 1,
     },
     {
-      id: "10",
+      id: "50",
       question: "Which continent is known as the ‘Dark Continent’?",
       options: ["Asia", "Africa", "Europe", "South America"],
       correctAnswer: 1,
@@ -800,7 +800,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       point: 1,
     },
     {
-      id: "11",
+      id: "51",
       question: "Which country is both an island and a continent?",
       options: ["Greenland", "Madagascar", "Australia", "Iceland"],
       correctAnswer: 2,
@@ -814,7 +814,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       point: 1,
     },
     {
-      id: "12",
+      id: "52",
       question: "What is the largest country in the world by area?",
       options: ["United States", "Russia", "Canada", "China"],
       correctAnswer: 1,
@@ -828,7 +828,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       point: 1,
     },
     {
-      id: "13",
+      id: "53",
       question: "The Great Barrier Reef is located in which country?",
       options: ["Indonesia", "Philippines", "Australia", "Thailand"],
       correctAnswer: 2,
@@ -842,7 +842,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       point: 1,
     },
     {
-      id: "14",
+      id: "54",
       question: "What is the capital of Japan?",
       options: ["Seoul", "Beijing", "Tokyo", "Kyoto"],
       correctAnswer: 2,
@@ -856,7 +856,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       point: 1,
     },
     {
-      id: "15",
+      id: "55",
       question: "Which U.S. state is known as the 'Sunshine State'?",
       options: ["California", "Texas", "Florida", "Hawaii"],
       correctAnswer: 2,
@@ -873,7 +873,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
 
   Math: [
     {
-      id: "1",
+      id: "56",
       question: "What is 7 × 8?",
       options: ["54", "56", "64", "48"],
       correctAnswer: 1,
@@ -887,7 +887,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       updatedAt: "2024-11-12T11:20:00Z",
     },
     {
-      id: "2",
+      id: "57",
       question: "What is the square root of 144?",
       options: ["10", "11", "12", "13"],
       correctAnswer: 2,
@@ -901,7 +901,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       updatedAt: "2024-11-12T11:20:00Z",
     },
     {
-      id: "3",
+      id: "58",
       question: "What is 25% of 200?",
       options: ["25", "50", "75", "100"],
       correctAnswer: 1,
@@ -915,7 +915,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       updatedAt: "2024-11-12T11:20:00Z",
     },
     {
-      id: "4",
+      id: "59",
       question: "What is the value of π (pi) approximately?",
       options: ["2.14", "3.14", "4.14", "5.14"],
       correctAnswer: 1,
@@ -929,7 +929,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       updatedAt: "2024-11-12T11:20:00Z",
     },
     {
-      id: "5",
+      id: "60",
       question: "If x + 5 = 12, what is x?",
       options: ["5", "6", "7", "8"],
       correctAnswer: 2,
@@ -943,7 +943,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       updatedAt: "2024-11-12T11:20:00Z",
     },
     {
-      id: "6",
+      id: "61",
       question: "What is 9²?",
       options: ["18", "81", "27", "72"],
       correctAnswer: 1,
@@ -957,7 +957,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       updatedAt: "2024-11-12T11:20:00Z",
     },
     {
-      id: "7",
+      id: "62",
       question: "What is 15 ÷ 3?",
       options: ["4", "5", "6", "7"],
       correctAnswer: 1,
@@ -971,7 +971,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       updatedAt: "2024-11-12T11:20:00Z",
     },
     {
-      id: "8",
+      id: "63",
       question: "What is the perimeter of a square with side 6 cm?",
       options: ["12 cm", "18 cm", "24 cm", "36 cm"],
       correctAnswer: 2,
@@ -985,7 +985,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       updatedAt: "2024-11-12T11:20:00Z",
     },
     {
-      id: "9",
+      id: "64",
       question: "What is the sum of the angles in a triangle?",
       options: ["90°", "180°", "270°", "360°"],
       correctAnswer: 1,
@@ -999,7 +999,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       updatedAt: "2024-11-12T11:20:00Z",
     },
     {
-      id: "10",
+      id: "65",
       question: "What is the next prime number after 7?",
       options: ["8", "9", "10", "11"],
       correctAnswer: 3,
@@ -1013,7 +1013,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       updatedAt: "2024-11-12T11:20:00Z",
     },
     {
-      id: "11",
+      id: "66",
       question: "What is 3/4 of 100?",
       options: ["25", "50", "75", "80"],
       correctAnswer: 2,
@@ -1027,7 +1027,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       updatedAt: "2024-11-12T11:20:00Z",
     },
     {
-      id: "12",
+      id: "67",
       question:
         "What is the area of a rectangle with length 10 cm and width 4 cm?",
       options: ["14 cm²", "20 cm²", "40 cm²", "80 cm²"],
@@ -1042,7 +1042,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       updatedAt: "2024-11-12T11:20:00Z",
     },
     {
-      id: "13",
+      id: "68",
       question: "What is the cube of 3?",
       options: ["6", "9", "18", "27"],
       correctAnswer: 3,
@@ -1056,7 +1056,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       updatedAt: "2024-11-12T11:20:00Z",
     },
     {
-      id: "14",
+      id: "69",
       question: "Simplify: 5x + 3x",
       options: ["8", "15x", "8x", "x8"],
       correctAnswer: 2,
@@ -1070,7 +1070,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       updatedAt: "2024-11-12T11:20:00Z",
     },
     {
-      id: "15",
+      id: "70",
       question: "If a car travels 60 km in 2 hours, what is its speed?",
       options: ["20 km/h", "30 km/h", "40 km/h", "60 km/h"],
       correctAnswer: 1,
