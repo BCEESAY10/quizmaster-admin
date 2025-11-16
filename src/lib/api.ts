@@ -1,4 +1,5 @@
 import axios from "axios";
+import { Category, Question, User } from "../types";
 
 const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000/api";
@@ -23,23 +24,23 @@ api.interceptors.request.use((config) => {
 export const usersAPI = {
   getAll: () => api.get("/users"),
   getById: (id: string) => api.get(`/users/${id}`),
-  create: (data: any) => api.post("/users", data),
-  update: (id: string, data: any) => api.put(`/users/${id}`, data),
+  create: (data: User) => api.post("/users", data),
+  update: (id: string, data: User) => api.put(`/users/${id}`, data),
   delete: (id: string) => api.delete(`/users/${id}`),
 };
 
 export const questionsAPI = {
   getAll: () => api.get("/questions"),
   getById: (id: string) => api.get(`/questions/${id}`),
-  create: (data: any) => api.post("/questions", data),
-  update: (id: string, data: any) => api.put(`/questions/${id}`, data),
+  create: (data: Question) => api.post("/questions", data),
+  update: (id: string, data: Question) => api.put(`/questions/${id}`, data),
   delete: (id: string) => api.delete(`/questions/${id}`),
 };
 
 export const categoriesAPI = {
   getAll: () => api.get("/categories"),
-  create: (data: any) => api.post("/categories", data),
-  update: (id: string, data: any) => api.put(`/categories/${id}`, data),
+  create: (data: Category) => api.post("/categories", data),
+  update: (id: string, data: Category) => api.put(`/categories/${id}`, data),
   delete: (id: string) => api.delete(`/categories/${id}`),
 };
 
