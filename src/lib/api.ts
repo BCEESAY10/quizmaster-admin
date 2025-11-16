@@ -49,3 +49,14 @@ export const categoriesAPI = {
 export const analyticsAPI = {
   getDashboard: () => api.get("/analytics/dashboard"),
 };
+
+export const reviewsAPI = {
+  getAll: (params?: {
+    page?: number;
+    limit?: number;
+    rating?: number;
+    dateFilter?: string;
+  }) => api.get("/reviews", { params }),
+  getById: (id: string) => api.get(`/reviews/${id}`),
+  delete: (id: string) => api.delete(`/reviews/${id}`),
+};
