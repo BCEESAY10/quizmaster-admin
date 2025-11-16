@@ -274,7 +274,6 @@ const EditCategoryModal = ({
           </button>
           <button
             type="submit"
-            onClick={handleSubmit as any}
             disabled={isSubmitting}
             className="px-6 py-2.5 bg-primary-500 text-white rounded-lg hover:bg-primary-600 transition-colors font-medium disabled:bg-gray-300 disabled:cursor-not-allowed flex items-center gap-2">
             {isSubmitting ? (

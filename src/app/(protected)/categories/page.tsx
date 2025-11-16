@@ -9,21 +9,24 @@ import {
 } from "@/src/hooks/useCategories";
 import { Card } from "@/src/components/ui/Card";
 import { Button } from "@/src/components/ui/Button";
-import { Input } from "@/src/components/ui/Input";
 import { Badge } from "@/src/components/ui/Badge";
 import { LoadingSpinner } from "@/src/components/ui/LoadingSpinner";
 import { formatNumber } from "@/src/utils/formatters";
 import { Category } from "@/src/types";
 import CreateCategoryModal from "@/src/components/modal/CreateCategory";
+import EditCategoryModal from "@/src/components/modal/EditCategory";
 
 export default function CategoriesPage() {
   const { data: categories, isLoading } = useCategories();
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState<Category | null>(
+    null
+  );
   const { mutate: createCategory } = useCreateCategory();
   const { mutate: updateCategory } = useUpdateCategory();
 
-  const handleCreateAdmin = (formData: Category) => {
+  const handleCreateCategory = (formData: Category) => {
     createCategory(formData, {
       onSuccess: (data) => {
         alert("Created");
@@ -31,12 +34,32 @@ export default function CategoriesPage() {
       },
       onError: (error) => {
         alert("Error occured!");
-        console.log(error);
+        console.error("Create category error", error);
       },
     });
   };
 
-  const handleShowEditModal = (id: string) => {
+  const handleEditCategory = (formData: Category) => {
+    if (!formData.id) {
+      throw new Error("Category ID is required for update");
+    }
+    updateCategory(
+      { id: formData.id, data: formData },
+      {
+        onSuccess: (data) => {
+          alert("Updated successfully");
+          console.log(data, "Updated");
+        },
+        onError: (error) => {
+          alert("Error occurred");
+          console.error("Update category error", error);
+        },
+      }
+    );
+  };
+
+  const handleShowEditModal = (category: Category) => {
+    setSelectedCategory(category);
     setIsEditModalOpen(true);
   };
 
@@ -56,7 +79,7 @@ export default function CategoriesPage() {
 
             <div className="flex items-center gap-4 mt-2">
               <Badge variant="default">
-                {formatNumber(category.questions)} questions
+                {formatNumber(category.questions ?? 0)} questions
               </Badge>
             </div>
           </div>
@@ -64,7 +87,7 @@ export default function CategoriesPage() {
         <div className="flex gap-2">
           <button
             className="p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
-            onClick={handleShowEditModal(category.id)}>
+            onClick={() => handleShowEditModal(category)}>
             <Edit className="h-4 w-4" />
           </button>
           <button
@@ -129,7 +152,7 @@ export default function CategoriesPage() {
             <p className="text-3xl font-bold text-gray-900">
               {formatNumber(
                 categories?.reduce(
-                  (sum: number, cat: Category) => sum + cat.questions,
+                  (sum: number, cat: Category) => sum + (cat.questions ?? 0),
                   0
                 ) || 0
               )}
@@ -149,7 +172,8 @@ export default function CategoriesPage() {
               {categories && categories.length > 0
                 ? Math.round(
                     categories.reduce(
-                      (sum: number, cat: Category) => sum + cat.questions,
+                      (sum: number, cat: Category) =>
+                        sum + (cat.questions ?? 0),
                       0
                     ) / categories.length
                   )
@@ -181,8 +205,17 @@ export default function CategoriesPage() {
       <CreateCategoryModal
         showModal={isCreateModalOpen}
         onClose={() => setIsCreateModalOpen(false)}
-        onSuccess={handleCreateAdmin}
+        onSuccess={handleCreateCategory}
       />
+
+      {selectedCategory && (
+        <EditCategoryModal
+          showModal={isEditModalOpen}
+          onClose={() => setIsEditModalOpen(false)}
+          category={selectedCategory}
+          onSuccess={handleEditCategory}
+        />
+      )}
     </div>
   );
 }
