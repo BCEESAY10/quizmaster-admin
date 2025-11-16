@@ -24,16 +24,17 @@ api.interceptors.request.use((config) => {
 export const usersAPI = {
   getAll: () => api.get("/users"),
   getById: (id: string) => api.get(`/users/${id}`),
-  create: (data: User) => api.post("/users", data),
-  update: (id: string, data: User) => api.put(`/users/${id}`, data),
+  create: (data: Partial<User>) => api.post("/users", data),
+  update: (id: string, data: Partial<User>) => api.put(`/users/${id}`, data),
   delete: (id: string) => api.delete(`/users/${id}`),
 };
 
 export const questionsAPI = {
   getAll: () => api.get("/questions"),
   getById: (id: string) => api.get(`/questions/${id}`),
-  create: (data: Question) => api.post("/questions", data),
-  update: (id: string, data: Question) => api.put(`/questions/${id}`, data),
+  create: (data: Partial<Question>) => api.post("/questions", data),
+  update: (id: string, data: Partial<Question>) =>
+    api.put(`/questions/${id}`, data),
   delete: (id: string) => api.delete(`/questions/${id}`),
 };
 
