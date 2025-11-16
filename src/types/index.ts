@@ -30,6 +30,7 @@ export interface Question {
   correctAnswer: number;
   category: string;
   timer: number;
+  point: number;
   createdAt: string;
   updatedAt: string;
   createdBy: string;

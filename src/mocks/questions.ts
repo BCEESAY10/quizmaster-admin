@@ -9,6 +9,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       correctAnswer: 1,
       category: "Science",
       timer: 10,
+      point: 2,
       createdAt: "2023-04-12T10:15:00Z",
       updatedAt: "2024-02-18T09:20:00Z",
       createdBy: "Isatou Ceesay",
@@ -22,6 +23,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       correctAnswer: 2,
       category: "Science",
       timer: 10,
+      point: 2,
       createdAt: "2021-06-22T14:40:00Z",
       updatedAt: "2023-11-05T11:55:00Z",
       createdBy: "Lamin Jammeh",
@@ -35,6 +37,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       correctAnswer: 2,
       category: "Science",
       timer: 10,
+      point: 2,
       createdAt: "2022-08-01T08:10:00Z",
       updatedAt: "2024-03-19T14:22:00Z",
       createdBy: "Fatoumata Jallow",
@@ -48,6 +51,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       correctAnswer: 0,
       category: "Science",
       timer: 10,
+      point: 2,
       createdAt: "2023-12-29T20:50:00Z",
       updatedAt: "2024-06-11T16:00:00Z",
       createdBy: "Ebrima Sowe",
@@ -61,6 +65,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       correctAnswer: 2,
       category: "Science",
       timer: 10,
+      point: 1,
       createdAt: "2024-02-10T07:15:00Z",
       updatedAt: "2024-07-12T09:30:00Z",
       createdBy: "Awa Sanneh",
@@ -74,6 +79,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       correctAnswer: 0,
       category: "Science",
       timer: 10,
+      point: 2,
       createdAt: "2023-09-14T11:00:00Z",
       updatedAt: "2024-04-25T13:17:00Z",
       createdBy: "Amadou Bah",
@@ -87,6 +93,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       correctAnswer: 1,
       category: "Science",
       timer: 10,
+      point: 2,
       createdAt: "2022-03-11T09:45:00Z",
       updatedAt: "2023-10-01T18:40:00Z",
       createdBy: "Haddy Touray",
@@ -100,6 +107,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       correctAnswer: 2,
       category: "Science",
       timer: 10,
+      point: 2,
       createdAt: "2021-12-07T06:55:00Z",
       updatedAt: "2022-09-12T12:10:00Z",
       createdBy: "Modou Njie",
@@ -114,6 +122,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       correctAnswer: 2,
       category: "Science",
       timer: 10,
+      point: 2,
       createdAt: "2023-01-22T16:30:00Z",
       updatedAt: "2024-05-14T07:19:00Z",
       createdBy: "Mariama Faal",
@@ -127,6 +136,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       correctAnswer: 2,
       category: "Science",
       timer: 10,
+      point: 2,
       createdAt: "2022-07-30T12:00:00Z",
       updatedAt: "2023-09-18T10:50:00Z",
       createdBy: "Pa Lamin Drammeh",
@@ -140,6 +150,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       correctAnswer: 2,
       category: "Science",
       timer: 10,
+      point: 2,
       createdAt: "2024-01-05T22:10:00Z",
       updatedAt: "2024-08-21T11:09:00Z",
       createdBy: "Jarra Bojang",
@@ -153,6 +164,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       correctAnswer: 2,
       category: "Science",
       timer: 10,
+      point: 1,
       createdAt: "2023-03-17T07:42:00Z",
       updatedAt: "2024-06-29T15:20:00Z",
       createdBy: "Abdoulie Coker",
@@ -166,6 +178,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       correctAnswer: 2,
       category: "Science",
       timer: 10,
+      point: 1,
       createdAt: "2021-10-11T05:20:00Z",
       updatedAt: "2022-04-16T09:35:00Z",
       createdBy: "Saffie Badjie",
@@ -180,6 +193,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       correctAnswer: 2,
       category: "Science",
       timer: 10,
+      point: 1,
       createdAt: "2022-11-19T19:00:00Z",
       updatedAt: "2023-08-30T14:18:00Z",
       createdBy: "Kebba Corr",
@@ -193,6 +207,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       correctAnswer: 2,
       category: "Science",
       timer: 10,
+      point: 1,
       createdAt: "2024-03-03T09:12:00Z",
       updatedAt: "2024-10-01T17:40:00Z",
       createdBy: "Oumie Cham",
@@ -214,6 +229,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       createdBy: "Modou Cham",
       timesAnswered: 541,
       correctRate: 89,
+      point: 1,
     },
     {
       id: 2,
@@ -227,6 +243,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       createdBy: "Isatou Manneh",
       timesAnswered: 612,
       correctRate: 96,
+      point: 1,
     },
     {
       id: 3,
@@ -240,6 +257,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       createdBy: "Ebrima Jatta",
       timesAnswered: 410,
       correctRate: 84,
+      point: 1,
     },
     {
       id: 4,
@@ -253,6 +271,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       createdBy: "Haddy Ceesay",
       timesAnswered: 337,
       correctRate: 72,
+      point: 2, // bowling scoring is less common
     },
     {
       id: 5,
@@ -266,6 +285,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       createdBy: "Pa Faal",
       timesAnswered: 588,
       correctRate: 94,
+      point: 1,
     },
     {
       id: 6,
@@ -279,6 +299,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       createdBy: "Awa Darboe",
       timesAnswered: 470,
       correctRate: 91,
+      point: 1,
     },
     {
       id: 7,
@@ -292,6 +313,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       createdBy: "Alhagie Touray",
       timesAnswered: 352,
       correctRate: 79,
+      point: 2, // many people don’t know this unless they follow hockey
     },
     {
       id: 8,
@@ -305,6 +327,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       createdBy: "Fatou Camara",
       timesAnswered: 429,
       correctRate: 86,
+      point: 2,
     },
     {
       id: 9,
@@ -318,6 +341,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       createdBy: "Ousman Sillah",
       timesAnswered: 701,
       correctRate: 92,
+      point: 1,
     },
     {
       id: 10,
@@ -331,6 +355,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       createdBy: "Yassin Jobe",
       timesAnswered: 314,
       correctRate: 81,
+      point: 2,
     },
     {
       id: 11,
@@ -344,6 +369,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       createdBy: "Abdou Bah",
       timesAnswered: 662,
       correctRate: 97,
+      point: 1,
     },
     {
       id: 12,
@@ -357,6 +383,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       createdBy: "Fatima Faye",
       timesAnswered: 503,
       correctRate: 88,
+      point: 1,
     },
     {
       id: 13,
@@ -370,6 +397,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       createdBy: "Momodou Sonko",
       timesAnswered: 441,
       correctRate: 90,
+      point: 2,
     },
     {
       id: 14,
@@ -383,6 +411,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       createdBy: "Binta Jarra",
       timesAnswered: 320,
       correctRate: 83,
+      point: 2,
     },
     {
       id: 15,
@@ -397,6 +426,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       createdBy: "Saikou Drammeh",
       timesAnswered: 379,
       correctRate: 78,
+      point: 2, // inside-rules knowledge
     },
   ],
 
@@ -413,6 +443,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       createdBy: "Awa Sanneh",
       timesAnswered: 412,
       correctRate: 88,
+      point: 1,
     },
     {
       id: 2,
@@ -426,6 +457,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       createdBy: "Lamin Njie",
       timesAnswered: 289,
       correctRate: 76,
+      point: 2,
     },
     {
       id: 3,
@@ -439,6 +471,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       createdBy: "Fatou Jatta",
       timesAnswered: 534,
       correctRate: 92,
+      point: 1,
     },
     {
       id: 4,
@@ -457,6 +490,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       createdBy: "Isatou Ceesay",
       timesAnswered: 361,
       correctRate: 81,
+      point: 2,
     },
     {
       id: 5,
@@ -470,6 +504,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       createdBy: "Oumie Cham",
       timesAnswered: 478,
       correctRate: 90,
+      point: 1,
     },
     {
       id: 6,
@@ -483,6 +518,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       createdBy: "Modou Touray",
       timesAnswered: 243,
       correctRate: 69,
+      point: 2,
     },
     {
       id: 7,
@@ -496,6 +532,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       createdBy: "Mariama Faal",
       timesAnswered: 599,
       correctRate: 95,
+      point: 1,
     },
     {
       id: 8,
@@ -509,6 +546,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       createdBy: "Ebrima Sowe",
       timesAnswered: 311,
       correctRate: 78,
+      point: 2,
     },
     {
       id: 9,
@@ -522,6 +560,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       createdBy: "Kebba Corr",
       timesAnswered: 426,
       correctRate: 83,
+      point: 2,
     },
     {
       id: 10,
@@ -535,6 +574,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       createdBy: "Pa Lamin Drammeh",
       timesAnswered: 367,
       correctRate: 80,
+      point: 2,
     },
     {
       id: 11,
@@ -553,6 +593,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       createdBy: "Saffie Badjie",
       timesAnswered: 498,
       correctRate: 91,
+      point: 1,
     },
     {
       id: 12,
@@ -566,6 +607,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       createdBy: "Abdoulie Coker",
       timesAnswered: 214,
       correctRate: 66,
+      point: 2,
     },
     {
       id: 13,
@@ -579,6 +621,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       createdBy: "Binta Jarra",
       timesAnswered: 355,
       correctRate: 79,
+      point: 2,
     },
     {
       id: 14,
@@ -592,6 +635,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       createdBy: "Saikou Drammeh",
       timesAnswered: 272,
       correctRate: 74,
+      point: 2,
     },
     {
       id: 15,
@@ -605,6 +649,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       createdBy: "Momodou Sonko",
       timesAnswered: 390,
       correctRate: 82,
+      point: 2,
     },
   ],
 
@@ -621,6 +666,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       createdBy: "Awa Sanneh",
       timesAnswered: 503,
       correctRate: 93,
+      point: 1,
     },
     {
       id: 2,
@@ -634,6 +680,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       createdBy: "Modou Touray",
       timesAnswered: 447,
       correctRate: 89,
+      point: 1,
     },
     {
       id: 3,
@@ -647,6 +694,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       createdBy: "Fatou Jatta",
       timesAnswered: 389,
       correctRate: 75,
+      point: 2,
     },
     {
       id: 4,
@@ -660,6 +708,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       createdBy: "Ebrima Sowe",
       timesAnswered: 612,
       correctRate: 97,
+      point: 1,
     },
     {
       id: 5,
@@ -673,6 +722,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       createdBy: "Lamin Njie",
       timesAnswered: 331,
       correctRate: 86,
+      point: 1,
     },
     {
       id: 6,
@@ -686,6 +736,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       createdBy: "Saffie Badjie",
       timesAnswered: 511,
       correctRate: 72,
+      point: 2,
     },
     {
       id: 7,
@@ -704,6 +755,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       createdBy: "Oumie Cham",
       timesAnswered: 448,
       correctRate: 84,
+      point: 1,
     },
     {
       id: 8,
@@ -717,6 +769,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       createdBy: "Binta Jarra",
       timesAnswered: 397,
       correctRate: 79,
+      point: 2,
     },
     {
       id: 9,
@@ -730,6 +783,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       createdBy: "Momodou Sonko",
       timesAnswered: 422,
       correctRate: 82,
+      point: 1,
     },
     {
       id: 10,
@@ -743,6 +797,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       createdBy: "Pa Lamin Drammeh",
       timesAnswered: 274,
       correctRate: 88,
+      point: 1,
     },
     {
       id: 11,
@@ -756,6 +811,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       createdBy: "Mariama Faal",
       timesAnswered: 516,
       correctRate: 94,
+      point: 1,
     },
     {
       id: 12,
@@ -769,6 +825,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       createdBy: "Saikou Drammeh",
       timesAnswered: 439,
       correctRate: 91,
+      point: 1,
     },
     {
       id: 13,
@@ -782,6 +839,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       createdBy: "Abdoulie Coker",
       timesAnswered: 387,
       correctRate: 83,
+      point: 1,
     },
     {
       id: 14,
@@ -795,6 +853,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       createdBy: "Isatou Ceesay",
       timesAnswered: 323,
       correctRate: 89,
+      point: 1,
     },
     {
       id: 15,
@@ -808,6 +867,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       createdBy: "Kebba Corr",
       timesAnswered: 501,
       correctRate: 87,
+      point: 1,
     },
   ],
 
@@ -822,6 +882,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       createdBy: "admin",
       timesAnswered: 0,
       correctRate: 0,
+      point: 1,
       createdAt: "2024-11-10T15:30:00Z",
       updatedAt: "2024-11-12T11:20:00Z",
     },
@@ -835,6 +896,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       createdBy: "admin",
       timesAnswered: 0,
       correctRate: 0,
+      point: 1,
       createdAt: "2024-11-10T15:30:00Z",
       updatedAt: "2024-11-12T11:20:00Z",
     },
@@ -848,6 +910,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       createdBy: "admin",
       timesAnswered: 0,
       correctRate: 0,
+      point: 1,
       createdAt: "2024-11-10T15:30:00Z",
       updatedAt: "2024-11-12T11:20:00Z",
     },
@@ -861,6 +924,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       createdBy: "admin",
       timesAnswered: 0,
       correctRate: 0,
+      point: 1,
       createdAt: "2024-11-10T15:30:00Z",
       updatedAt: "2024-11-12T11:20:00Z",
     },
@@ -874,6 +938,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       createdBy: "admin",
       timesAnswered: 0,
       correctRate: 0,
+      point: 1,
       createdAt: "2024-11-10T15:30:00Z",
       updatedAt: "2024-11-12T11:20:00Z",
     },
@@ -887,6 +952,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       createdBy: "admin",
       timesAnswered: 0,
       correctRate: 0,
+      point: 1,
       createdAt: "2024-11-10T15:30:00Z",
       updatedAt: "2024-11-12T11:20:00Z",
     },
@@ -900,6 +966,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       createdBy: "admin",
       timesAnswered: 0,
       correctRate: 0,
+      point: 1,
       createdAt: "2024-11-10T15:30:00Z",
       updatedAt: "2024-11-12T11:20:00Z",
     },
@@ -913,6 +980,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       createdBy: "admin",
       timesAnswered: 0,
       correctRate: 0,
+      point: 1,
       createdAt: "2024-11-10T15:30:00Z",
       updatedAt: "2024-11-12T11:20:00Z",
     },
@@ -926,6 +994,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       createdBy: "admin",
       timesAnswered: 0,
       correctRate: 0,
+      point: 1,
       createdAt: "2024-11-10T15:30:00Z",
       updatedAt: "2024-11-12T11:20:00Z",
     },
@@ -939,6 +1008,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       createdBy: "admin",
       timesAnswered: 0,
       correctRate: 0,
+      point: 1,
       createdAt: "2024-11-10T15:30:00Z",
       updatedAt: "2024-11-12T11:20:00Z",
     },
@@ -952,6 +1022,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       createdBy: "admin",
       timesAnswered: 0,
       correctRate: 0,
+      point: 1,
       createdAt: "2024-11-10T15:30:00Z",
       updatedAt: "2024-11-12T11:20:00Z",
     },
@@ -966,6 +1037,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       createdBy: "admin",
       timesAnswered: 0,
       correctRate: 0,
+      point: 1,
       createdAt: "2024-11-10T15:30:00Z",
       updatedAt: "2024-11-12T11:20:00Z",
     },
@@ -979,6 +1051,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       createdBy: "admin",
       timesAnswered: 0,
       correctRate: 0,
+      point: 1,
       createdAt: "2024-11-10T15:30:00Z",
       updatedAt: "2024-11-12T11:20:00Z",
     },
@@ -992,6 +1065,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       createdBy: "admin",
       timesAnswered: 0,
       correctRate: 0,
+      point: 1,
       createdAt: "2024-11-10T15:30:00Z",
       updatedAt: "2024-11-12T11:20:00Z",
     },
@@ -1005,6 +1079,7 @@ export const MOCK_QUESTIONS: Record<string, Question[]> = {
       createdBy: "admin",
       timesAnswered: 0,
       correctRate: 0,
+      point: 1,
       createdAt: "2024-11-10T15:30:00Z",
       updatedAt: "2024-11-12T11:20:00Z",
     },
