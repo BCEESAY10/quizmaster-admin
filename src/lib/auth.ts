@@ -12,7 +12,7 @@ export const authOptions: NextAuthOptions = {
         email: { label: "Email", type: "email" },
         password: { label: "Password", type: "password" },
       },
-      async authorize(credentials) {
+      async authorize(credentials, req) {
         if (!credentials?.email || !credentials?.password) {
           throw new Error("Email and password are required");
         }
@@ -26,20 +26,20 @@ export const authOptions: NextAuthOptions = {
 
         // Verify password
         const isValidPassword = await bcrypt.compare(
-          credentials.password,
-          admin.password
+          credentials.password as string,
+          admin.password as string
         );
 
         if (!isValidPassword) {
           throw new Error("Invalid credentials");
         }
 
-        // Return user object (without password)
+        // Return user object (without password) and ensure role is a string
         return {
-          id: admin.id,
+          id: admin.id!,
           email: admin.email,
           fullName: admin.fullName,
-          role: admin.role,
+          role: admin.role ?? "admin",
         };
       },
     }),
