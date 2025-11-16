@@ -2,7 +2,11 @@
 
 import React, { useState } from "react";
 import { Plus, Edit, Trash2 } from "lucide-react";
-import { useCategories, useCreateCategory } from "@/src/hooks/useCategories";
+import {
+  useCategories,
+  useCreateCategory,
+  useUpdateCategory,
+} from "@/src/hooks/useCategories";
 import { Card } from "@/src/components/ui/Card";
 import { Button } from "@/src/components/ui/Button";
 import { Input } from "@/src/components/ui/Input";
@@ -15,7 +19,9 @@ import CreateCategoryModal from "@/src/components/modal/CreateCategory";
 export default function CategoriesPage() {
   const { data: categories, isLoading } = useCategories();
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const { mutate: createCategory } = useCreateCategory();
+  const { mutate: updateCategory } = useUpdateCategory();
 
   const handleCreateAdmin = (formData: Category) => {
     createCategory(formData, {
@@ -28,6 +34,10 @@ export default function CategoriesPage() {
         console.log(error);
       },
     });
+  };
+
+  const handleShowEditModal = (id: string) => {
+    setIsEditModalOpen(true);
   };
 
   const CategoryCard = ({ category }: { category: Category }) => (
@@ -54,7 +64,7 @@ export default function CategoriesPage() {
         <div className="flex gap-2">
           <button
             className="p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
-            onClick={() => console.log("Edit", category.id)}>
+            onClick={handleShowEditModal(category.id)}>
             <Edit className="h-4 w-4" />
           </button>
           <button

@@ -3,6 +3,7 @@
 import { Menu, Bell, Search } from "lucide-react";
 import { Input } from "@/src/components/ui/Input";
 import { Session } from "next-auth";
+import { Avatar } from "../ui/Avatar";
 
 interface HeaderProps {
   onMenuClick: () => void;
@@ -48,9 +49,7 @@ export function Header({ onMenuClick, session }: HeaderProps) {
                 {session.user?.email || "admin@example.com"}
               </p>
             </div>
-            <div className="h-10 w-10 rounded-full bg-primary-500 flex items-center justify-center">
-              <span className="text-white font-medium">AU</span>
-            </div>
+            <Avatar fullName={session?.user?.name || "Admin Name"} />
           </div>
         </div>
       </div>
