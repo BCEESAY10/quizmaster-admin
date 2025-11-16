@@ -76,7 +76,7 @@ export default function AdminDetailsView({
           <div className="flex items-center space-x-4">
             <div className="h-20 w-20 rounded-full bg-primary-100 flex items-center justify-center">
               <span className="text-primary-600 font-bold text-2xl">
-                {admin.name
+                {admin.fullName
                   .split(" ")
                   .map((n) => n[0])
                   .join("")

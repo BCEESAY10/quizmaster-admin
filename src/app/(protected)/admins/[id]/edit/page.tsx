@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { isSuperAdmin } from "@/src/lib/permissions";
 import EditAdminForm from "./EditAdminForm";
 import { mockAdmins } from "@/src/mocks/admins";
+import { Admin } from "@/src/types";
 
 interface Props {
   params: {
@@ -11,6 +12,7 @@ interface Props {
 }
 
 export default async function EditAdminPage({ params }: Props) {
+  const { id } = await params;
   const session = await getServerAuthSession();
 
   if (!isSuperAdmin(session)) {
@@ -18,7 +20,7 @@ export default async function EditAdminPage({ params }: Props) {
   }
 
   // TODO: Fetch admin from database
-  const admin = mockAdmins.find((a) => a.id === params.id);
+  const admin = mockAdmins.find((a) => a.id === id);
 
   if (!admin) {
     redirect("/admins");
@@ -32,7 +34,10 @@ export default async function EditAdminPage({ params }: Props) {
       </div>
 
       <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-        <EditAdminForm admin={admin} currentUserId={(session.user as any).id} />
+        <EditAdminForm
+          admin={admin}
+          currentUserId={(session?.user as any).id}
+        />
       </div>
     </div>
   );

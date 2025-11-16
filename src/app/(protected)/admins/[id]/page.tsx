@@ -11,6 +11,7 @@ interface Props {
 }
 
 export default async function AdminDetailPage({ params }: Props) {
+  const { id } = await params;
   const session = await getServerAuthSession();
 
   if (!isSuperAdmin(session)) {
@@ -18,7 +19,7 @@ export default async function AdminDetailPage({ params }: Props) {
   }
 
   // TODO: Fetch admin from database
-  const admin = mockAdmins.find((a) => a.id === params.id);
+  const admin = mockAdmins.find((a) => a.id === id);
 
   if (!admin) {
     redirect("/admins");
