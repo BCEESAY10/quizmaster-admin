@@ -60,3 +60,20 @@ export interface AnalyticsData {
     timestamp: string;
   }>;
 }
+
+export interface Review {
+  id: string;
+  userId: string;
+  userName: string;
+  userEmail: string;
+  rating: number;
+  feedback: string;
+  createdAt: string;
+}
+
+export interface ReviewsResponse {
+  reviews: Review[];
+  total: number;
+  page: number;
+  totalPages: number;
+}
