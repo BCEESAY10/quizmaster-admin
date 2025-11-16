@@ -215,8 +215,8 @@ export default function AnalyticsPage() {
             <tbody className="bg-white divide-y divide-gray-200">
               {categories?.map((category: Category) => {
                 const avgPerQuestion =
-                  category.questions > 0
-                    ? Math.round(200 / category.questions)
+                  (category.questions ?? 0) > 0
+                    ? Math.round(200 / (category.questions ?? 0))
                     : 0;
                 const maxAttempts = Math.max(200);
                 const popularity = Math.round((200 / maxAttempts) * 100);

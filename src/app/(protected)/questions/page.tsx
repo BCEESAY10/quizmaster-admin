@@ -11,7 +11,7 @@ import { Badge } from "@/src/components/ui/Badge";
 import { DataTable } from "@/src/components/shared/DataTable";
 import { LoadingSpinner } from "@/src/components/ui/LoadingSpinner";
 import { formatDate, getStatusColor } from "@/src/utils/formatters";
-import { Question } from "@/src/types";
+import { Category, Question } from "@/src/types";
 import { useRouter } from "next/navigation";
 
 export default function QuestionsPage() {
@@ -41,7 +41,7 @@ export default function QuestionsPage() {
             {q.question}
           </p>
           <p className="text-xs text-gray-500 mt-1">
-            {q.options.length} options • {q.timer}s timer
+            {q.options.length} options • {q.timer}s timer • {q.point} point
           </p>
         </div>
       ),
@@ -121,7 +121,7 @@ export default function QuestionsPage() {
             onChange={(e) => setSelectedCategory(e.target.value)}
             className="block w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary-500">
             <option value="">All Categories</option>
-            {categories?.map((cat) => (
+            {categories?.map((cat: Category) => (
               <option key={cat.id} value={cat.name}>
                 {cat.name}
               </option>
@@ -163,7 +163,8 @@ export default function QuestionsPage() {
       {questions && (
         <div className="flex items-center justify-between text-sm text-gray-500">
           <p>
-            Showing {filteredQuestions?.length} of {questions.length} questions
+            Showing {filteredQuestions?.length} of {allQuestions.length}{" "}
+            questions
           </p>
         </div>
       )}
