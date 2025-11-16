@@ -11,7 +11,8 @@ import {
   FolderOpen,
   BarChart3,
   LogOut,
-  User2,
+  ShieldCheck,
+  Star,
 } from "lucide-react";
 import { signOut } from "next-auth/react";
 
@@ -20,8 +21,9 @@ const navigation = [
   { name: "Users", href: "/users", icon: Users },
   { name: "Questions", href: "/questions", icon: BookOpen },
   { name: "Categories", href: "/categories", icon: FolderOpen },
-  { name: "Admins", href: "/admins", icon: User2 },
+  { name: "Admins", href: "/admins", icon: ShieldCheck },
   { name: "Analytics", href: "/analytics", icon: BarChart3 },
+  { name: "Reviews", href: "/reviews", icon: Star },
 ];
 
 interface SidebarProps {
