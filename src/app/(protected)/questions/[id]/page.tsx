@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { ArrowLeft, Edit, Trash2, Clock, CheckCircle } from "lucide-react";
 import { useQuestion, useDeleteQuestion } from "@/src/hooks/useQuestions";
@@ -9,19 +9,26 @@ import { Button } from "@/src/components/ui/Button";
 import { Badge } from "@/src/components/ui/Badge";
 import { LoadingSpinner } from "@/src/components/ui/LoadingSpinner";
 import { formatDateTime } from "@/src/utils/formatters";
+import ConfirmDialog from "@/src/components/ui/ConfirmDialogue";
 
 export default function QuestionDetailPage() {
   const params = useParams();
   const router = useRouter();
   const { data: question, isLoading } = useQuestion(params.id as string);
   const deleteQuestion = useDeleteQuestion();
+  const [deleteId, setDeleteId] = useState<string | null>(null);
 
-  console.log("Question:", question);
+  const handleDelete = (id: string) => {
+    setDeleteId(id);
+  };
 
-  const handleDelete = async () => {
-    if (confirm("Are you sure you want to delete this question?")) {
-      await deleteQuestion.mutateAsync(params.id as string);
-      router.push("/questions");
+  const confirmDelete = () => {
+    if (deleteId) {
+      deleteQuestion.mutate(deleteId, {
+        onSuccess: () => {
+          setDeleteId(null);
+        },
+      });
     }
   };
 
@@ -81,7 +88,7 @@ export default function QuestionDetailPage() {
             <Button
               variant="danger"
               leftIcon={<Trash2 className="h-4 w-4" />}
-              onClick={handleDelete}
+              onClick={() => handleDelete(question.id)}
               isLoading={deleteQuestion.isPending}>
               Delete
             </Button>
@@ -175,6 +182,18 @@ export default function QuestionDetailPage() {
           </div>
         </div>
       </Card>
+
+      {/* Delete Confirmation Dialog */}
+      <ConfirmDialog
+        isOpen={deleteId !== null}
+        onClose={() => setDeleteId(null)}
+        onConfirm={confirmDelete}
+        title="Delete Review"
+        description="Are you sure you want to delete this review? This action cannot be undone."
+        confirmText="Delete"
+        cancelText="Cancel"
+        isLoading={deleteQuestion.isPending}
+      />
     </div>
   );
 }
