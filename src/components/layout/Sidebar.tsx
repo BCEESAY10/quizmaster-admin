@@ -10,7 +10,6 @@ import {
   BookOpen,
   FolderOpen,
   BarChart3,
-  Settings,
   LogOut,
   User2,
 } from "lucide-react";
@@ -23,7 +22,6 @@ const navigation = [
   { name: "Categories", href: "/categories", icon: FolderOpen },
   { name: "Admins", href: "/admins", icon: User2 },
   { name: "Analytics", href: "/analytics", icon: BarChart3 },
-  { name: "Settings", href: "/settings", icon: Settings },
 ];
 
 interface SidebarProps {
