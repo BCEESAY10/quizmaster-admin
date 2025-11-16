@@ -30,7 +30,7 @@ export function useQuestion(id: string) {
     queryFn: async () => {
       if (USE_MOCK) {
         const allowedQuestions = Object.values(MOCK_QUESTIONS).flat();
-        return allowedQuestions.find((q) => q.id === Number(id));
+        return allowedQuestions.find((q) => q.id === id);
       }
       const response = await questionsAPI.getById(id);
       return response.data;
