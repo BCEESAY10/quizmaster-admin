@@ -21,6 +21,7 @@ export default function CreateQuestionPage() {
     options: ["", "", "", ""],
     correctAnswer: 0,
     category: "",
+    point: 1,
     timer: 10,
   });
 
@@ -100,6 +101,7 @@ export default function CreateQuestionPage() {
       alert("Question created successfully!");
       router.push("/questions");
     } catch (error) {
+      console.error("Create question failed:", error);
       alert("Failed to create question. Please try again.");
     }
   };
@@ -180,8 +182,30 @@ export default function CreateQuestionPage() {
               </div>
             </div>
 
-            {/* Timer and Status */}
+            {/* Timer and Point */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Point
+                  <span className="text-red-500">*</span>
+                </label>
+                <Input
+                  type="number"
+                  value={formData.point}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      point: parseInt(e.target.value),
+                    })
+                  }
+                  min={1}
+                  max={5}
+                  error={errors.point}
+                />
+                <p className="mt-1 text-xs text-gray-500">
+                  Between 1 and 5 points based on the question&apos;s difficulty
+                </p>
+              </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Timer (seconds) <span className="text-red-500">*</span>
@@ -196,7 +220,7 @@ export default function CreateQuestionPage() {
                     })
                   }
                   min={10}
-                  max={300}
+                  max={20}
                   error={errors.timer}
                 />
                 <p className="mt-1 text-xs text-gray-500">
