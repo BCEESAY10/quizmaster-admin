@@ -43,13 +43,13 @@ export function Header({ onMenuClick, session }: HeaderProps) {
           <div className="flex items-center space-x-3">
             <div className="hidden md:block text-right">
               <p className="text-sm font-medium text-gray-900">
-                {session?.user?.name || "Admin User"}
+                {session?.user?.fullName || "Admin Name"}
               </p>
               <p className="text-xs text-gray-500">
                 {session.user?.email || "admin@example.com"}
               </p>
             </div>
-            <Avatar fullName={session?.user?.name || "Admin Name"} />
+            <Avatar fullName={session?.user?.fullName || "Admin Name"} />
           </div>
         </div>
       </div>
