@@ -66,7 +66,8 @@ export const questionSchema = z.object({
   options: z.array(z.string().min(1, "Option cannot be empty")).min(2).max(6),
   correctAnswer: z.number().min(0),
   category: z.string().min(1, "Category is required"),
-  timer: z.number().min(10).max(300),
+  timer: z.number().min(10).max(20),
+  point: z.number().min(1).max(5),
 });
 
 export type QuestionInput = z.infer<typeof questionSchema>;
