@@ -80,11 +80,6 @@ export default function UsersPage() {
           <h1 className="text-2xl font-bold text-gray-900">Users</h1>
           <p className="text-gray-500 mt-1">Manage and monitor user accounts</p>
         </div>
-        <Button
-          leftIcon={<Plus className="h-4 w-4" />}
-          onClick={() => console.log("Create user")}>
-          Add User
-        </Button>
       </div>
 
       {/* Filters */}
@@ -120,9 +115,6 @@ export default function UsersPage() {
         <div className="flex items-center justify-between text-sm text-gray-500">
           <p>
             Showing {filteredUsers?.length} of {users.length} users
-          </p>
-          <p>
-            Total active: {users.filter((u) => u.status === "active").length}
           </p>
         </div>
       )}
