@@ -11,6 +11,7 @@ interface HeaderProps {
 }
 
 export function Header({ onMenuClick, session }: HeaderProps) {
+  console.log("Session Data:", session.user);
   return (
     <header className="sticky top-0 z-30 bg-white border-b border-gray-200">
       <div className="flex items-center justify-between h-16 px-4 lg:px-6">
