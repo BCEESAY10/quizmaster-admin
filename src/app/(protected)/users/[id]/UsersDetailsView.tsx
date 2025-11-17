@@ -40,7 +40,7 @@ export default function UserDetailsPageView({ user }: UserDetailsViewProps) {
         <div className="text-center">
           <p className="text-red-600 text-lg mb-2">User not found</p>
           <p className="text-gray-600 mb-4">
-            The user you're looking for doesn't exist
+            The user you&apos;re looking for doesn&apos;t exist
           </p>
           <button
             onClick={() => router.push("/users")}

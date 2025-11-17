@@ -51,7 +51,9 @@ export default function AnalyticsPage() {
         <div className="flex gap-2">
           <select
             value={timeRange}
-            onChange={(e) => setTimeRange(e.target.value as any)}
+            onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+              setTimeRange(e.target.value as "7d" | "30d" | "90d")
+            }
             className="rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500">
             <option value="7d">Last 7 days</option>
             <option value="30d">Last 30 days</option>

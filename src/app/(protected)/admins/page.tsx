@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { isSuperAdmin } from "@/src/lib/permissions";
 import { mockAdmins } from "@/src/mocks/admins";
 import AdminsTable from "./AdminsTable";
+import Link from "next/link";
 
 export default async function AdminsPage() {
   const session = await getServerAuthSession();
@@ -25,7 +26,7 @@ export default async function AdminsPage() {
             Manage admin accounts and permissions
           </p>
         </div>
-        <a
+        <Link
           href="/admins/create"
           className="inline-flex items-center justify-center px-4 py-2.5 bg-primary-500 text-white rounded-lg hover:bg-primary-600 transition-colors font-medium">
           <svg
@@ -41,7 +42,7 @@ export default async function AdminsPage() {
             />
           </svg>
           Add Admin
-        </a>
+        </Link>
       </div>
 
       {/* Admins Table */}

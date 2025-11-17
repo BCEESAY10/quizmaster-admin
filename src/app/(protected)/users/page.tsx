@@ -1,15 +1,13 @@
 "use client";
 
-import React, { useState } from "react";
-import { Plus, Search, Filter } from "lucide-react";
+import { useState } from "react";
+import { Search, Filter } from "lucide-react";
 import { useUsers } from "@/src/hooks/useUsers";
 import { Card } from "@/src/components/ui/Card";
 import { Button } from "@/src/components/ui/Button";
 import { Input } from "@/src/components/ui/Input";
-import { Badge } from "@/src/components/ui/Badge";
 import { DataTable } from "@/src/components/shared/DataTable";
-import { LoadingSpinner } from "@/src/components/ui/LoadingSpinner";
-import { formatDate, getStatusColor } from "@/src/utils/formatters";
+import { formatDate } from "@/src/utils/formatters";
 import { User } from "@/src/types";
 import { useRouter } from "next/navigation";
 

@@ -1,6 +1,7 @@
 import { defineConfig, globalIgnores } from "eslint/config";
 import nextVitals from "eslint-config-next/core-web-vitals";
 import nextTs from "eslint-config-next/typescript";
+import tsParser from "@typescript-eslint/parser";
 
 const eslintConfig = defineConfig([
   ...nextVitals,
@@ -27,27 +28,24 @@ const eslintConfig = defineConfig([
     ".env*",
   ]),
 
+  // Enable type-aware linting only for TypeScript files
+  // Type-aware linting for TypeScript files (flat config entry)
+  {
+    files: ["**/*.ts", "**/*.tsx"],
+    languageOptions: {
+      parser: tsParser,
+      parserOptions: {
+        project: "./tsconfig.json",
+        tsconfigRootDir: process.cwd(),
+        ecmaVersion: 2020,
+        sourceType: "module",
+      },
+    },
+  },
+
   // Custom rules
   {
     rules: {
-      "prettier/prettier": [
-        "error",
-        {
-          semi: true,
-          singleQuote: true,
-          quoteProps: "as-needed",
-          printWidth: 80,
-          tabWidth: 2,
-          jsxSingleQuote: true,
-          trailingComma: "all",
-          endOfLine: "auto",
-          arrowParens: "avoid",
-          bracketSpacing: true,
-          bracketSameLine: false,
-          embeddedLanguageFormatting: "auto",
-        },
-      ],
-
       // TypeScript rules
       "@typescript-eslint/no-unused-vars": "warn",
       "@typescript-eslint/explicit-function-return-type": "warn",

@@ -32,6 +32,7 @@ export default function LoginPage() {
       router.refresh();
     } catch (err) {
       setError("An error occurred. Please try again.");
+      console.error("Login failed:", err);
     } finally {
       setIsLoading(false);
     }

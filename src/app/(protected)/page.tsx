@@ -1,10 +1,8 @@
 "use client";
 
-import React from "react";
 import { Users, BookOpen, TrendingUp, Activity } from "lucide-react";
 import { StatsCard } from "@/src/components/dashboard/StatsCard";
 import { Card } from "@/src/components/ui/Card";
-import { Badge } from "@/src/components/ui/Badge";
 import { useAnalytics } from "@/src/hooks/useAnalytics";
 import { LoadingSpinner } from "@/src/components/ui/LoadingSpinner";
 import { formatNumber, formatDateTime } from "@/src/utils/formatters";
@@ -138,7 +136,7 @@ export default function DashboardPage() {
       {/* Recent Activity */}
       <Card title="Recent Activity" subtitle="Latest user actions">
         <div className="space-y-4">
-          {analytics.recentActivity.map((activity) => (
+          {analytics.recentActivity.map((activity: any) => (
             <div
               key={activity.id}
               className="flex items-center justify-between py-3 border-b border-gray-100 last:border-0">
@@ -147,7 +145,7 @@ export default function DashboardPage() {
                   <span className="text-primary-500 font-medium text-sm">
                     {activity.user
                       .split(" ")
-                      .map((n) => n[0])
+                      .map((n: any) => n[0])
                       .join("")}
                   </span>
                 </div>
