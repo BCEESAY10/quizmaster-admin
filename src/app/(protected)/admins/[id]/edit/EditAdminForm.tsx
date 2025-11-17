@@ -39,7 +39,7 @@ export default function EditAdminForm({
 
     try {
       // Prepare update data (don't send password if empty)
-      const updateData: any = {
+      const updateData: Admin = {
         fullName: data.fullName,
         email: data.email,
         role: data.role,
@@ -66,8 +66,9 @@ export default function EditAdminForm({
 
       router.push(`/admins/${admin.id}`);
       router.refresh();
-    } catch (err: any) {
-      setError(err.message || "Failed to update admin. Please try again.");
+    } catch (err) {
+      setError("Failed to update admin. Please try again.");
+      console.error("Admin update failed:", err);
     } finally {
       setIsLoading(false);
     }
