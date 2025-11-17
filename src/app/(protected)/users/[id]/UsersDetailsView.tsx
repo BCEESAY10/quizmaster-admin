@@ -4,8 +4,12 @@ import { useRouter } from "next/navigation";
 import { Avatar } from "@/src/components/ui/Avatar";
 import { Card } from "@/src/components/ui/Card";
 import { formatDate } from "@/src/utils/formatters";
-import { Trophy, Flame, CheckCircle } from "lucide-react";
+import { Trophy, Flame, CheckCircle, Trash2 } from "lucide-react";
 import { User } from "@/src/types";
+import { Button } from "@/src/components/ui/Button";
+import { useState } from "react";
+import { useDeleteUser } from "@/src/hooks/useUsers";
+import ConfirmDialog from "@/src/components/ui/ConfirmDialogue";
 
 interface UserDetailsViewProps {
   user: User;
@@ -13,6 +17,22 @@ interface UserDetailsViewProps {
 
 export default function UserDetailsPageView({ user }: UserDetailsViewProps) {
   const router = useRouter();
+  const deleteUser = useDeleteUser();
+  const [deleteId, setDeleteId] = useState<string | null>(null);
+
+  const handleDelete = (id: string) => {
+    setDeleteId(id);
+  };
+
+  const confirmDelete = () => {
+    if (deleteId) {
+      deleteUser.mutate(deleteId, {
+        onSuccess: () => {
+          setDeleteId(null);
+        },
+      });
+    }
+  };
 
   if (!user) {
     return (
@@ -33,7 +53,7 @@ export default function UserDetailsPageView({ user }: UserDetailsViewProps) {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
+    <div className="px-4 sm:px-6 lg:px-8">
       <div className="space-y-6 max-w-4xl mx-auto">
         {/* Back Button */}
         <button
@@ -56,14 +76,23 @@ export default function UserDetailsPageView({ user }: UserDetailsViewProps) {
 
         {/* Header Card */}
         <Card>
-          <div className="flex flex-col md:flex-row md:items-start gap-6">
-            <Avatar fullName={user.fullName} size="lg" />
-            <div className="flex-1">
-              <h1 className="text-2xl font-bold text-gray-900">
-                {user.fullName}
-              </h1>
-              <p className="text-gray-500 mt-1">{user.email}</p>
+          <div className="flex justify-between items-center">
+            <div className="flex flex-col md:flex-row md:items-start gap-6">
+              <Avatar fullName={user.fullName} />
+              <div className="flex-1">
+                <h1 className="text-2xl font-bold text-gray-900">
+                  {user.fullName}
+                </h1>
+                <p className="text-gray-500 mt-1">{user.email}</p>
+              </div>
             </div>
+            <Button
+              variant="danger"
+              leftIcon={<Trash2 className="h-4 w-4" />}
+              onClick={() => handleDelete(user.id)}
+              isLoading={deleteUser.isPending}>
+              Delete
+            </Button>
           </div>
         </Card>
 
@@ -159,6 +188,18 @@ export default function UserDetailsPageView({ user }: UserDetailsViewProps) {
           </div>
         </Card>
       </div>
+
+      {/* Delete Confirmation Dialog */}
+      <ConfirmDialog
+        isOpen={deleteId !== null}
+        onClose={() => setDeleteId(null)}
+        onConfirm={confirmDelete}
+        title="Delete User"
+        description="Are you sure you want to delete this user? This action cannot be undone."
+        confirmText="Delete"
+        cancelText="Cancel"
+        isLoading={deleteUser.isPending}
+      />
     </div>
   );
 }

@@ -188,8 +188,8 @@ export default function QuestionDetailPage() {
         isOpen={deleteId !== null}
         onClose={() => setDeleteId(null)}
         onConfirm={confirmDelete}
-        title="Delete Review"
-        description="Are you sure you want to delete this review? This action cannot be undone."
+        title="Delete Question"
+        description="Are you sure you want to delete this question? This action cannot be undone."
         confirmText="Delete"
         cancelText="Cancel"
         isLoading={deleteQuestion.isPending}
