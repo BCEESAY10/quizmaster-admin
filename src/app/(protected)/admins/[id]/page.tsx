@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { isSuperAdmin } from "@/src/lib/permissions";
 import AdminDetailsView from "./AdminDetailsView";
 import { mockAdmins } from "@/src/mocks/admins";
+import { Admin } from "@/src/types";
 
 interface Props {
   params: {
@@ -26,6 +27,9 @@ export default async function AdminDetailPage({ params }: Props) {
   }
 
   return (
-    <AdminDetailsView admin={admin} currentUserId={(session.user as any).id} />
+    <AdminDetailsView
+      admin={admin}
+      currentUserId={(session.user as Admin).id ?? ""}
+    />
   );
 }

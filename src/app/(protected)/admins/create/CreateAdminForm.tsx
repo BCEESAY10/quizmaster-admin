@@ -34,8 +34,9 @@ export default function CreateAdminForm() {
 
       router.push("/admins");
       router.refresh();
-    } catch (err: any) {
-      setError(err.message || "Failed to create admin. Please try again.");
+    } catch (err) {
+      setError("Failed to create admin. Please try again.");
+      console.error("Create admin failed:", err);
     } finally {
       setIsLoading(false);
     }
