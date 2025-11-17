@@ -1,10 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { useRouter } from "next/navigation";
 import { Admin } from "@/src/types";
 import { formatDate } from "@/src/utils/formatters";
-import { useDeleteAdmin } from "@/src/hooks/useAdmins";
 
 interface AdminDetailsViewProps {
   admin: Admin;
