@@ -3,7 +3,6 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 import { Admin } from "@/src/types";
-import { mockAdmins } from "@/src/mocks/admins";
 import { formatDate } from "@/src/utils/formatters";
 
 interface AdminDetailsViewProps {
@@ -45,6 +44,7 @@ export default function AdminDetailsView({
       router.push("/admins");
       router.refresh();
     } catch (error) {
+      console.error("Error:", error);
       alert("Failed to delete admin. Please try again.");
     }
   };
