@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Category, Question, User } from "../types";
+import { Admin, Category, Question, User } from "../types";
 
 const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000/api";
@@ -44,6 +44,14 @@ export const categoriesAPI = {
   update: (id: string, data: Partial<Category>) =>
     api.put(`/categories/${id}`, data),
   delete: (id: string) => api.delete(`/categories/${id}`),
+};
+
+export const adminsAPI = {
+  getAll: () => api.get("/admins"),
+  getById: (id: string) => api.get(`/admin/${id}`),
+  create: (data: Partial<Admin>) => api.post("/admin", data),
+  update: (id: string, data: Partial<Admin>) => api.put(`/admin/${id}`, data),
+  delete: (id: string) => api.delete(`/admin/${id}`),
 };
 
 export const analyticsAPI = {

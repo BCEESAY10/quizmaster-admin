@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Admin } from "@/src/types";
 import { formatDate } from "@/src/utils/formatters";
@@ -16,36 +16,20 @@ export default function AdminDetailsView({
 }: AdminDetailsViewProps) {
   const router = useRouter();
   const isCurrentUser = admin.id === currentUserId;
+  const [deleteId, setDeleteId] = useState<string | null>(null);
+  const delet;
 
-  const handleDelete = async () => {
-    if (isCurrentUser) {
-      alert("You cannot delete your own account");
-      return;
-    }
+  const handleDelete = (id: string) => {
+    setDeleteId(id);
+  };
 
-    if (
-      !confirm(
-        `Are you sure you want to delete ${admin.fullName}? This action cannot be undone.`
-      )
-    ) {
-      return;
-    }
-
-    try {
-      // TODO: Implement delete API call
-      const response = await fetch(`/api/admins/${admin.id}`, {
-        method: "DELETE",
+  const confirmDelete = () => {
+    if (deleteId) {
+      deleteQuestion.mutate(deleteId, {
+        onSuccess: () => {
+          setDeleteId(null);
+        },
       });
-
-      if (!response.ok) {
-        throw new Error("Failed to delete admin");
-      }
-
-      router.push("/admins");
-      router.refresh();
-    } catch (error) {
-      console.error("Error:", error);
-      alert("Failed to delete admin. Please try again.");
     }
   };
 
