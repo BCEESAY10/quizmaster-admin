@@ -36,7 +36,7 @@ export default async function EditAdminPage({ params }: Props) {
       <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
         <EditAdminForm
           admin={admin}
-          currentUserId={(session?.user as any).id}
+          currentUserId={(session?.user as Admin)?.id ?? ""}
         />
       </div>
     </div>
