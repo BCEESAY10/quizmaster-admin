@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Admin } from "@/src/types";
 import { formatDate } from "@/src/utils/formatters";
+import { useDeleteAdmin } from "@/src/hooks/useAdmins";
 
 interface AdminDetailsViewProps {
   admin: Admin;
@@ -16,22 +17,6 @@ export default function AdminDetailsView({
 }: AdminDetailsViewProps) {
   const router = useRouter();
   const isCurrentUser = admin.id === currentUserId;
-  const [deleteId, setDeleteId] = useState<string | null>(null);
-  const delet;
-
-  const handleDelete = (id: string) => {
-    setDeleteId(id);
-  };
-
-  const confirmDelete = () => {
-    if (deleteId) {
-      deleteQuestion.mutate(deleteId, {
-        onSuccess: () => {
-          setDeleteId(null);
-        },
-      });
-    }
-  };
 
   return (
     <div className="space-y-6 max-w-4xl">

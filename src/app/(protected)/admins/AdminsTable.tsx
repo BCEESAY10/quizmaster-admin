@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Admin } from "@/src/types";
 import { formatDate } from "@/src/utils/formatters";
+import { useDeleteAdmin } from "@/src/hooks/useAdmins";
+import ConfirmDialog from "@/src/components/ui/ConfirmDialogue";
 
 interface AdminsTableProps {
   admins: Admin[];
@@ -12,6 +14,23 @@ interface AdminsTableProps {
 export default function AdminsTable({ admins }: AdminsTableProps) {
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useState("");
+  const [deleteId, setDeleteId] = useState<string | null>(null);
+  const deleteAdmin = useDeleteAdmin();
+
+  const handleDelete = (e: React.MouseEvent<HTMLButtonElement>, id: string) => {
+    e.stopPropagation();
+    setDeleteId(id);
+  };
+
+  const confirmDelete = () => {
+    if (deleteId) {
+      deleteAdmin.mutate(deleteId, {
+        onSuccess: () => {
+          setDeleteId(null);
+        },
+      });
+    }
+  };
 
   const filteredAdmins = admins.filter(
     (admin) =>
@@ -117,17 +136,7 @@ export default function AdminsTable({ admins }: AdminsTableProps) {
                     Edit
                   </button>
                   <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      if (
-                        confirm(
-                          `Are you sure you want to delete ${admin.fullName}?`
-                        )
-                      ) {
-                        // TODO: Implement delete
-                        console.log("Delete admin:", admin.id);
-                      }
-                    }}
+                    onClick={(e) => handleDelete(e, admin.id)}
                     className="text-red-600 hover:text-red-900">
                     Delete
                   </button>
@@ -143,6 +152,18 @@ export default function AdminsTable({ admins }: AdminsTableProps) {
           </div>
         )}
       </div>
+
+      {/* Delete Confirmation Dialog */}
+      <ConfirmDialog
+        isOpen={deleteId !== null}
+        onClose={() => setDeleteId(null)}
+        onConfirm={confirmDelete}
+        title="Delete Review"
+        description="Are you sure you want to delete this review? This action cannot be undone."
+        confirmText="Delete"
+        cancelText="Cancel"
+        isLoading={deleteAdmin.isPending}
+      />
     </div>
   );
 }
