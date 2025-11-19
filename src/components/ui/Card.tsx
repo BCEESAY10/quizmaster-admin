@@ -22,7 +22,7 @@ export function Card({
         "bg-white rounded-lg shadow-sm border border-gray-200",
         className
       )}>
-      {(title || action) && (
+      {(title ?? action) && (
         <div className="px-6 py-4 border-b border-gray-200 flex items-center justify-between">
           <div>
             {title && (

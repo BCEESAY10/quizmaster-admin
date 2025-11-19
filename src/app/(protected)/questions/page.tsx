@@ -24,7 +24,7 @@ export default function QuestionsPage() {
   const { data: questions, isLoading } = useQuestions();
   const { data: categories } = useCategories();
 
-  const allQuestions = Object.values(questions || {}).flat();
+  const allQuestions = Object.values(questions ?? {}).flat();
 
   const filteredQuestions = allQuestions.filter((question: Question) =>
     question.question.toLowerCase().includes(searchQuery.toLowerCase())

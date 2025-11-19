@@ -1,15 +1,15 @@
 "use client";
 
 import React from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm, SubmitHandler, DefaultValues } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ZodSchema } from "zod";
+import { z } from "zod";
 import { clsx } from "clsx";
 
 interface FormProps<T extends Record<string, any>> {
-  schema: ZodSchema<T>;
+  schema: z.ZodAny;
   onSubmit: SubmitHandler<T>;
-  defaultValues?: Partial<T>;
+  defaultValues?: DefaultValues<T>;
   children: (methods: ReturnType<typeof useForm<T>>) => React.ReactNode;
   className?: string;
   submitButton?: {

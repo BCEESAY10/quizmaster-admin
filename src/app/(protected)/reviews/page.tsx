@@ -77,7 +77,7 @@ export default function ReviewsPage() {
         <div className="mb-8">
           <h1 className="text-2xl font-bold text-gray-900 mb-2">Reviews</h1>
           <p className="text-gray-500">
-            {data?.total || 0} total review{data?.total !== 1 ? "s" : ""}
+            {data?.total ?? 0} total review{data?.total !== 1 ? "s" : ""}
           </p>
         </div>
 
@@ -92,7 +92,7 @@ export default function ReviewsPage() {
             <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
               {/* Rating Filter */}
               <select
-                value={ratingFilter || ""}
+                value={ratingFilter ?? ""}
                 onChange={(e) => {
                   setRatingFilter(
                     e.target.value ? Number(e.target.value) : undefined
@@ -110,7 +110,7 @@ export default function ReviewsPage() {
 
               {/* Date Filter */}
               <select
-                value={dateFilter || ""}
+                value={dateFilter ?? ""}
                 onChange={(e) => {
                   setDateFilter(e.target.value || undefined);
                   setPage(1);

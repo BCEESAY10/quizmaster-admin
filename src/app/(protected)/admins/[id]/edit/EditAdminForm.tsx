@@ -58,7 +58,7 @@ export default function EditAdminForm({
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.message || "Failed to update admin");
+        throw new Error(errorData.message ?? "Failed to update admin");
       }
 
       // Simulate success

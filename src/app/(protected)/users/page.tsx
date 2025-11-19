@@ -100,7 +100,7 @@ export default function UsersPage() {
       {/* Users table */}
       <Card>
         <DataTable
-          data={filteredUsers || []}
+          data={filteredUsers ?? []}
           columns={columns}
           isLoading={isLoading}
           onRowClick={(user) => router.push(`/users/${user.id}`)}

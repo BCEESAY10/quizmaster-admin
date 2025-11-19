@@ -42,8 +42,8 @@ export function useReviews(params?: {
         }
 
         // Pagination
-        const page = params?.page || 1;
-        const limit = params?.limit || 9;
+        const page = params?.page ?? 1;
+        const limit = params?.limit ?? 9;
         const startIndex = (page - 1) * limit;
         const endIndex = startIndex + limit;
         const paginatedReviews = filteredReviews.slice(startIndex, endIndex);

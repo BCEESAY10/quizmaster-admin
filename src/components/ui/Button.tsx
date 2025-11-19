@@ -36,11 +36,11 @@ export function Button({
           "px-3 py-1.5 text-sm": size === "sm",
           "px-4 py-2 text-base": size === "md",
           "px-6 py-3 text-lg": size === "lg",
-          "opacity-50 cursor-not-allowed": disabled || isLoading,
+          "opacity-50 cursor-not-allowed": disabled ?? isLoading,
         },
         className
       )}
-      disabled={disabled || isLoading}
+      disabled={disabled ?? isLoading}
       {...props}>
       {isLoading ? (
         <svg

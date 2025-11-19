@@ -26,7 +26,7 @@ export default function CreateAdminForm() {
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.message || "Failed to create admin");
+        throw new Error(errorData.message ?? "Failed to create admin");
       }
 
       // Simulate success

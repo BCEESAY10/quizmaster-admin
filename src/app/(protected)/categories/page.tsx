@@ -142,7 +142,7 @@ export default function CategoriesPage() {
         <Card>
           <div className="text-center">
             <p className="text-3xl font-bold text-gray-900">
-              {categories?.length || 0}
+              {categories?.length ?? 0}
             </p>
             <p className="text-sm text-gray-500 mt-1">Total Categories</p>
           </div>
@@ -154,7 +154,7 @@ export default function CategoriesPage() {
                 categories?.reduce(
                   (sum: number, cat: Category) => sum + (cat.questions ?? 0),
                   0
-                ) || 0
+                ) ?? 0
               )}
             </p>
             <p className="text-sm text-gray-500 mt-1">Total Questions</p>

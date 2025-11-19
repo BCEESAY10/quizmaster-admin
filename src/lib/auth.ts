@@ -26,7 +26,7 @@ export const authOptions: NextAuthOptions = {
 
         // Verify password
         const isValidPassword = await bcrypt.compare(
-          credentials.password as string,
+          credentials.password,
           admin.password as string
         );
 
