@@ -15,6 +15,7 @@ import { formatNumber } from "@/src/utils/formatters";
 import { Category } from "@/src/types";
 import CreateCategoryModal from "@/src/components/modal/CreateCategory";
 import EditCategoryModal from "@/src/components/modal/EditCategory";
+import { IconRegistry } from "@/src/components/ui/icons/icon-registry";
 
 export default function CategoriesPage() {
   const { data: categories, isLoading } = useCategories();
@@ -63,54 +64,61 @@ export default function CategoriesPage() {
     setIsEditModalOpen(true);
   };
 
-  const CategoryCard = ({ category }: { category: Category }) => (
-    <Card>
-      <div className="flex items-start justify-between">
-        <div className="flex items-center space-x-4">
-          <div
-            className="h-16 w-16 rounded-xl flex items-center justify-center text-3xl"
-            style={{ backgroundColor: category.color + "20" }}>
-            {category.icon}
-          </div>
-          <div>
-            <h3 className="text-lg font-semibold text-gray-900">
-              {category.name}
-            </h3>
+  const CategoryCard = ({ category }: { category: Category }) => {
+    const IconComponent =
+      IconRegistry[category.icon as keyof typeof IconRegistry];
 
-            <div className="flex items-center gap-4 mt-2">
-              <Badge variant="default">
-                {formatNumber(category.questions ?? 0)} questions
-              </Badge>
+    return (
+      <Card>
+        <div className="flex items-start justify-between">
+          <div className="flex items-center space-x-4">
+            <div
+              className="h-16 w-16 rounded-xl flex items-center justify-center text-3xl"
+              style={{ backgroundColor: category.color + "20" }}>
+              {IconComponent ? (
+                <IconComponent width={48} height={48} fill={category.color} />
+              ) : null}
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold text-gray-900">
+                {category.name}
+              </h3>
+
+              <div className="flex items-center gap-4 mt-2">
+                <Badge variant="default">
+                  {formatNumber(category.questions ?? 0)} questions
+                </Badge>
+              </div>
+            </div>
+          </div>
+          <div className="flex gap-2">
+            <button
+              className="p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
+              onClick={() => handleShowEditModal(category)}>
+              <Edit className="h-4 w-4" />
+            </button>
+            <button
+              className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+              onClick={() => console.log("Delete", category.id)}>
+              <Trash2 className="h-4 w-4" />
+            </button>
+          </div>
+        </div>
+
+        {/* Stats */}
+        <div className="mt-6 pt-6 border-t border-gray-200">
+          <div className="grid grid-cols-3 gap-4 text-center">
+            <div>
+              <p className="text-2xl font-bold text-gray-900">
+                {category.questions}
+              </p>
+              <p className="text-xs text-gray-500 mt-1">Questions</p>
             </div>
           </div>
         </div>
-        <div className="flex gap-2">
-          <button
-            className="p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
-            onClick={() => handleShowEditModal(category)}>
-            <Edit className="h-4 w-4" />
-          </button>
-          <button
-            className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
-            onClick={() => console.log("Delete", category.id)}>
-            <Trash2 className="h-4 w-4" />
-          </button>
-        </div>
-      </div>
-
-      {/* Stats */}
-      <div className="mt-6 pt-6 border-t border-gray-200">
-        <div className="grid grid-cols-3 gap-4 text-center">
-          <div>
-            <p className="text-2xl font-bold text-gray-900">
-              {category.questions}
-            </p>
-            <p className="text-xs text-gray-500 mt-1">Questions</p>
-          </div>
-        </div>
-      </div>
-    </Card>
-  );
+      </Card>
+    );
+  };
 
   if (isLoading) {
     return (
