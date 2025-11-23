@@ -2,6 +2,8 @@ import { Category } from "@/src/types";
 import { ChangeEvent, FormEvent, useState } from "react";
 import Drawer from "react-modern-drawer";
 import "react-modern-drawer/dist/index.css";
+import { FormSelect } from "../forms/FormSelect";
+import { IconRegistry } from "../ui/icons/icon-registry";
 
 interface CreateCategoryModalProps {
   showModal: boolean;
@@ -24,8 +26,11 @@ const CreateCategoryModal = ({
   );
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const PreviewIcon =
+    form.icon && IconRegistry[form.icon as keyof typeof IconRegistry];
+
   const handleChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
@@ -105,7 +110,7 @@ const CreateCategoryModal = ({
       onClose={handleClose}
       direction="right"
       size={500}
-      className="!w-full sm:!w-[500px]">
+      className="w-full sm:w-[500px]">
       <div className="flex flex-col h-full">
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-200">
@@ -165,35 +170,43 @@ const CreateCategoryModal = ({
               <label
                 htmlFor="icon"
                 className="block text-sm font-medium text-gray-700 mb-2">
-                Icon (Emoji) <span className="text-red-500">*</span>
+                Icon <span className="text-red-500">*</span>
               </label>
               <div className="flex items-center gap-3">
-                {form.icon && (
-                  <div className="flex-shrink-0 w-12 h-12 flex items-center justify-center bg-gray-100 rounded-lg text-2xl">
-                    {form.icon}
+                {PreviewIcon && (
+                  <div className="shrink-0 w-12 h-12 flex items-center justify-center bg-gray-100 rounded-lg">
+                    <PreviewIcon width={32} height={32} fill="#333" />
                   </div>
                 )}
-                <input
-                  type="text"
+
+                <select
                   id="icon"
                   name="icon"
                   value={form.icon}
                   onChange={handleChange}
-                  placeholder="🧪 ⚽ 🌍 📚"
+                  disabled={isSubmitting}
                   className={`flex-1 px-4 py-2.5 border rounded-lg focus:outline-none focus:ring-2 transition-colors ${
                     errors.icon
                       ? "border-red-500 focus:ring-red-500"
                       : "border-gray-300 focus:ring-primary-500"
-                  }`}
-                  disabled={isSubmitting}
-                  maxLength={2}
-                />
+                  }`}>
+                  <option value="">Select an icon</option>
+                  <option value="science">Science</option>
+                  <option value="sports">Sports</option>
+                  <option value="arts">Arts</option>
+                  <option value="maths">Maths</option>
+                  <option value="geography">Geography</option>
+                  <option value="english">English</option>
+                  <option value="history">History</option>
+                  <option value="literature">Literature</option>
+                  <option value="computer">Computer</option>
+                </select>
               </div>
               {errors.icon && (
                 <p className="mt-1 text-sm text-red-600">{errors.icon}</p>
               )}
               <p className="mt-1 text-xs text-gray-500">
-                Use a single emoji to represent this category
+                Select a name for an icon to represent this category
               </p>
             </div>
 
@@ -240,16 +253,20 @@ const CreateCategoryModal = ({
                 <p className="text-sm font-medium text-gray-700 mb-3">
                   Preview:
                 </p>
+
                 <div
                   className="flex items-center gap-3 p-4 rounded-lg"
                   style={{ backgroundColor: form.color + "20" }}>
-                  {form.icon && (
+                  {/* SVG ICON PREVIEW */}
+                  {PreviewIcon && (
                     <div
-                      className="w-12 h-12 rounded-lg flex items-center justify-center text-2xl"
+                      className="w-12 h-12 flex items-center justify-center rounded-lg"
                       style={{ backgroundColor: form.color + "40" }}>
-                      {form.icon}
+                      <PreviewIcon width={32} height={32} fill="#333" />
                     </div>
                   )}
+
+                  {/* TEXT */}
                   <div>
                     <p className="font-semibold text-gray-900">
                       {form.name || "Category Name"}
