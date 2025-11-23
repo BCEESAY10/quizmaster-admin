@@ -20,6 +20,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { Category } from "@/src/types";
+import { IconRegistry } from "@/src/components/ui/icons/icon-registry";
 
 export default function AnalyticsPage() {
   const { data: analytics, isLoading: analyticsLoading } = useAnalytics();
@@ -222,12 +223,22 @@ export default function AnalyticsPage() {
                     : 0;
                 const maxAttempts = Math.max(200);
                 const popularity = Math.round((200 / maxAttempts) * 100);
+                const CategoryIcon =
+                  IconRegistry[category.icon as keyof typeof IconRegistry];
 
                 return (
                   <tr key={category.id}>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center">
-                        <span className="text-2xl mr-3">{category.icon}</span>
+                        <span className="text-2xl mr-3">
+                          {
+                            <CategoryIcon
+                              width={32}
+                              height={32}
+                              fill={category.color}
+                            />
+                          }
+                        </span>
                         <span className="text-sm font-medium text-gray-900">
                           {category.name}
                         </span>
