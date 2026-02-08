@@ -1,7 +1,6 @@
 import { getServerAuthSession } from "@/src/lib/auth";
 import { redirect } from "next/navigation";
 import { isSuperAdmin } from "@/src/lib/permissions";
-import { mockAdmins } from "@/src/mocks/admins";
 import AdminsTable from "./AdminsTable";
 import Link from "next/link";
 
@@ -12,9 +11,6 @@ export default async function AdminsPage() {
   if (!isSuperAdmin(session)) {
     redirect("/");
   }
-
-  // TODO: Fetch admins from database
-  const admins = mockAdmins;
 
   return (
     <div className="space-y-6">
@@ -46,7 +42,7 @@ export default async function AdminsPage() {
       </div>
 
       {/* Admins Table */}
-      <AdminsTable admins={admins} />
+      <AdminsTable />
     </div>
   );
 }

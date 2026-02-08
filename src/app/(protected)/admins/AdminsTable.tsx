@@ -2,19 +2,17 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Admin } from "@/src/types";
 import { formatDate } from "@/src/utils/formatters";
-import { useDeleteAdmin } from "@/src/hooks/useAdmins";
+import { useDeleteAdmin, useAdmins } from "@/src/hooks/useAdmins";
+import { LoadingSpinner } from "@/src/components/ui/LoadingSpinner";
 import ConfirmDialog from "@/src/components/ui/ConfirmDialogue";
+import { Admin } from "@/src/types";
 
-interface AdminsTableProps {
-  admins: Admin[];
-}
-
-export default function AdminsTable({ admins }: AdminsTableProps) {
+export default function AdminsTable() {
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useState("");
   const [deleteId, setDeleteId] = useState<string | null>(null);
+  const { data: admins, isLoading } = useAdmins();
   const deleteAdmin = useDeleteAdmin();
 
   const handleDelete = (e: React.MouseEvent<HTMLButtonElement>, id: string) => {
@@ -32,10 +30,18 @@ export default function AdminsTable({ admins }: AdminsTableProps) {
     }
   };
 
-  const filteredAdmins = admins.filter(
-    (admin) =>
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-96">
+        <LoadingSpinner size="lg" />
+      </div>
+    );
+  }
+
+  const filteredAdmins = (admins || []).filter(
+    (admin: Admin) =>
       admin.fullName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      admin.email.toLowerCase().includes(searchQuery.toLowerCase())
+      admin.email.toLowerCase().includes(searchQuery.toLowerCase()),
   );
 
   return (
@@ -86,19 +92,19 @@ export default function AdminsTable({ admins }: AdminsTableProps) {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200">
-            {filteredAdmins.map((admin) => (
+            {filteredAdmins.map((admin: any) => (
               <tr
                 key={admin.id}
                 onClick={() => router.push(`/admins/${admin.id}`)}
                 className="hover:bg-gray-50 cursor-pointer transition-colors">
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="flex items-center">
-                    <div className="h-10 w-10 flex-shrink-0">
+                    <div className="h-10 w-10 shrink-0">
                       <div className="h-10 w-10 rounded-full bg-primary-100 flex items-center justify-center">
                         <span className="text-primary-600 font-medium text-sm">
                           {admin.fullName
                             .split(" ")
-                            .map((n) => n[0])
+                            .map((n: any) => n[0])
                             .join("")
                             .toUpperCase()}
                         </span>

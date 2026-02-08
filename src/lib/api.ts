@@ -2,7 +2,7 @@ import axios from "axios";
 import { Admin, Category, Question, User } from "../types";
 
 const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3000/api";
+  process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:5000/api/v1";
 
 export const api = axios.create({
   baseURL: API_BASE_URL,
@@ -48,10 +48,17 @@ export const categoriesAPI = {
 
 export const adminsAPI = {
   getAll: () => api.get("/admins"),
-  getById: (id: string) => api.get(`/admin/${id}`),
-  create: (data: Partial<Admin>) => api.post("/admin", data),
-  update: (id: string, data: Partial<Admin>) => api.put(`/admin/${id}`, data),
-  delete: (id: string) => api.delete(`/admin/${id}`),
+  getById: (id: string) => api.get(`/admins/${id}`),
+  create: (data: Partial<Admin>) => api.post("/admins", data),
+  update: (id: string, data: Partial<Admin>) => api.put(`/admins/${id}`, data),
+  delete: (id: string) => api.delete(`/admins/${id}`),
+  bootstrap: (
+    adminSetupKey: string,
+    data: { fullname: string; email: string; password: string },
+  ) =>
+    api.post("/admin/bootstrap", data, {
+      headers: { "x-admin-setup-key": adminSetupKey },
+    }),
 };
 
 export const analyticsAPI = {
