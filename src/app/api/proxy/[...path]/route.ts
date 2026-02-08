@@ -65,9 +65,23 @@ async function proxyRequest(
       process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api/v1";
     const backendUrl = `${backendBaseUrl}/${pathSegments.join("/")}${request.nextUrl.search}`;
 
-    const headers: Record<string, string> = {
-      "Content-Type": "application/json",
-    };
+    const headers: Record<string, string> = {};
+
+    // Copy over custom headers (like x-admin-setup-key) - but skip content-type
+    request.headers.forEach((value, key) => {
+      const lowerKey = key.toLowerCase();
+      if (
+        lowerKey !== "host" &&
+        lowerKey !== "content-length" &&
+        lowerKey !== "connection" &&
+        lowerKey !== "content-type"
+      ) {
+        headers[key] = value;
+      }
+    });
+
+    // Always set Content-Type for JSON requests
+    headers["Content-Type"] = "application/json";
 
     // Add JWT token if session exists
     if (session?.user) {
@@ -83,17 +97,6 @@ async function proxyRequest(
         "[Proxy] No session found - request will be unauthenticated",
       );
     }
-
-    // Copy over custom headers (like x-admin-setup-key)
-    request.headers.forEach((value, key) => {
-      if (
-        key.toLowerCase() !== "host" &&
-        key.toLowerCase() !== "content-length" &&
-        key.toLowerCase() !== "connection"
-      ) {
-        headers[key] = value;
-      }
-    });
 
     const body =
       request.method !== "GET" && request.method !== "DELETE"
