@@ -2,9 +2,9 @@ export interface User {
   id: string;
   fullName: string;
   email: string;
-  joinedAt: string;
-  lastActive: string;
-  stats: {
+  joinedAt?: string;
+  lastActive?: string;
+  stats?: {
     quizzesCompleted: number;
     totalPoints: number;
     streak: number;
@@ -13,12 +13,9 @@ export interface User {
 
 export type AdminRole = "super_admin" | "admin";
 
-export interface Admin {
-  id?: string;
-  email: string;
-  fullName: string;
+export interface Admin extends User {
   password?: string;
-  role?: AdminRole;
+  role: AdminRole;
   createdAt?: string;
   updatedAt?: string;
 }

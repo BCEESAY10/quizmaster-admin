@@ -19,7 +19,7 @@ export default function UsersPage() {
   const filteredUsers = users?.filter(
     (user: User) =>
       user.fullName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      user.email.toLowerCase().includes(searchQuery.toLowerCase())
+      user.email.toLowerCase().includes(searchQuery.toLowerCase()),
   );
 
   const columns = [
@@ -48,7 +48,7 @@ export default function UsersPage() {
       header: "Quizzes",
       render: (user: User) => (
         <span className="text-sm text-gray-900">
-          {user.stats.quizzesCompleted}
+          {user?.stats?.quizzesCompleted}
         </span>
       ),
     },
@@ -56,7 +56,9 @@ export default function UsersPage() {
       key: "points",
       header: "Points",
       render: (user: User) => (
-        <span className="text-sm text-gray-900">{user.stats.totalPoints}</span>
+        <span className="text-sm text-gray-900">
+          {user?.stats?.totalPoints}
+        </span>
       ),
     },
     {
@@ -64,7 +66,7 @@ export default function UsersPage() {
       header: "Joined",
       render: (user: User) => (
         <span className="text-sm text-gray-500">
-          {formatDate(user.joinedAt)}
+          {formatDate(user?.joinedAt ?? "")}
         </span>
       ),
     },
