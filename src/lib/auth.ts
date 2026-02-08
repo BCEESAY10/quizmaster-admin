@@ -1,8 +1,10 @@
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import bcrypt from "bcryptjs";
 import { Admin } from "@/src/types";
-import { mockAdmins } from "../mocks/admins";
+import axios from "axios";
+
+const API_BASE_URL =
+  process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:5000/api/v1";
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -17,30 +19,27 @@ export const authOptions: NextAuthOptions = {
           throw new Error("Email and password are required");
         }
 
-        // Find admin by email
-        const admin = mockAdmins.find((a) => a.email === credentials.email);
+        try {
+          // Call backend login endpoint
+          const response = await axios.post(`${API_BASE_URL}/auth/login`, {
+            email: credentials.email,
+            password: credentials.password,
+          });
 
-        if (!admin) {
-          throw new Error("Invalid credentials");
+          const admin = response.data?.user || response.data;
+
+          // Return user object (without password)
+          return {
+            id: admin.id,
+            email: admin.email,
+            fullName: admin.fullName,
+            role: admin.role ?? "admin",
+          };
+        } catch (error: any) {
+          const message =
+            error.response?.data?.message || "Invalid credentials";
+          throw new Error(message);
         }
-
-        // Verify password
-        const isValidPassword = await bcrypt.compare(
-          credentials.password,
-          admin.password as string
-        );
-
-        if (!isValidPassword) {
-          throw new Error("Invalid credentials");
-        }
-
-        // Return user object (without password) and ensure role is a string
-        return {
-          id: admin.id!,
-          email: admin.email,
-          fullName: admin.fullName,
-          role: admin.role ?? "admin",
-        };
       },
     }),
   ],

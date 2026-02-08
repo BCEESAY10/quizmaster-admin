@@ -40,6 +40,15 @@ export const createAdminSchema = z.object({
 
 export type CreateAdminInput = z.infer<typeof createAdminSchema>;
 
+// Bootstrap Admin validation (for initial setup - no role needed)
+export const bootstrapAdminSchema = z.object({
+  fullName: z.string().min(2, "Name must be at least 2 characters"),
+  email: z.string().email("Invalid email address"),
+  password: z.string().min(8, "Password must be at least 8 characters"),
+});
+
+export type BootstrapAdminInput = z.infer<typeof bootstrapAdminSchema>;
+
 // Edit Admin validation (password optional)
 export const editAdminSchema = z.object({
   fullName: z.string().min(2, "Name must be at least 2 characters"),
