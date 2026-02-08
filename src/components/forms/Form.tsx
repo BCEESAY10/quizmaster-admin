@@ -7,7 +7,7 @@ import { z } from "zod";
 import { clsx } from "clsx";
 
 interface FormProps<T extends Record<string, any>> {
-  schema: z.ZodAny;
+  schema: z.ZodSchema;
   onSubmit: SubmitHandler<T>;
   defaultValues?: DefaultValues<T>;
   children: (methods: ReturnType<typeof useForm<T>>) => React.ReactNode;
@@ -30,7 +30,7 @@ export function Form<T extends Record<string, any>>({
   isLoading = false,
 }: FormProps<T>) {
   const methods = useForm<T>({
-    resolver: zodResolver(schema),
+    resolver: zodResolver(schema as any),
     defaultValues,
   });
 
@@ -55,7 +55,7 @@ export function Form<T extends Record<string, any>>({
                 "bg-gray-300 text-gray-500 cursor-not-allowed":
                   isLoading || methods.formState.isSubmitting,
               },
-              submitButton.className
+              submitButton.className,
             )}>
             {isLoading || methods.formState.isSubmitting ? (
               <span className="flex items-center">
