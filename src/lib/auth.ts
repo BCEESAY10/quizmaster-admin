@@ -27,13 +27,15 @@ export const authOptions: NextAuthOptions = {
           });
 
           const admin = response.data?.user || response.data;
+          const token = response.data?.token || response.data?.accessToken;
 
-          // Return user object (without password)
+          // Return user object with token
           return {
             id: admin.id,
             email: admin.email,
             fullName: admin.fullName,
             role: admin.role ?? "admin",
+            accessToken: token,
           };
         } catch (error: any) {
           const message =
@@ -47,8 +49,9 @@ export const authOptions: NextAuthOptions = {
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
-        token.role = (user as Admin).role;
-        token.fullName = (user as Admin).fullName;
+        token.role = (user as any).role;
+        token.fullName = (user as any).fullName;
+        token.accessToken = (user as any).accessToken;
       }
       return token;
     },
@@ -58,6 +61,8 @@ export const authOptions: NextAuthOptions = {
         session.user.role = token.role as string;
         session.user.fullName = token.fullName as string;
       }
+      // Attach accessToken to session for server-side access
+      (session as any).accessToken = token.accessToken;
       return session;
     },
   },

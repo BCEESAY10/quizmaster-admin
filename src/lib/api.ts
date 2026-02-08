@@ -1,8 +1,9 @@
 import axios from "axios";
 import { Admin, Category, Question, User } from "../types";
 
-const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:5000/api/v1";
+// Use Next.js API proxy route instead of direct backend URL
+// This allows us to attach the NextAuth JWT token server-side
+const API_BASE_URL = "/api/proxy";
 
 export const api = axios.create({
   baseURL: API_BASE_URL,
@@ -11,12 +12,8 @@ export const api = axios.create({
   },
 });
 
-// Add auth token to requests
+// No need for token in interceptor - the proxy route handles it server-side
 api.interceptors.request.use((config) => {
-  const token = localStorage.getItem("authToken");
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
   return config;
 });
 
