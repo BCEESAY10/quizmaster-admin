@@ -4,11 +4,10 @@ export interface User {
   email: string;
   joinedAt?: string;
   lastActive?: string;
-  stats?: {
-    quizzesCompleted: number;
-    totalPoints: number;
-    streak: number;
-  };
+  totalQuizzes: number;
+  totalPoints: number;
+  streak: number;
+  role?: string;
 }
 
 export type AdminRole = "super_admin" | "admin";

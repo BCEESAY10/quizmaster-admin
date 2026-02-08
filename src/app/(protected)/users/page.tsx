@@ -18,8 +18,8 @@ export default function UsersPage() {
 
   const filteredUsers = users?.filter(
     (user: User) =>
-      user.fullName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      user.email.toLowerCase().includes(searchQuery.toLowerCase()),
+      user.fullName?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      user.email?.toLowerCase().includes(searchQuery.toLowerCase()),
   );
 
   const columns = [
@@ -31,14 +31,16 @@ export default function UsersPage() {
           <div className="h-10 w-10 rounded-full bg-primary-100 flex items-center justify-center mr-3">
             <span className="text-primary-500 font-medium">
               {user.fullName
-                .split(" ")
+                ?.split(" ")
                 .map((n) => n[0])
-                .join("")}
+                .join("") || "?"}
             </span>
           </div>
           <div>
-            <p className="text-sm font-medium text-gray-900">{user.fullName}</p>
-            <p className="text-sm text-gray-500">{user.email}</p>
+            <p className="text-sm font-medium text-gray-900">
+              {user.fullName || "N/A"}
+            </p>
+            <p className="text-sm text-gray-500">{user.email || "N/A"}</p>
           </div>
         </div>
       ),
@@ -47,18 +49,14 @@ export default function UsersPage() {
       key: "stats",
       header: "Quizzes",
       render: (user: User) => (
-        <span className="text-sm text-gray-900">
-          {user?.stats?.quizzesCompleted}
-        </span>
+        <span className="text-sm text-gray-900">{user?.totalQuizzes}</span>
       ),
     },
     {
       key: "points",
       header: "Points",
       render: (user: User) => (
-        <span className="text-sm text-gray-900">
-          {user?.stats?.totalPoints}
-        </span>
+        <span className="text-sm text-gray-900">{user?.totalPoints}</span>
       ),
     },
     {
