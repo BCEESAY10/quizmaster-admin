@@ -22,7 +22,7 @@ export default function CategoriesPage() {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(
-    null
+    null,
   );
   const { mutate: createCategory } = useCreateCategory();
   const { mutate: updateCategory } = useUpdateCategory();
@@ -55,7 +55,7 @@ export default function CategoriesPage() {
           alert("Error occurred");
           console.error("Update category error", error);
         },
-      }
+      },
     );
   };
 
@@ -146,7 +146,7 @@ export default function CategoriesPage() {
       </div>
 
       {/* Stats overview */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <Card>
           <div className="text-center">
             <p className="text-3xl font-bold text-gray-900">
@@ -161,17 +161,11 @@ export default function CategoriesPage() {
               {formatNumber(
                 categories?.reduce(
                   (sum: number, cat: Category) => sum + (cat.questions ?? 0),
-                  0
-                ) ?? 0
+                  0,
+                ) ?? 0,
               )}
             </p>
             <p className="text-sm text-gray-500 mt-1">Total Questions</p>
-          </div>
-        </Card>
-        <Card>
-          <div className="text-center">
-            <p className="text-3xl font-bold text-gray-900">400</p>
-            <p className="text-sm text-gray-500 mt-1">Total Attempts</p>
           </div>
         </Card>
         <Card>
@@ -182,8 +176,8 @@ export default function CategoriesPage() {
                     categories.reduce(
                       (sum: number, cat: Category) =>
                         sum + (cat.questions ?? 0),
-                      0
-                    ) / categories.length
+                      0,
+                    ) / categories.length,
                   )
                 : 0}
             </p>
