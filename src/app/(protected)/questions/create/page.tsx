@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 import { ArrowLeft, Plus, X } from "lucide-react";
 import { useCreateQuestion } from "@/src/hooks/useQuestions";
 import { useCategories } from "@/src/hooks/useCategories";
@@ -13,6 +14,7 @@ import { Category } from "@/src/types";
 
 export default function CreateQuestionPage() {
   const router = useRouter();
+  const { data: session } = useSession();
   const { data: categories, isLoading: categoriesLoading } = useCategories();
   const createQuestion = useCreateQuestion();
 
@@ -105,6 +107,7 @@ export default function CreateQuestionPage() {
     try {
       await createQuestion.mutateAsync({
         ...formData,
+        author: session?.user?.id,
       });
 
       alert("Question created successfully!");
