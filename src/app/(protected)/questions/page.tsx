@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { Plus, Search, Download, Upload } from "lucide-react";
 import { useQuestions } from "@/src/hooks/useQuestions";
 import { useCategories } from "@/src/hooks/useCategories";
+import { useAdmins } from "@/src/hooks/useAdmins";
 import { Card } from "@/src/components/ui/Card";
 import { Button } from "@/src/components/ui/Button";
 import { Input } from "@/src/components/ui/Input";
@@ -11,7 +12,7 @@ import { Badge } from "@/src/components/ui/Badge";
 import { DataTable } from "@/src/components/shared/DataTable";
 import { LoadingSpinner } from "@/src/components/ui/LoadingSpinner";
 import { formatDate } from "@/src/utils/formatters";
-import { Category, Question } from "@/src/types";
+import { Admin, Category, Question } from "@/src/types";
 import { useRouter } from "next/navigation";
 
 export default function QuestionsPage() {
@@ -23,12 +24,31 @@ export default function QuestionsPage() {
 
   const { data: questions, isLoading } = useQuestions();
   const { data: categories } = useCategories();
+  const { data: admins } = useAdmins();
 
   const allQuestions = Object.values(questions ?? {}).flat();
 
-  const filteredQuestions = allQuestions.filter((question: Question) =>
-    question.question.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredQuestions = allQuestions.filter((question: Question) => {
+    const categoryName =
+      typeof question.category === "string"
+        ? question.category
+        : (question.category?.name ?? "");
+
+    const matchesSearch = question.question
+      .toLowerCase()
+      .includes(searchQuery.toLowerCase());
+    const matchesCategory = selectedCategory
+      ? categoryName === selectedCategory
+      : true;
+    const matchesTimer = selectedTimer
+      ? question.timer === Number(selectedTimer)
+      : true;
+    const matchesAuthor = selectedAuthor
+      ? question.author?.id === selectedAuthor
+      : true;
+
+    return matchesSearch && matchesCategory && matchesTimer && matchesAuthor;
+  });
 
   const columns = [
     {
@@ -40,7 +60,8 @@ export default function QuestionsPage() {
             {q.question}
           </p>
           <p className="text-xs text-gray-500 mt-1">
-            {q.options.length} options • {q.timer}s timer • {q.point} point
+            {q.options.length} options • {q.timer}s timer • {q.score ?? 0} point
+            • {q.difficulty ?? "medium"}
           </p>
         </div>
       ),
@@ -48,7 +69,16 @@ export default function QuestionsPage() {
     {
       key: "category",
       header: "Category",
-      render: (q: Question) => <Badge variant="default">{q.category}</Badge>,
+      render: (q: Question) => {
+        const categoryLabel =
+          typeof q.category === "string"
+            ? q.category
+            : (q.category as { name?: string })?.name;
+
+        return (
+          <Badge variant="default">{categoryLabel || "Uncategorized"}</Badge>
+        );
+      },
     },
 
     {
@@ -122,8 +152,10 @@ export default function QuestionsPage() {
             onChange={(e) => setSelectedCategory(e.target.value)}
             className="block w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary-500">
             <option value="">All Categories</option>
-            {categories?.map((cat: Category) => (
-              <option key={cat.id} value={cat.name}>
+            {categories?.map((cat: Category, index: number) => (
+              <option
+                key={cat._id || cat.id || `${cat.name}-${index}`}
+                value={cat.name}>
                 {cat.name}
               </option>
             ))}
@@ -133,9 +165,11 @@ export default function QuestionsPage() {
             onChange={(e) => setSelectedAuthor(e.target.value)}
             className="block w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary-500">
             <option value="">All Authors</option>
-            <option value="Awa Ceesay">Awa Ceesay</option>
-            <option value="Binta Jawneh">Binta Jawneh</option>
-            <option value="Omar Keita">Omar Keita</option>
+            {admins?.map((admin: Admin) => (
+              <option key={admin.id} value={admin.id}>
+                {admin.fullName || admin.email}
+              </option>
+            ))}
           </select>
           <select
             value={selectedTimer}

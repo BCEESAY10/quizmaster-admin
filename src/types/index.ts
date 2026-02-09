@@ -23,18 +23,26 @@ export interface Question {
   id: string;
   question: string;
   options: string[];
-  correctAnswer: number;
-  category: string;
+  correctAnswer: number | string;
+  category: string | { _id?: string; name?: string };
+  author?: {
+    id?: string;
+    fullName?: string;
+    email?: string;
+    role?: string;
+  };
   timer: number;
-  point: number;
+  score: number;
+  difficulty?: "easy" | "medium" | "hard";
   createdAt: string;
   updatedAt: string;
-  createdBy: string;
-  timesAnswered: number;
-  correctRate: number;
+  createdBy?: string;
+  timesAnswered?: number;
+  correctRate?: number;
 }
 
 export interface Category {
+  _id?: string;
   id?: string;
   name: string;
   icon: string;

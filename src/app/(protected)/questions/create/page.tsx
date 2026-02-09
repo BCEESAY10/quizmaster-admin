@@ -21,8 +21,9 @@ export default function CreateQuestionPage() {
     options: ["", "", "", ""],
     correctAnswer: 0,
     category: "",
-    point: 1,
+    score: 1,
     timer: 10,
+    difficulty: "medium" as "easy" | "medium" | "hard",
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -80,6 +81,14 @@ export default function CreateQuestionPage() {
 
     if (formData.timer < 10 || formData.timer > 30) {
       newErrors.timer = "Timer must be between 10 and 30 seconds";
+    }
+
+    if (!formData.difficulty) {
+      newErrors.difficulty = "Difficulty is required";
+    }
+
+    if (!formData.score || formData.score < 1) {
+      newErrors.score = "Score must be at least 1";
     }
 
     setErrors(newErrors);
@@ -170,8 +179,10 @@ export default function CreateQuestionPage() {
                   }
                   className="block w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary-500">
                   <option value="">Select a category</option>
-                  {categories?.map((cat: Category) => (
-                    <option key={cat.id} value={cat.name}>
+                  {categories?.map((cat: Category, index: number) => (
+                    <option
+                      key={cat._id || cat.id || `${cat.name}-${index}`}
+                      value={cat.name}>
                       {cat.icon} {cat.name}
                     </option>
                   ))}
@@ -180,30 +191,53 @@ export default function CreateQuestionPage() {
                   <p className="mt-1 text-sm text-red-600">{errors.category}</p>
                 )}
               </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Difficulty <span className="text-red-500">*</span>
+                </label>
+                <select
+                  value={formData.difficulty}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      difficulty: e.target.value as "easy" | "medium" | "hard",
+                    })
+                  }
+                  className="block w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary-500">
+                  <option value="easy">Easy</option>
+                  <option value="medium">Medium</option>
+                  <option value="hard">Hard</option>
+                </select>
+                {errors.difficulty && (
+                  <p className="mt-1 text-sm text-red-600">
+                    {errors.difficulty}
+                  </p>
+                )}
+              </div>
             </div>
 
-            {/* Timer and Point */}
+            {/* Timer and Score */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Point
+                  Score
                   <span className="text-red-500">*</span>
                 </label>
                 <Input
                   type="number"
-                  value={formData.point}
+                  value={formData.score}
                   onChange={(e) =>
                     setFormData({
                       ...formData,
-                      point: parseInt(e.target.value),
+                      score: parseInt(e.target.value),
                     })
                   }
                   min={1}
-                  max={5}
-                  error={errors.point}
+                  max={20}
+                  error={errors.score}
                 />
                 <p className="mt-1 text-xs text-gray-500">
-                  Between 1 and 5 points based on the question&apos;s difficulty
+                  Points awarded for a correct answer
                 </p>
               </div>
               <div>
@@ -220,11 +254,11 @@ export default function CreateQuestionPage() {
                     })
                   }
                   min={10}
-                  max={20}
+                  max={30}
                   error={errors.timer}
                 />
                 <p className="mt-1 text-xs text-gray-500">
-                  Between 10 and 20 seconds
+                  Between 10 and 30 seconds
                 </p>
               </div>
             </div>

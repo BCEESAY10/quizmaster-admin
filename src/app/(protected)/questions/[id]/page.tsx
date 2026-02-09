@@ -48,6 +48,18 @@ export default function QuestionDetailPage() {
     );
   }
 
+  const categoryLabel =
+    typeof question.category === "string"
+      ? question.category
+      : question.category?.name || "Uncategorized";
+
+  const correctAnswerIndex =
+    typeof question.correctAnswer === "number"
+      ? question.correctAnswer
+      : question.options.findIndex(
+          (opt: string) => opt === question.correctAnswer,
+        );
+
   return (
     <div className="space-y-6 max-w-4xl">
       {/* Back button */}
@@ -63,8 +75,9 @@ export default function QuestionDetailPage() {
         <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
           <div className="flex-1">
             <div className="flex items-center gap-2 mb-3">
-              <Badge variant="info">{question.category}</Badge>
-              <Badge variant="default">Point: {question.point}</Badge>
+              <Badge variant="info">{categoryLabel}</Badge>
+              <Badge variant="default">Score: {question.score}</Badge>
+              <Badge variant="default">{question.difficulty ?? "medium"}</Badge>
             </div>
             <h1 className="text-2xl font-bold text-gray-900 mb-2">
               {question.question}
@@ -100,7 +113,7 @@ export default function QuestionDetailPage() {
       <Card title="Answer Options">
         <div className="space-y-3">
           {question.options.map((option: string, index: number) => {
-            const isCorrect = index === question.correctAnswer;
+            const isCorrect = index === correctAnswerIndex;
             return (
               <div
                 key={index}
@@ -131,7 +144,7 @@ export default function QuestionDetailPage() {
           <div className="text-center">
             <div className="h-16 w-16 mx-auto rounded-full bg-blue-100 flex items-center justify-center mb-3">
               <span className="text-2xl font-bold text-blue-600">
-                {question.timesAnswered}
+                {question.timesAnswered ?? 0}
               </span>
             </div>
             <p className="text-sm font-medium text-gray-900">Times Answered</p>
@@ -139,7 +152,7 @@ export default function QuestionDetailPage() {
           <div className="text-center">
             <div className="h-16 w-16 mx-auto rounded-full bg-green-100 flex items-center justify-center mb-3">
               <span className="text-2xl font-bold text-green-600">
-                {question.correctRate}%
+                {question.correctRate ?? 0}%
               </span>
             </div>
             <p className="text-sm font-medium text-gray-900">Correct Rate</p>
@@ -148,7 +161,9 @@ export default function QuestionDetailPage() {
             <div className="h-16 w-16 mx-auto rounded-full bg-purple-100 flex items-center justify-center mb-3">
               <span className="text-2xl font-bold text-purple-600">
                 {Math.round(
-                  ((100 - question.correctRate) * question.timesAnswered) / 100
+                  ((100 - (question.correctRate ?? 0)) *
+                    (question.timesAnswered ?? 0)) /
+                    100,
                 )}
               </span>
             </div>
@@ -174,7 +189,9 @@ export default function QuestionDetailPage() {
           </div>
           <div>
             <p className="text-gray-500">Created By</p>
-            <p className="text-gray-900 font-medium">{question.createdBy}</p>
+            <p className="text-gray-900 font-medium">
+              {question.author?.fullName || question.createdBy || "N/A"}
+            </p>
           </div>
           <div>
             <p className="text-gray-500">Question ID</p>
