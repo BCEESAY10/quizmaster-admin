@@ -16,7 +16,7 @@ export default function EditQuestionPage() {
   const params = useParams();
   const { data: categories, isLoading: categoriesLoading } = useCategories();
   const { data: existingQuestion, isLoading: questionLoading } = useQuestion(
-    params.id as string
+    params.id as string,
   );
   const updateQuestion = useUpdateQuestion();
 
@@ -26,10 +26,23 @@ export default function EditQuestionPage() {
         ? {
             question: existingQuestion.question,
             options: existingQuestion.options,
-            correctAnswer: existingQuestion.correctAnswer,
-            category: existingQuestion.category,
+            correctAnswer:
+              typeof existingQuestion.correctAnswer === "number"
+                ? existingQuestion.correctAnswer
+                : existingQuestion.options.findIndex(
+                      (opt: string) => opt === existingQuestion.correctAnswer,
+                    ) >= 0
+                  ? existingQuestion.options.findIndex(
+                      (opt: string) => opt === existingQuestion.correctAnswer,
+                    )
+                  : 0,
+            category:
+              typeof existingQuestion.category === "string"
+                ? existingQuestion.category
+                : existingQuestion.category?.name || "",
             timer: existingQuestion.timer,
-            point: existingQuestion.point,
+            score: existingQuestion.score ?? 1,
+            difficulty: existingQuestion.difficulty ?? "medium",
           }
         : {
             question: "",
@@ -37,9 +50,10 @@ export default function EditQuestionPage() {
             correctAnswer: 0,
             category: "",
             timer: 10,
-            point: 1,
+            score: 1,
+            difficulty: "medium",
           },
-    [existingQuestion]
+    [existingQuestion],
   );
 
   const [formData, setFormData] = useState(initialFormData);
@@ -63,7 +77,7 @@ export default function EditQuestionPage() {
       return;
     }
     const newOptions = formData.options.filter(
-      (_: string, i: number) => i !== index
+      (_: string, i: number) => i !== index,
     );
     setFormData({
       ...formData,
@@ -105,6 +119,14 @@ export default function EditQuestionPage() {
 
     if (formData.timer < 10 || formData.timer > 30) {
       newErrors.timer = "Timer must be between 10 and 30 seconds";
+    }
+
+    if (!formData.difficulty) {
+      newErrors.difficulty = "Difficulty is required";
+    }
+
+    if (!formData.score || formData.score < 1) {
+      newErrors.score = "Score must be at least 1";
     }
 
     setErrors(newErrors);
@@ -202,8 +224,10 @@ export default function EditQuestionPage() {
                   }
                   className="block w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary-500">
                   <option value="">Select a category</option>
-                  {categories?.map((cat: Category) => (
-                    <option key={cat.id} value={cat.name}>
+                  {categories?.map((cat: Category, index: number) => (
+                    <option
+                      key={cat._id || cat.id || `${cat.name}-${index}`}
+                      value={cat.name}>
                       {cat.icon} {cat.name}
                     </option>
                   ))}
@@ -212,29 +236,52 @@ export default function EditQuestionPage() {
                   <p className="mt-1 text-sm text-red-600">{errors.category}</p>
                 )}
               </div>
-            </div>
-
-            {/* Timer and Point */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Point <span className="text-red-500">*</span>
+                  Difficulty <span className="text-red-500">*</span>
                 </label>
-                <Input
-                  type="number"
-                  value={formData.point}
+                <select
+                  value={formData.difficulty}
                   onChange={(e) =>
                     setFormData({
                       ...formData,
-                      point: parseInt(e.target.value),
+                      difficulty: e.target.value as "easy" | "medium" | "hard",
+                    })
+                  }
+                  className="block w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary-500">
+                  <option value="easy">Easy</option>
+                  <option value="medium">Medium</option>
+                  <option value="hard">Hard</option>
+                </select>
+                {errors.difficulty && (
+                  <p className="mt-1 text-sm text-red-600">
+                    {errors.difficulty}
+                  </p>
+                )}
+              </div>
+            </div>
+
+            {/* Timer and Score */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Score <span className="text-red-500">*</span>
+                </label>
+                <Input
+                  type="number"
+                  value={formData.score}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      score: parseInt(e.target.value),
                     })
                   }
                   min={1}
-                  max={5}
-                  error={errors.point}
+                  max={20}
+                  error={errors.score}
                 />
                 <p className="mt-1 text-xs text-gray-500">
-                  Between 1 and 5 points based on difficulty
+                  Points awarded for a correct answer
                 </p>
               </div>
               <div>
@@ -251,11 +298,11 @@ export default function EditQuestionPage() {
                     })
                   }
                   min={10}
-                  max={20}
+                  max={30}
                   error={errors.timer}
                 />
                 <p className="mt-1 text-xs text-gray-500">
-                  Between 10 and 20 seconds
+                  Between 10 and 30 seconds
                 </p>
               </div>
             </div>
