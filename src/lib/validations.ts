@@ -25,16 +25,10 @@ export const adminSchema = z.object({
 
 export type AdminInput = z.infer<typeof adminSchema>;
 
-// Create Admin validation (password required)
+// Create Admin validation (password required, role handled by backend)
 export const createAdminSchema = z.object({
-  fullName: z.string().min(2, "Name must be at least 2 characters"),
+  fullname: z.string().min(2, "Name must be at least 2 characters"),
   email: z.string().email("Invalid email address"),
-
-  role: z
-    .enum(["super_admin", "admin"])
-    .refine((val) => ["super_admin", "admin"].includes(val), {
-      message: "Please select a valid role",
-    }),
   password: z.string().min(8, "Password must be at least 8 characters"),
 });
 
@@ -51,7 +45,7 @@ export type BootstrapAdminInput = z.infer<typeof bootstrapAdminSchema>;
 
 // Edit Admin validation (password optional)
 export const editAdminSchema = z.object({
-  fullName: z.string().min(2, "Name must be at least 2 characters"),
+  fullname: z.string().min(2, "Name must be at least 2 characters"),
   email: z.string().email("Invalid email address"),
   role: z
     .enum(["super_admin", "admin"])
