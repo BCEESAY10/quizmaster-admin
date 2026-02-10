@@ -213,17 +213,25 @@ export default function AnalyticsPage() {
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
               {categories?.map((category: Category) => {
-                const categoryData = analytics.categoryStats?.[category.id];
+                const categoryData = category.id
+                  ? analytics.categoryStats?.[category.id]
+                  : undefined;
                 const totalAttempts = categoryData?.totalAttempts ?? 0;
                 const avgPerQuestion =
                   (category.questionsCount ?? 0) > 0
                     ? Math.round(totalAttempts / (category.questionsCount ?? 0))
                     : 0;
+                const statsValues: Array<{
+                  totalAttempts: number;
+                  totalQuestions: number;
+                }> = Object.values(analytics.categoryStats ?? {});
                 const maxAttempts = Math.max(
-                  ...Object.values(analytics.categoryStats || {}).map(s => s.totalAttempts),
-                  1
+                  ...statsValues.map((s) => s.totalAttempts),
+                  1,
                 );
-                const popularity = Math.round((totalAttempts / maxAttempts) * 100);
+                const popularity = Math.round(
+                  (totalAttempts / maxAttempts) * 100,
+                );
                 const CategoryIcon =
                   IconRegistry[category.icon as keyof typeof IconRegistry];
 

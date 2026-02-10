@@ -48,7 +48,6 @@ export default function DashboardPage() {
         <StatsCard
           title="Total Users"
           value={formatNumber(analytics.totalUsers)}
-          change={{ value: 12.5, isPositive: true }}
           icon={Users}
           iconBgColor="bg-blue-100"
           iconColor="text-blue-500"
@@ -56,7 +55,6 @@ export default function DashboardPage() {
         <StatsCard
           title="Total Reviews"
           value={formatNumber(analytics.totalReviews)}
-          change={{ value: 8.2, isPositive: true }}
           icon={Activity}
           iconBgColor="bg-green-100"
           iconColor="text-green-500"
@@ -64,7 +62,6 @@ export default function DashboardPage() {
         <StatsCard
           title="Total Quizzes"
           value={formatNumber(analytics.totalQuestions)}
-          change={{ value: 5.1, isPositive: true }}
           icon={BookOpen}
           iconBgColor="bg-purple-100"
           iconColor="text-purple-500"
@@ -72,7 +69,6 @@ export default function DashboardPage() {
         <StatsCard
           title="Quiz Attempts"
           value={formatNumber(analytics.totalAttempts)}
-          change={{ value: 15.3, isPositive: true }}
           icon={TrendingUp}
           iconBgColor="bg-orange-100"
           iconColor="text-orange-500"
