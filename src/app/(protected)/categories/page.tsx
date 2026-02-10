@@ -86,7 +86,7 @@ export default function CategoriesPage() {
 
               <div className="flex items-center gap-4 mt-2">
                 <Badge variant="default">
-                  {formatNumber(category.questions ?? 0)} questions
+                  {formatNumber(category.questionsCount ?? 0)} questions
                 </Badge>
               </div>
             </div>
@@ -110,7 +110,7 @@ export default function CategoriesPage() {
           <div className="grid grid-cols-3 gap-4 text-center">
             <div>
               <p className="text-2xl font-bold text-gray-900">
-                {category.questions}
+                {category.questionsCount}
               </p>
               <p className="text-xs text-gray-500 mt-1">Questions</p>
             </div>
@@ -160,7 +160,8 @@ export default function CategoriesPage() {
             <p className="text-3xl font-bold text-gray-900">
               {formatNumber(
                 categories?.reduce(
-                  (sum: number, cat: Category) => sum + (cat.questions ?? 0),
+                  (sum: number, cat: Category) =>
+                    sum + (cat.questionsCount ?? 0),
                   0,
                 ) ?? 0,
               )}
@@ -175,7 +176,7 @@ export default function CategoriesPage() {
                 ? Math.round(
                     categories.reduce(
                       (sum: number, cat: Category) =>
-                        sum + (cat.questions ?? 0),
+                        sum + (cat.questionsCount ?? 0),
                       0,
                     ) / categories.length,
                   )

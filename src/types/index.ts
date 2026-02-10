@@ -47,7 +47,9 @@ export interface Category {
   name: string;
   icon: string;
   color: string;
-  questions?: number;
+  questionsCount?: number;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface AnalyticsData {
