@@ -77,7 +77,6 @@ export default function AnalyticsPage() {
               <p className="text-3xl font-bold text-gray-900 mt-2">
                 {formatNumber(analytics.totalUsers)}
               </p>
-              <p className="text-sm text-green-600 mt-2">+12.5% vs last week</p>
             </div>
             <div className="h-12 w-12 rounded-full bg-blue-100 flex items-center justify-center">
               <Users className="h-6 w-6 text-blue-600" />
@@ -92,7 +91,6 @@ export default function AnalyticsPage() {
               <p className="text-3xl font-bold text-gray-900 mt-2">
                 {formatNumber(analytics.totalReviews)}
               </p>
-              <p className="text-sm text-green-600 mt-2">+8.2% vs last week</p>
             </div>
             <div className="h-12 w-12 rounded-full bg-green-100 flex items-center justify-center">
               <Activity className="h-6 w-6 text-green-600" />
@@ -107,7 +105,6 @@ export default function AnalyticsPage() {
               <p className="text-3xl font-bold text-gray-900 mt-2">
                 {formatNumber(analytics.totalQuestions)}
               </p>
-              <p className="text-sm text-green-600 mt-2">+5.1% vs last week</p>
             </div>
             <div className="h-12 w-12 rounded-full bg-purple-100 flex items-center justify-center">
               <BookOpen className="h-6 w-6 text-purple-600" />
@@ -122,7 +119,6 @@ export default function AnalyticsPage() {
               <p className="text-3xl font-bold text-gray-900 mt-2">
                 {formatNumber(analytics.totalAttempts)}
               </p>
-              <p className="text-sm text-green-600 mt-2">+15.3% vs last week</p>
             </div>
             <div className="h-12 w-12 rounded-full bg-orange-100 flex items-center justify-center">
               <TrendingUp className="h-6 w-6 text-orange-600" />
@@ -217,12 +213,25 @@ export default function AnalyticsPage() {
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
               {categories?.map((category: Category) => {
+                const categoryData = category.id
+                  ? analytics.categoryStats?.[category.id]
+                  : undefined;
+                const totalAttempts = categoryData?.totalAttempts ?? 0;
                 const avgPerQuestion =
                   (category.questionsCount ?? 0) > 0
-                    ? Math.round(200 / (category.questionsCount ?? 0))
+                    ? Math.round(totalAttempts / (category.questionsCount ?? 0))
                     : 0;
-                const maxAttempts = Math.max(200);
-                const popularity = Math.round((200 / maxAttempts) * 100);
+                const statsValues: Array<{
+                  totalAttempts: number;
+                  totalQuestions: number;
+                }> = Object.values(analytics.categoryStats ?? {});
+                const maxAttempts = Math.max(
+                  ...statsValues.map((s) => s.totalAttempts),
+                  1,
+                );
+                const popularity = Math.round(
+                  (totalAttempts / maxAttempts) * 100,
+                );
                 const CategoryIcon =
                   IconRegistry[category.icon as keyof typeof IconRegistry];
 
@@ -231,13 +240,11 @@ export default function AnalyticsPage() {
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center">
                         <span className="text-2xl mr-3">
-                          {
-                            <CategoryIcon
-                              width={32}
-                              height={32}
-                              fill={category.color}
-                            />
-                          }
+                          <CategoryIcon
+                            width={32}
+                            height={32}
+                            fill={category.color}
+                          />
                         </span>
                         <span className="text-sm font-medium text-gray-900">
                           {category.name}
@@ -248,7 +255,7 @@ export default function AnalyticsPage() {
                       {category.questionsCount}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                      200
+                      {formatNumber(totalAttempts)}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                       {avgPerQuestion}
