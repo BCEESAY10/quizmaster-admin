@@ -128,13 +128,13 @@ export default function UserDetailsPageView({ user }: UserDetailsViewProps) {
               <div>
                 <p className="text-sm text-gray-500">Joined</p>
                 <p className="text-base font-medium text-gray-900 mt-1">
-                  {formatDate(user.joinedAt)}
+                  {formatDate(user.joinedAt ?? "")}
                 </p>
               </div>
               <div>
                 <p className="text-sm text-gray-500">Last Active</p>
                 <p className="text-base font-medium text-gray-900 mt-1">
-                  {formatDate(user.lastActive)}
+                  {formatDate(user.lastActive ?? "")}
                 </p>
               </div>
             </div>
@@ -155,7 +155,7 @@ export default function UserDetailsPageView({ user }: UserDetailsViewProps) {
               <div>
                 <p className="text-sm text-gray-600">Quizzes Completed</p>
                 <p className="text-2xl font-bold text-gray-900">
-                  {user.stats.quizzesCompleted}
+                  {user.totalQuizzes}
                 </p>
               </div>
             </div>
@@ -168,7 +168,7 @@ export default function UserDetailsPageView({ user }: UserDetailsViewProps) {
               <div>
                 <p className="text-sm text-gray-600">Total Points</p>
                 <p className="text-2xl font-bold text-gray-900">
-                  {user.stats.totalPoints.toLocaleString()}
+                  {user.totalPoints.toLocaleString()}
                 </p>
               </div>
             </div>
@@ -181,7 +181,20 @@ export default function UserDetailsPageView({ user }: UserDetailsViewProps) {
               <div>
                 <p className="text-sm text-gray-600">Current Streak</p>
                 <p className="text-2xl font-bold text-gray-900">
-                  {user.stats.streak} days
+                  {user.streak} days
+                </p>
+              </div>
+            </div>
+
+            {/* Longest Streak */}
+            <div className="flex items-center space-x-4 p-4 bg-purple-50 rounded-lg">
+              <div className="p-3 bg-purple-100 rounded-full">
+                <Trophy className="w-6 h-6 text-purple-600" />
+              </div>
+              <div>
+                <p className="text-sm text-gray-600">Longest Streak</p>
+                <p className="text-2xl font-bold text-gray-900">
+                  {user.longestStreak} days
                 </p>
               </div>
             </div>
