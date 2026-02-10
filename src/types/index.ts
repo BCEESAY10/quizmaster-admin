@@ -71,6 +71,7 @@ export interface AnalyticsData {
     action: string;
     timestamp: string;
   }>;
+  categoryStats: Record<string, { totalAttempts: number; totalQuestions: number }>;
 }
 
 export interface Review {
