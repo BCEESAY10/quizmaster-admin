@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState, useMemo } from "react";
 import { useParams, useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 import { ArrowLeft, Plus, X } from "lucide-react";
 import { useQuestion, useUpdateQuestion } from "@/src/hooks/useQuestions";
 import { useCategories } from "@/src/hooks/useCategories";
@@ -14,6 +15,7 @@ import { Category } from "@/src/types";
 export default function EditQuestionPage() {
   const router = useRouter();
   const params = useParams();
+  const { data: session } = useSession();
   const { data: categories, isLoading: categoriesLoading } = useCategories();
   const { data: existingQuestion, isLoading: questionLoading } = useQuestion(
     params.id as string,
@@ -143,7 +145,17 @@ export default function EditQuestionPage() {
     try {
       await updateQuestion.mutateAsync({
         id: params.id as string,
-        data: formData,
+        data: {
+          ...formData,
+          author: session?.user
+            ? {
+                id: (session.user as any)?.id,
+                fullName: (session.user as any)?.fullName,
+                email: (session.user as any)?.email,
+                role: (session.user as any)?.role,
+              }
+            : undefined,
+        },
       });
 
       alert("Question updated successfully!");

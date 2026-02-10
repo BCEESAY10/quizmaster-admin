@@ -38,7 +38,7 @@ export default function AdminsTable() {
     );
   }
 
-  const filteredAdmins = (admins || []).filter(
+  const filteredAdmins = (admins ?? []).filter(
     (admin: Admin) =>
       admin.fullName.toLowerCase().includes(searchQuery.toLowerCase()) ||
       admin.email.toLowerCase().includes(searchQuery.toLowerCase()),
@@ -92,7 +92,7 @@ export default function AdminsTable() {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200">
-            {filteredAdmins.map((admin: any) => (
+            {filteredAdmins.map((admin: Admin) => (
               <tr
                 key={admin.id}
                 onClick={() => router.push(`/admins/${admin.id}`)}
@@ -104,7 +104,7 @@ export default function AdminsTable() {
                         <span className="text-primary-600 font-medium text-sm">
                           {admin.fullName
                             .split(" ")
-                            .map((n: any) => n[0])
+                            .map((n: string) => n[0])
                             .join("")
                             .toUpperCase()}
                         </span>
@@ -130,17 +130,9 @@ export default function AdminsTable() {
                 </td>
 
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  {formatDate(admin.createdAt)}
+                  {admin.createdAt ? formatDate(admin.createdAt) : "N/A"}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      router.push(`/admins/${admin.id}/edit`);
-                    }}
-                    className="text-primary-600 hover:text-primary-900 mr-4">
-                    Edit
-                  </button>
                   <button
                     onClick={(e) => handleDelete(e, admin.id)}
                     className="text-red-600 hover:text-red-900">

@@ -1,13 +1,19 @@
 export interface User {
+  _id?: string;
   id: string;
   fullName: string;
+  fullname?: string;
   email: string;
+  role?: string;
   joinedAt?: string;
   lastActive?: string;
   totalQuizzes: number;
   totalPoints: number;
   streak: number;
-  role?: string;
+  longestStreak: number;
+  createdAt?: string;
+  updatedAt?: string;
+  __v?: number;
 }
 
 export type AdminRole = "super_admin" | "admin";
@@ -47,7 +53,9 @@ export interface Category {
   name: string;
   icon: string;
   color: string;
-  questions?: number;
+  questionsCount?: number;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface AnalyticsData {

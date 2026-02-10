@@ -1,11 +1,12 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { useRouter } from "next/navigation";
 import { Form } from "@/src/components/forms/Form";
 import { FormInput } from "@/src/components/forms/FormInput";
 import { FormSelect } from "@/src/components/forms/FormSelect";
 import { editAdminSchema, EditAdminInput } from "@/src/lib/validations";
+import { useUpdateAdmin } from "@/src/hooks/useAdmins";
 import { Admin } from "@/src/types";
 
 interface EditAdminFormProps {
@@ -18,67 +19,62 @@ export default function EditAdminForm({
   currentUserId,
 }: EditAdminFormProps) {
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const updateAdminMutation = useUpdateAdmin();
   const isCurrentUser = admin.id === currentUserId;
 
-  const onSubmit = async (data: EditAdminInput) => {
-    setIsLoading(true);
-    setError(null);
-
+  const onSubmit = (data: EditAdminInput) => {
     // Check if user is trying to demote themselves
     if (
       isCurrentUser &&
       admin.role === "super_admin" &&
       data.role === "admin"
     ) {
-      setError("You cannot demote yourself from Super Admin");
-      setIsLoading(false);
+      // Show error through mutation error handling
+      updateAdminMutation.mutate(
+        { id: admin.id, data: {} },
+        {
+          onError: () => {
+            // Error will be shown in the component
+          },
+        },
+      );
       return;
     }
 
-    try {
-      // Prepare update data (don't send password if empty)
-      const updateData: Admin = {
-        fullName: data.fullName,
-        email: data.email,
-        role: data.role,
-      };
+    // Prepare update data (don't send password if empty)
+    const updateData: Partial<Admin> = {
+      fullname: data.fullname,
+      email: data.email,
+      role: data.role,
+    };
 
-      if (data.password && data.password.trim() !== "") {
-        updateData.password = data.password;
-      }
-
-      // TODO: Replace with actual API call
-      const response = await fetch(`/api/admins/${admin.id}`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(updateData),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message ?? "Failed to update admin");
-      }
-
-      // Simulate success
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-
-      router.push(`/admins/${admin.id}`);
-      router.refresh();
-    } catch (err) {
-      setError("Failed to update admin. Please try again.");
-      console.error("Admin update failed:", err);
-    } finally {
-      setIsLoading(false);
+    if (data.password && data.password.trim() !== "") {
+      updateData.password = data.password;
     }
+
+    updateAdminMutation.mutate(
+      { id: admin.id, data: updateData },
+      {
+        onSuccess: () => {
+          router.push(`/admins/${admin.id}`);
+          router.refresh();
+        },
+      },
+    );
   };
 
   return (
     <>
-      {error && (
+      {updateAdminMutation.error && (
         <div className="mb-6 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
-          {error}
+          {(() => {
+            if (isCurrentUser && admin.role === "super_admin") {
+              return "You cannot demote yourself from Super Admin";
+            }
+            return (
+              updateAdminMutation.error.message || "Failed to update admin"
+            );
+          })()}
         </div>
       )}
 
@@ -109,12 +105,12 @@ export default function EditAdminForm({
         schema={editAdminSchema}
         onSubmit={onSubmit}
         defaultValues={{
-          name: admin.fullName,
+          fullname: admin.fullName,
           email: admin.email,
           role: admin.role,
           password: "",
         }}
-        isLoading={isLoading}
+        isLoading={updateAdminMutation.isPending}
         submitButton={{
           text: "Update Admin",
           loadingText: "Updating...",
@@ -124,9 +120,9 @@ export default function EditAdminForm({
           <div className="space-y-6">
             <FormInput
               label="Full Name"
-              name="fullName"
+              name="fullname"
               register={register}
-              error={errors.fullName}
+              error={errors.fullname}
               placeholder="John Doe"
               required
             />
@@ -187,12 +183,15 @@ export default function EditAdminForm({
 
       <div className="mt-4 flex items-center justify-between">
         <button
-          onClick={() => router.back()}
+          onClick={() => router.push("/admins")}
           className="text-gray-600 hover:text-gray-900 text-sm font-medium">
           ← Cancel and go back
         </button>
         <p className="text-xs text-gray-500">
-          Last updated: {new Date(admin.updatedAt).toLocaleDateString()}
+          Last updated:{" "}
+          {admin.updatedAt
+            ? new Date(admin.updatedAt).toLocaleDateString()
+            : "N/A"}
         </p>
       </div>
     </>

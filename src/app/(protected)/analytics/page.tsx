@@ -218,8 +218,8 @@ export default function AnalyticsPage() {
             <tbody className="bg-white divide-y divide-gray-200">
               {categories?.map((category: Category) => {
                 const avgPerQuestion =
-                  (category.questions ?? 0) > 0
-                    ? Math.round(200 / (category.questions ?? 0))
+                  (category.questionsCount ?? 0) > 0
+                    ? Math.round(200 / (category.questionsCount ?? 0))
                     : 0;
                 const maxAttempts = Math.max(200);
                 const popularity = Math.round((200 / maxAttempts) * 100);
@@ -245,7 +245,7 @@ export default function AnalyticsPage() {
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                      {category.questions}
+                      {category.questionsCount}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                       200

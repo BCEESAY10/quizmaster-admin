@@ -37,6 +37,20 @@ export function useUpdateAdmin() {
   });
 }
 
+export function useCreateAdmin() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (data: Partial<Admin>) => {
+      const response = await adminsAPI.create(data);
+      return response.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["admins"] });
+    },
+  });
+}
+
 export function useDeleteAdmin() {
   const queryClient = useQueryClient();
 

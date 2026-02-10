@@ -1,35 +1,62 @@
-import { getServerAuthSession } from "@/src/lib/auth";
-import { redirect } from "next/navigation";
-import { isSuperAdmin } from "@/src/lib/permissions";
+"use client";
+
+import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 import AdminDetailsView from "./AdminDetailsView";
-import { mockAdmins } from "@/src/mocks/admins";
+import { useAdmin } from "@/src/hooks/useAdmins";
+import { LoadingSpinner } from "@/src/components/ui/LoadingSpinner";
+import { useEffect, useState } from "react";
 import { Admin } from "@/src/types";
 
 interface Props {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
-export default async function AdminDetailPage({ params }: Props) {
-  const { id } = await params;
-  const session = await getServerAuthSession();
+export default function AdminDetailPage({ params }: Props) {
+  const router = useRouter();
+  const { data: session } = useSession();
+  const [id, setId] = useState<string>("");
+  const { data: admin, isLoading, error } = useAdmin(id);
 
-  if (!isSuperAdmin(session)) {
-    redirect("/");
+  useEffect(() => {
+    params.then((resolvedParams) => {
+      setId(resolvedParams.id);
+    });
+  }, [params]);
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-96">
+        <LoadingSpinner size="lg" />
+      </div>
+    );
   }
 
-  // TODO: Fetch admin from database
-  const admin = mockAdmins.find((a) => a.id === id);
-
-  if (!admin) {
-    redirect("/admins");
+  if (error || !admin) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-red-600 text-lg mb-2">Admin not found</p>
+          <p className="text-gray-600 mb-4">
+            The admin you&apos;re looking for doesn&apos;t exist or there was an
+            error loading the data.
+          </p>
+          <button
+            onClick={() => router.push("/admins")}
+            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+            Back to Admins
+          </button>
+        </div>
+      </div>
+    );
   }
 
   return (
     <AdminDetailsView
       admin={admin}
-      currentUserId={(session.user as Admin).id ?? ""}
+      currentUserId={(session?.user as Admin)?.id ?? ""}
     />
   );
 }

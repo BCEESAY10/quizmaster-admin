@@ -21,7 +21,7 @@ export default function AdminDetailsView({
     <div className="space-y-6 max-w-4xl">
       {/* Back Button */}
       <button
-        onClick={() => router.back()}
+        onClick={() => router.push("/admins")}
         className="flex items-center text-gray-600 hover:text-gray-900 transition-colors">
         <svg
           className="w-5 h-5 mr-2"
@@ -129,13 +129,13 @@ export default function AdminDetailsView({
             <div>
               <p className="text-sm text-gray-500">Created</p>
               <p className="text-base font-medium text-gray-900 mt-1">
-                {formatDate(admin.createdAt)}
+                {formatDate(admin.createdAt ?? "")}
               </p>
             </div>
             <div>
               <p className="text-sm text-gray-500">Last Updated</p>
               <p className="text-base font-medium text-gray-900 mt-1">
-                {formatDate(admin.updatedAt)}
+                {formatDate(admin.updatedAt ?? "")}
               </p>
             </div>
           </div>
