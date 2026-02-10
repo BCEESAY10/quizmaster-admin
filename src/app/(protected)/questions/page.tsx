@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { Plus, Search, Download, Upload } from "lucide-react";
-import { useQuestions } from "@/src/hooks/useQuestions";
+import { useQuestions, useDeleteQuestion } from "@/src/hooks/useQuestions";
 import { useCategories } from "@/src/hooks/useCategories";
 import { useAdmins } from "@/src/hooks/useAdmins";
 import { Card } from "@/src/components/ui/Card";
@@ -14,6 +14,7 @@ import { LoadingSpinner } from "@/src/components/ui/LoadingSpinner";
 import { formatDate } from "@/src/utils/formatters";
 import { Admin, Category, Question } from "@/src/types";
 import { useRouter } from "next/navigation";
+import ConfirmDialog from "@/src/components/ui/ConfirmDialogue";
 
 export default function QuestionsPage() {
   const router = useRouter();
@@ -21,10 +22,12 @@ export default function QuestionsPage() {
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [selectedTimer, setSelectedTimer] = useState<string>("");
   const [selectedAuthor, setSelectedAuthor] = useState<string>("");
+  const [deleteId, setDeleteId] = useState<string | null>(null);
 
   const { data: questions, isLoading } = useQuestions();
   const { data: categories } = useCategories();
   const { data: admins } = useAdmins();
+  const deleteQuestion = useDeleteQuestion();
 
   const allQuestions = Object.values(questions ?? {}).flat();
 
@@ -49,6 +52,21 @@ export default function QuestionsPage() {
 
     return matchesSearch && matchesCategory && matchesTimer && matchesAuthor;
   });
+
+  const handleDelete = (e: React.MouseEvent<HTMLButtonElement>, id: string) => {
+    e.stopPropagation();
+    setDeleteId(id);
+  };
+
+  const confirmDelete = () => {
+    if (deleteId) {
+      deleteQuestion.mutate(deleteId, {
+        onSuccess: () => {
+          setDeleteId(null);
+        },
+      });
+    }
+  };
 
   const columns = [
     {
@@ -76,7 +94,7 @@ export default function QuestionsPage() {
             : (q.category as { name?: string })?.name;
 
         return (
-          <Badge variant="default">{categoryLabel || "Uncategorized"}</Badge>
+          <Badge variant="default">{categoryLabel ?? "Uncategorized"}</Badge>
         );
       },
     },
@@ -95,6 +113,29 @@ export default function QuestionsPage() {
       header: "Updated",
       render: (q: Question) => (
         <span className="text-sm text-gray-500">{formatDate(q.updatedAt)}</span>
+      ),
+    },
+    {
+      key: "actions",
+      header: "Actions",
+      render: (q: Question) => (
+        <div className="flex gap-2">
+          <button
+            onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+              e.stopPropagation();
+              router.push(`/questions/${q.id}`);
+            }}
+            className="text-primary-600 hover:text-primary-900 text-sm">
+            Edit
+          </button>
+          <button
+            onClick={(e: React.MouseEvent<HTMLButtonElement>) =>
+              handleDelete(e, q.id)
+            }
+            className="text-red-600 hover:text-red-900 text-sm">
+            Delete
+          </button>
+        </div>
       ),
     },
   ];
@@ -154,7 +195,7 @@ export default function QuestionsPage() {
             <option value="">All Categories</option>
             {categories?.map((cat: Category, index: number) => (
               <option
-                key={cat._id || cat.id || `${cat.name}-${index}`}
+                key={cat._id ?? cat.id ?? `${cat.name}-${index}`}
                 value={cat.name}>
                 {cat.name}
               </option>
@@ -203,6 +244,18 @@ export default function QuestionsPage() {
           </p>
         </div>
       )}
+
+      {/* Delete Confirmation Dialog */}
+      <ConfirmDialog
+        isOpen={deleteId !== null}
+        onClose={() => setDeleteId(null)}
+        onConfirm={confirmDelete}
+        title="Delete Question"
+        description="Are you sure you want to delete this question? This action cannot be undone."
+        confirmText="Delete"
+        cancelText="Cancel"
+        isLoading={deleteQuestion.isPending}
+      />
     </div>
   );
 }

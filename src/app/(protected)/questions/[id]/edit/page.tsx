@@ -147,7 +147,14 @@ export default function EditQuestionPage() {
         id: params.id as string,
         data: {
           ...formData,
-          author: session?.user?.id,
+          author: session?.user
+            ? {
+                id: (session.user as any)?.id,
+                fullName: (session.user as any)?.fullName,
+                email: (session.user as any)?.email,
+                role: (session.user as any)?.role,
+              }
+            : undefined,
         },
       });
 

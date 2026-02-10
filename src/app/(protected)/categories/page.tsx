@@ -6,6 +6,7 @@ import {
   useCategories,
   useCreateCategory,
   useUpdateCategory,
+  useDeleteCategory,
 } from "@/src/hooks/useCategories";
 import { Card } from "@/src/components/ui/Card";
 import { Button } from "@/src/components/ui/Button";
@@ -16,6 +17,7 @@ import { Category } from "@/src/types";
 import CreateCategoryModal from "@/src/components/modal/CreateCategory";
 import EditCategoryModal from "@/src/components/modal/EditCategory";
 import { IconRegistry } from "@/src/components/ui/icons/icon-registry";
+import ConfirmDialog from "@/src/components/ui/ConfirmDialogue";
 
 export default function CategoriesPage() {
   const { data: categories, isLoading } = useCategories();
@@ -24,8 +26,10 @@ export default function CategoriesPage() {
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(
     null,
   );
+  const [deleteId, setDeleteId] = useState<string | null>(null);
   const { mutate: createCategory } = useCreateCategory();
   const { mutate: updateCategory } = useUpdateCategory();
+  const deleteCategory = useDeleteCategory();
 
   const handleCreateCategory = (formData: Category) => {
     createCategory(formData, {
@@ -64,6 +68,21 @@ export default function CategoriesPage() {
     setIsEditModalOpen(true);
   };
 
+  const handleDelete = (e: React.MouseEvent<HTMLButtonElement>, id: string) => {
+    e.stopPropagation();
+    setDeleteId(id);
+  };
+
+  const confirmDelete = () => {
+    if (deleteId) {
+      deleteCategory.mutate(deleteId, {
+        onSuccess: () => {
+          setDeleteId(null);
+        },
+      });
+    }
+  };
+
   const CategoryCard = ({ category }: { category: Category }) => {
     const IconComponent =
       IconRegistry[category.icon as keyof typeof IconRegistry];
@@ -99,7 +118,9 @@ export default function CategoriesPage() {
             </button>
             <button
               className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
-              onClick={() => console.log("Delete", category.id)}>
+              onClick={(e) =>
+                handleDelete(e, category.id ?? category._id ?? "")
+              }>
               <Trash2 className="h-4 w-4" />
             </button>
           </div>
@@ -190,7 +211,7 @@ export default function CategoriesPage() {
       {/* Categories grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {categories?.map((category: Category, index: number) => (
-          <CategoryCard key={category.id || index} category={category} />
+          <CategoryCard key={category.id ?? index} category={category} />
         ))}
       </div>
 
@@ -219,6 +240,18 @@ export default function CategoriesPage() {
           onSuccess={handleEditCategory}
         />
       )}
+
+      {/* Delete Confirmation Dialog */}
+      <ConfirmDialog
+        isOpen={deleteId !== null}
+        onClose={() => setDeleteId(null)}
+        onConfirm={confirmDelete}
+        title="Delete Category"
+        description="Are you sure you want to delete this category? This action cannot be undone."
+        confirmText="Delete"
+        cancelText="Cancel"
+        isLoading={deleteCategory.isPending}
+      />
     </div>
   );
 }
