@@ -212,9 +212,10 @@ export default function AnalyticsPage() {
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
-              {categories?.map((category: Category) => {
-                const categoryData = category.id
-                  ? analytics.categoryStats?.[category.id]
+              {categories?.map((category: Category, index: number) => {
+                const categoryId = category.id || category._id;
+                const categoryData = categoryId
+                  ? analytics.categoryStats?.[categoryId]
                   : undefined;
                 const totalAttempts = categoryData?.totalAttempts ?? 0;
                 const avgPerQuestion =
@@ -236,7 +237,7 @@ export default function AnalyticsPage() {
                   IconRegistry[category.icon as keyof typeof IconRegistry];
 
                 return (
-                  <tr key={category.id}>
+                  <tr key={categoryId || `category-${index}`}>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center">
                         <span className="text-2xl mr-3">
