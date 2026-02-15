@@ -72,3 +72,7 @@ export const reviewsAPI = {
   getById: (id: string) => api.get(`/reviews/${id}`),
   delete: (id: string) => api.delete(`/reviews/${id}`),
 };
+
+export const searchAPI = {
+  search: (query: string) => api.post("/search", { query }),
+};

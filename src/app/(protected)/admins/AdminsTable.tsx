@@ -38,7 +38,10 @@ export default function AdminsTable() {
     );
   }
 
-  const filteredAdmins = (admins ?? []).filter(
+  // Ensure admins is an array - handle both direct array and nested data structures
+  const adminsList = Array.isArray(admins) ? admins : (admins?.data ?? []);
+
+  const filteredAdmins = adminsList.filter(
     (admin: Admin) =>
       admin.fullName.toLowerCase().includes(searchQuery.toLowerCase()) ||
       admin.email.toLowerCase().includes(searchQuery.toLowerCase()),

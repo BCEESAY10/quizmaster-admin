@@ -93,3 +93,59 @@ export interface ReviewsResponse {
   page: number;
   totalPages: number;
 }
+
+export interface SearchResult {
+  users?: Array<{
+    id: string;
+    fullName: string;
+    email: string;
+    role: string;
+  }>;
+  admins?: Array<{
+    id: string;
+    fullName: string;
+    email: string;
+    role: string;
+  }>;
+  questions?: Array<{
+    id: string;
+    question: string;
+    category: string;
+  }>;
+  categories?: Array<{
+    id: string;
+    name: string;
+    icon: string;
+  }>;
+}
+
+export interface SearchAPIResponse {
+  query: string;
+  results: {
+    users?: Array<{
+      id: string;
+      type: string;
+      name: string;
+      email: string;
+      role: string;
+    }>;
+    admins?: Array<{
+      id: string;
+      type: string;
+      name: string;
+      email: string;
+      role: string;
+    }>;
+    questions?: Array<{
+      id: string;
+      question: string;
+      category: string;
+    }>;
+    categories?: Array<{
+      id: string;
+      name: string;
+      icon: string;
+    }>;
+  };
+  totalResults: number;
+}

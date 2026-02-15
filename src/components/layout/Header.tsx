@@ -1,9 +1,9 @@
 "use client";
 
-import { Menu, Search } from "lucide-react";
-import { Input } from "@/src/components/ui/Input";
+import { Menu } from "lucide-react";
 import { Session } from "next-auth";
 import { Avatar } from "../ui/Avatar";
+import { SearchBar } from "../shared/SearchBar";
 
 interface HeaderProps {
   onMenuClick: () => void;
@@ -24,11 +24,8 @@ export function Header({ onMenuClick, session }: HeaderProps) {
           </button>
 
           {/* Search */}
-          <div className="hidden md:block w-80">
-            <Input
-              placeholder="Search..."
-              leftIcon={<Search className="h-5 w-5 text-gray-400" />}
-            />
+          <div className="hidden md:block">
+            <SearchBar />
           </div>
         </div>
 
