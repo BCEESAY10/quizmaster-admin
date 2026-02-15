@@ -94,6 +94,18 @@ export interface ReviewsResponse {
   totalPages: number;
 }
 
+export interface Pagination {
+  page: number;
+  limit: number;
+  total: number;
+  totalPages: number;
+}
+
+export interface SearchUsersResponse {
+  data: User[];
+  pagination: Pagination;
+}
+
 export interface SearchResult {
   users?: Array<{
     id: string;

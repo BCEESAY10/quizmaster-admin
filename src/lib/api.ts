@@ -24,6 +24,8 @@ export const usersAPI = {
   create: (data: Partial<User>) => api.post("/users", data),
   update: (id: string, data: Partial<User>) => api.put(`/users/${id}`, data),
   delete: (id: string) => api.delete(`/users/${id}`),
+  search: (search: string, page: number = 1, limit: number = 10) =>
+    api.get("/users", { params: { search, page, limit } }),
 };
 
 export const questionsAPI = {

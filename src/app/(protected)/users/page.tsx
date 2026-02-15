@@ -1,8 +1,11 @@
 "use client";
 
-import { useState } from "react";
-import { Search, Filter } from "lucide-react";
-import { useUsers, useDeleteUser } from "@/src/hooks/useUsers";
+import { useState, useCallback } from "react";
+import { Search, Filter, ChevronLeft, ChevronRight } from "lucide-react";
+import { useDebounceSearch } from "@/src/hooks/useDebounceSearch";
+import { useSearchUsers } from "@/src/hooks/useSearchUsers";
+import { useAllUsers } from "@/src/hooks/useAllUsers";
+import { useDeleteUser } from "@/src/hooks/useUsers";
 import { Card } from "@/src/components/ui/Card";
 import { Button } from "@/src/components/ui/Button";
 import { Input } from "@/src/components/ui/Input";
@@ -14,16 +17,44 @@ import ConfirmDialog from "@/src/components/ui/ConfirmDialogue";
 
 export default function UsersPage() {
   const router = useRouter();
-  const { data: users, isLoading } = useUsers();
   const deleteUser = useDeleteUser();
-  const [searchQuery, setSearchQuery] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
   const [deleteId, setDeleteId] = useState<string | null>(null);
+  const [limit] = useState(10);
 
-  const filteredUsers = users?.filter(
-    (user: User) =>
-      user.fullName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      user.email.toLowerCase().includes(searchQuery.toLowerCase()),
-  );
+  // Use debounce search for the search input
+  const searchFn = useCallback(async (query: string) => {
+    // This function is just for debouncing - actual search happens in useSearchUsers
+    return query;
+  }, []);
+
+  const { query: searchQuery, setQuery: setSearchQuery } =
+    useDebounceSearch<string>({
+      searchFn,
+      delay: 500,
+      minQueryLength: 0,
+    });
+
+  // Load all users if no search, or search results if searching
+  const { data: allUsersData, isLoading: allUsersLoading } = useAllUsers({
+    page: currentPage,
+    limit,
+  });
+
+  const { data: searchResults, isLoading: searchLoading } = useSearchUsers({
+    search: searchQuery,
+    page: currentPage,
+    limit,
+    enabled: searchQuery.length > 0,
+  });
+
+  // Use search results if searching, otherwise use all users
+  const isSearching = searchQuery.length > 0;
+  const data = isSearching ? searchResults : allUsersData;
+  const isLoading = isSearching ? searchLoading : allUsersLoading;
+
+  const users = data?.data ?? [];
+  const pagination = data?.pagination;
 
   const handleDelete = (e: React.MouseEvent<HTMLButtonElement>, id: string) => {
     e.stopPropagation();
@@ -129,7 +160,10 @@ export default function UsersPage() {
             <Input
               placeholder="Search by name or email..."
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={(e) => {
+                setSearchQuery(e.target.value);
+                setCurrentPage(1); // Reset to first page on new search
+              }}
               leftIcon={<Search className="h-5 w-5 text-gray-400" />}
             />
           </div>
@@ -142,21 +176,55 @@ export default function UsersPage() {
       {/* Users table */}
       <Card>
         <DataTable
-          data={filteredUsers ?? []}
+          data={users}
           columns={columns}
           isLoading={isLoading}
           onRowClick={(user) => router.push(`/users/${user.id}`)}
-          emptyMessage="No users found"
+          emptyMessage={
+            isSearching
+              ? "No users found matching your search"
+              : "No users available"
+          }
         />
       </Card>
 
-      {/* Stats footer */}
-      {users && (
-        <div className="flex items-center justify-between text-sm text-gray-500">
-          <p>
-            Showing {filteredUsers?.length} of {users.length} users
-          </p>
+      {/* Pagination */}
+      {pagination && pagination.totalPages > 1 && (
+        <div className="flex items-center justify-between">
+          <div className="text-sm text-gray-500">
+            Page {pagination.page} of {pagination.totalPages} (Total:{" "}
+            {pagination.total} users)
+          </div>
+          <div className="flex gap-2">
+            <Button
+              variant="secondary"
+              size="sm"
+              onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+              disabled={currentPage === 1 || isLoading}
+              leftIcon={<ChevronLeft className="h-4 w-4" />}>
+              Previous
+            </Button>
+            <Button
+              variant="secondary"
+              size="sm"
+              onClick={() =>
+                setCurrentPage(Math.min(pagination.totalPages, currentPage + 1))
+              }
+              disabled={currentPage === pagination.totalPages || isLoading}
+              rightIcon={<ChevronRight className="h-4 w-4" />}>
+              Next
+            </Button>
+          </div>
         </div>
+      )}
+
+      {/* Empty State */}
+      {users.length === 0 && !isLoading && isSearching && (
+        <Card className="text-center py-12">
+          <Search className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+          <h3 className="text-lg font-medium text-gray-900 mb-2">No Results</h3>
+          <p className="text-gray-500">Try adjusting your search criteria</p>
+        </Card>
       )}
 
       {/* Delete Confirmation Dialog */}
