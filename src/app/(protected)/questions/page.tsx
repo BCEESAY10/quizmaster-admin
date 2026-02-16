@@ -171,14 +171,6 @@ export default function QuestionsPage() {
     },
   ];
 
-  if (isLoading) {
-    return (
-      <div className="flex items-center justify-center h-96">
-        <LoadingSpinner size="lg" />
-      </div>
-    );
-  }
-
   return (
     <div className="space-y-6">
       {/* Page header */}
@@ -281,16 +273,24 @@ export default function QuestionsPage() {
         </div>
       </Card>
 
-      {/* Questions table */}
-      <Card>
-        <DataTable
-          data={questions}
-          columns={columns}
-          isLoading={isLoading}
-          onRowClick={(question) => router.push(`/questions/${question.id}`)}
-          emptyMessage="No questions found"
-        />
-      </Card>
+      {/* Questions table - Show loading or content */}
+      {isLoading ? (
+        <Card>
+          <div className="flex items-center justify-center h-96">
+            <LoadingSpinner size="lg" />
+          </div>
+        </Card>
+      ) : (
+        <Card>
+          <DataTable
+            data={questions}
+            columns={columns}
+            isLoading={false}
+            onRowClick={(question) => router.push(`/questions/${question.id}`)}
+            emptyMessage="No questions found"
+          />
+        </Card>
+      )}
 
       {/* Pagination */}
       {pagination && pagination.totalPages > 1 && (

@@ -59,6 +59,8 @@ export const adminsAPI = {
   create: (data: Partial<Admin>) => api.post("/admins", data),
   update: (id: string, data: Partial<Admin>) => api.put(`/admins/${id}`, data),
   delete: (id: string) => api.delete(`/admins/${id}`),
+  search: (search: string, page: number = 1, limit: number = 10) =>
+    api.get("/admins", { params: { search, page, limit } }),
   bootstrap: (
     adminSetupKey: string,
     data: { fullname: string; email: string; password: string },

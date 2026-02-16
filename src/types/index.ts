@@ -106,6 +106,11 @@ export interface SearchUsersResponse {
   pagination: Pagination;
 }
 
+export interface SearchAdminsResponse {
+  data: Admin[];
+  pagination: Pagination;
+}
+
 export interface SearchResult {
   users?: Array<{
     id: string;
