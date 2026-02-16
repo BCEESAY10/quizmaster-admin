@@ -76,7 +76,7 @@ export default function ReviewsPage() {
                 value={ratingFilter ?? ""}
                 onChange={(e) => {
                   setRatingFilter(
-                    e.target.value ? Number(e.target.value) : undefined
+                    e.target.value ? Number(e.target.value) : undefined,
                   );
                   setPage(1);
                 }}
@@ -136,7 +136,9 @@ export default function ReviewsPage() {
                 />
               </svg>
             </div>
-            <p className="text-red-600 text-lg font-medium">Error loading reviews</p>
+            <p className="text-red-600 text-lg font-medium">
+              Error loading reviews
+            </p>
             <p className="text-gray-600 mt-2">Please try again later</p>
           </div>
         ) : isLoading ? (
@@ -204,7 +206,7 @@ export default function ReviewsPage() {
                         }`}>
                         {pageNum}
                       </button>
-                    )
+                    ),
                   )}
                 </div>
 
