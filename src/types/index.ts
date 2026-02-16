@@ -93,3 +93,90 @@ export interface ReviewsResponse {
   page: number;
   totalPages: number;
 }
+
+export interface Pagination {
+  page: number;
+  limit: number;
+  total: number;
+  totalPages: number;
+}
+
+export interface SearchUsersResponse {
+  data: User[];
+  pagination: Pagination;
+}
+
+export interface SearchAdminsResponse {
+  data: Admin[];
+  pagination: Pagination;
+}
+
+export interface SearchResult {
+  users?: Array<{
+    id: string;
+    fullName: string;
+    email: string;
+    role: string;
+  }>;
+  admins?: Array<{
+    id: string;
+    fullName: string;
+    email: string;
+    role: string;
+  }>;
+  questions?: Array<{
+    id: string;
+    question: string;
+    category: string;
+  }>;
+  categories?: Array<{
+    id: string;
+    name: string;
+    icon: string;
+  }>;
+}
+
+export interface SearchAPIResponse {
+  query: string;
+  results: {
+    users?: Array<{
+      id: string;
+      type: string;
+      name: string;
+      email: string;
+      role: string;
+    }>;
+    admins?: Array<{
+      id: string;
+      type: string;
+      name: string;
+      email: string;
+      role: string;
+    }>;
+    questions?: Array<{
+      id: string;
+      question: string;
+      category: string;
+    }>;
+    categories?: Array<{
+      id: string;
+      name: string;
+      icon: string;
+    }>;
+  };
+  totalResults: number;
+}
+
+export interface SearchQuestionsResponse {
+  data: Question[];
+  pagination: Pagination;
+}
+
+export interface QuestionSearchFilters {
+  search?: string;
+  category?: string;
+  author?: string;
+  timer?: number;
+  page?: number;
+  limit?: number;
+}

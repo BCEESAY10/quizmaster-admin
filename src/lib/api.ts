@@ -24,6 +24,8 @@ export const usersAPI = {
   create: (data: Partial<User>) => api.post("/users", data),
   update: (id: string, data: Partial<User>) => api.put(`/users/${id}`, data),
   delete: (id: string) => api.delete(`/users/${id}`),
+  search: (search: string, page: number = 1, limit: number = 10) =>
+    api.get("/users", { params: { search, page, limit } }),
 };
 
 export const questionsAPI = {
@@ -33,6 +35,14 @@ export const questionsAPI = {
   update: (id: string, data: Partial<Question>) =>
     api.put(`/questions/${id}`, data),
   delete: (id: string) => api.delete(`/questions/${id}`),
+  search: (params?: {
+    search?: string;
+    category?: string;
+    author?: string;
+    timer?: number;
+    page?: number;
+    limit?: number;
+  }) => api.get("/questions", { params }),
 };
 
 export const categoriesAPI = {
@@ -49,6 +59,8 @@ export const adminsAPI = {
   create: (data: Partial<Admin>) => api.post("/admins", data),
   update: (id: string, data: Partial<Admin>) => api.put(`/admins/${id}`, data),
   delete: (id: string) => api.delete(`/admins/${id}`),
+  search: (search: string, page: number = 1, limit: number = 10) =>
+    api.get("/admins", { params: { search, page, limit } }),
   bootstrap: (
     adminSetupKey: string,
     data: { fullname: string; email: string; password: string },
@@ -59,7 +71,8 @@ export const adminsAPI = {
 };
 
 export const analyticsAPI = {
-  getDashboard: () => api.get("/analytics/dashboard"),
+  getDashboard: (timeRange: string = "7days") =>
+    api.get("/analytics/dashboard", { params: { timeRange } }),
 };
 
 export const reviewsAPI = {
@@ -71,4 +84,8 @@ export const reviewsAPI = {
   }) => api.get("/reviews", { params }),
   getById: (id: string) => api.get(`/reviews/${id}`),
   delete: (id: string) => api.delete(`/reviews/${id}`),
+};
+
+export const searchAPI = {
+  search: (query: string) => api.post("/search", { query }),
 };
