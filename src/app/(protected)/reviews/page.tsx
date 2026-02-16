@@ -48,25 +48,6 @@ export default function ReviewsPage() {
     setPage(1);
   };
 
-  if (error) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <p className="text-red-600 text-lg">Error loading reviews</p>
-          <p className="text-gray-600 mt-2">Please try again later</p>
-        </div>
-      </div>
-    );
-  }
-
-  if (isLoading) {
-    return (
-      <div className="flex items-center justify-center h-96">
-        <LoadingSpinner size="lg" />
-      </div>
-    );
-  }
-
   const hasActiveFilters =
     ratingFilter !== undefined || dateFilter !== undefined;
 
@@ -99,7 +80,8 @@ export default function ReviewsPage() {
                   );
                   setPage(1);
                 }}
-                className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white">
+                disabled={isLoading}
+                className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white disabled:opacity-50 disabled:cursor-not-allowed">
                 <option value="">All Ratings</option>
                 <option value="5">5 Stars</option>
                 <option value="4">4 Stars</option>
@@ -115,17 +97,21 @@ export default function ReviewsPage() {
                   setDateFilter(e.target.value || undefined);
                   setPage(1);
                 }}
-                className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white">
+                disabled={isLoading}
+                className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white disabled:opacity-50 disabled:cursor-not-allowed">
                 <option value="">All Time</option>
                 <option value="today">Today</option>
                 <option value="last7days">Last 7 Days</option>
+                <option value="last30days">Last 30 Days</option>
+                <option value="last90days">Last 90 Days</option>
               </select>
 
               {/* Reset Filters */}
               {hasActiveFilters && (
                 <button
                   onClick={resetFilters}
-                  className="px-4 py-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors font-medium">
+                  disabled={isLoading}
+                  className="px-4 py-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed">
                   Reset
                 </button>
               )}
@@ -133,15 +119,31 @@ export default function ReviewsPage() {
           </div>
         </div>
 
-        {/* Loading State */}
-        {isLoading && (
-          <div className="flex justify-center items-center py-20">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600" />
+        {/* Content area with conditional loading */}
+        {error ? (
+          <div className="bg-white rounded-lg shadow-md p-12 text-center">
+            <div className="text-red-600 mb-4">
+              <svg
+                className="mx-auto h-24 w-24"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={1.5}
+                  d="M12 8v4m0 4v.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+            </div>
+            <p className="text-red-600 text-lg font-medium">Error loading reviews</p>
+            <p className="text-gray-600 mt-2">Please try again later</p>
           </div>
-        )}
-
-        {/* Empty State */}
-        {!isLoading && data?.reviews.length === 0 && (
+        ) : isLoading ? (
+          <div className="flex justify-center items-center py-20">
+            <LoadingSpinner size="lg" />
+          </div>
+        ) : !data || data.reviews.length === 0 ? (
           <div className="bg-white rounded-lg shadow-md p-12 text-center">
             <div className="text-gray-400 mb-4">
               <svg
@@ -166,11 +168,9 @@ export default function ReviewsPage() {
                 : "There are no reviews yet"}
             </p>
           </div>
-        )}
-
-        {/* Reviews Grid */}
-        {!isLoading && data && data.reviews.length > 0 && (
+        ) : (
           <>
+            {/* Reviews Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
               {data.reviews.map((review) => (
                 <ReviewCard
