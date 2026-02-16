@@ -71,7 +71,8 @@ export const adminsAPI = {
 };
 
 export const analyticsAPI = {
-  getDashboard: () => api.get("/analytics/dashboard"),
+  getDashboard: (timeRange: string = "7days") =>
+    api.get("/analytics/dashboard", { params: { timeRange } }),
 };
 
 export const reviewsAPI = {

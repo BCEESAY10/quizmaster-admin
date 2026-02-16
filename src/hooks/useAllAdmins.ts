@@ -7,7 +7,10 @@ interface UseAllAdminsOptions {
   limit?: number;
 }
 
-export function useAllAdmins({ page = 1, limit = 10 }: UseAllAdminsOptions = {}) {
+export function useAllAdmins({
+  page = 1,
+  limit = 10,
+}: UseAllAdminsOptions = {}) {
   return useQuery({
     queryKey: ["admins", "all", page, limit],
     queryFn: async () => {
@@ -24,8 +27,8 @@ export function useAllAdmins({ page = 1, limit = 10 }: UseAllAdminsOptions = {})
         allAdmins = response.data.data;
       } else if (response.data && typeof response.data === "object") {
         // If it's an object, try to extract data array
-        const dataArray = Object.values(response.data).find(
-          (val) => Array.isArray(val)
+        const dataArray = Object.values(response.data).find((val) =>
+          Array.isArray(val),
         ) as Admin[] | undefined;
         if (dataArray) {
           allAdmins = dataArray;
