@@ -161,3 +161,17 @@ export interface SearchAPIResponse {
   };
   totalResults: number;
 }
+
+export interface SearchQuestionsResponse {
+  data: Question[];
+  pagination: Pagination;
+}
+
+export interface QuestionSearchFilters {
+  search?: string;
+  category?: string;
+  author?: string;
+  timer?: number;
+  page?: number;
+  limit?: number;
+}

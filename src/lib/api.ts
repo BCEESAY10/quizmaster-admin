@@ -35,6 +35,14 @@ export const questionsAPI = {
   update: (id: string, data: Partial<Question>) =>
     api.put(`/questions/${id}`, data),
   delete: (id: string) => api.delete(`/questions/${id}`),
+  search: (params?: {
+    search?: string;
+    category?: string;
+    author?: string;
+    timer?: number;
+    page?: number;
+    limit?: number;
+  }) => api.get("/questions", { params }),
 };
 
 export const categoriesAPI = {

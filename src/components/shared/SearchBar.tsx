@@ -65,7 +65,7 @@ export function SearchBar() {
   const { query, setQuery, results, isLoading } =
     useDebounceSearch<SearchResult>({
       searchFn,
-      delay: 300,
+      delay: 500,
       minQueryLength: 2, // Minimum 2 characters to avoid too many results
     });
 
